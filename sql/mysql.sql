@@ -17,3 +17,17 @@ CREATE TABLE `{token}` (
   KEY `use_module` (`use_module`),
   KEY `use_section` (`use_section`)
 );
+
+CREATE TABLE `{social}` (
+  `id`          INT(10) UNSIGNED    NOT NULL AUTO_INCREMENT,
+  `title`       VARCHAR(255)        NOT NULL DEFAULT '',
+  `slug`        VARCHAR(255)        NOT NULL DEFAULT '',
+  `url`         VARCHAR(255)        NOT NULL DEFAULT '',
+  `time_create` INT(10) UNSIGNED    NOT NULL DEFAULT '0',
+  `status`      TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
+  `icon`        VARCHAR(32)         NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `url` (`url`),
+  KEY `status` (`status`)
+);

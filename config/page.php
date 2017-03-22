@@ -23,5 +23,10 @@ return array(
             'controller' => 'token',
             'permission' => 'token',
         ),
+        array(
+            'label'      => _a('Social'),
+            'controller' => 'social',
+            'permission' => 'social',
+        ),
     ),
 );

@@ -33,6 +33,61 @@ return array(
             'module'       => 'tools',
             'controller'   => 'token',
             'action'       => 'index',
+            'pages' => array(
+                'token' => array(
+                    'label'        => _a('Token'),
+                    'permission'   => array(
+                        'resource' => 'token',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'token',
+                    'action'       => 'index',
+                ),
+                'update' => array(
+                    'label'        => _a('Manage'),
+                    'permission'   => array(
+                        'resource' => 'token',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'token',
+                    'action'       => 'update',
+                ),
+            ),
+        ),
+
+        'social' => array(
+            'label'        => _a('Social'),
+            'permission'   => array(
+                'resource' => 'social',
+            ),
+            'route'        => 'admin',
+            'module'       => 'tools',
+            'controller'   => 'social',
+            'action'       => 'index',
+            'pages' => array(
+                'social' => array(
+                    'label'        => _a('Social'),
+                    'permission'   => array(
+                        'resource' => 'social',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'social',
+                    'action'       => 'index',
+                ),
+                'update' => array(
+                    'label'        => _a('Manage'),
+                    'permission'   => array(
+                        'resource' => 'social',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'social',
+                    'action'       => 'update',
+                ),
+            ),
         ),
     ),
 );

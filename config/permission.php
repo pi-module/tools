@@ -23,5 +23,10 @@ return array(
             'access' => array(//'admin',
             ),
         ),
+        'social' => array(
+            'title' => _a('Social'),
+            'access' => array(//'admin',
+            ),
+        ),
     ),
 );
