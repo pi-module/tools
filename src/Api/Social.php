@@ -14,7 +14,6 @@ namespace Module\Tools\Api;
 
 use Pi;
 use Pi\Application\Api\AbstractApi;
-use Zend\Db\Sql\Predicate\Expression;
 
 /*
  * Pi::api('social', 'tools')->getList();

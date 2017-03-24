@@ -16,23 +16,25 @@ namespace Module\Tools\Validator;
 use Pi;
 use Zend\Validator\AbstractValidator;
 
-class SocialSlugDuplicate extends AbstractValidator
+class TokenDuplicate extends AbstractValidator
 {
-    const TAKEN        = 'socialExists';
-    const CHARACTER    = 'socialCharacter';
+    const TAKEN        = 'tokenExists';
+    const CHARACTER    = 'tokenCharacter';
+    const LENGTH       = 'tokenLength';
 
     public function __construct()
     {
         $this->messageTemplates = array(
-            self::TAKEN      => _a('Social slug already exists.'),
+            self::TAKEN      => _a('This token already exists.'),
             self::CHARACTER  => _a('Just [a-zA-Z0-9] supported'),
+            self::LENGTH     => _a('Token shorter than 64 length'),
         );
 
         parent::__construct();
     }
 
     /**
-     * Social slug validate
+     * Token validate
      *
      * @param  mixed $value
      * @param  array $context
@@ -43,18 +45,21 @@ class SocialSlugDuplicate extends AbstractValidator
         $this->setValue($value);
 
         if (null !== $value) {
-            $value = strval($value);
-            $where = array('slug' => $value);
+            $where = array('token' => $value);
             if (!empty($context['id'])) {
                 $where['id <> ?'] = $context['id'];
             }
-            $rowset = Pi::model('tools/social')->select($where);
+            $rowset = Pi::model('tools/token')->select($where);
             if ($rowset->count()) {
                 $this->error(static::TAKEN);
                 return false;
             }
             if (preg_match('/^[a-zA-Z0-9]+$/', $value) == 0) {
                 $this->error(static::CHARACTER);
+                return false;
+            }
+            if (strlen($value) < 64) {
+                $this->error(static::LENGTH);
                 return false;
             }
         }

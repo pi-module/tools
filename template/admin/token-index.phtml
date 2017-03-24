@@ -1,7 +1,61 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: voltan
- * Date: 3/22/17
- * Time: 2:52 PM
- */
+<?php $this->css($this->assetModule('css/admin.css')); ?>
+<div class="clearfix">
+    <?php if (!empty($list)) { ?>
+        <h3><?php _e('List of tokens'); ?></h3>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <th><?php _e('ID'); ?></th>
+                <th><?php _e('Title'); ?></th>
+                <th><?php _e('Module'); ?></th>
+                <th><?php _e('Section'); ?></th>
+                <th><?php _e('Last usd time'); ?></th>
+                <th><?php _e('Used'); ?></th>
+                <th><?php _e('Action'); ?></th>
+            </tr>
+            <?php foreach ($list as $social) { ?>
+                <?php if ($social['status'] == 1) {
+                    $labelIdClass = 'label-success';
+                } elseif ($social['status'] == 5) {
+                    $labelIdClass = 'label-danger';
+                } else {
+                    $labelIdClass = 'label-warning';
+                } ?>
+                <tr>
+                    <td><span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($social['id']); ?></span></td>
+                    <td><?php echo $this->escape($social['title']); ?></td>
+                    <td><?php echo $this->escape($social['use_module']); ?></td>
+                    <td><?php echo $this->escape($social['use_section']); ?></td>
+                    <td><?php echo $this->escape($social['time_used_view']); ?></td>
+                    <td><?php echo $this->escape($social['used_view']); ?></td>
+                    <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#tokenModal<?php echo $this->escape($social['id']); ?>">
+                            <?php _e('View token'); ?>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="tokenModal<?php echo $this->escape($social['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="tokenModalLabel<?php echo $this->escape($social['id']); ?>">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="<?php _e('Close'); ?>"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="tokenModalLabel<?php echo $this->escape($social['id']); ?>"><?php _e('Token information'); ?></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="token-view"><?php echo $this->escape($social['token']); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
+                           href="<?php echo $this->url('', array('action' => 'update', 'id' => $social['id'])); ?>"><i
+                                class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    <?php } else { ?>
+        <div class="alert alert-danger" role="alert">
+            <p><?php echo _a('You dont have any token yet, please generate new one'); ?></p>
+        </div>
+    <?php } ?>
+</div>
