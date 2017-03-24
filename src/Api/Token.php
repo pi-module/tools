@@ -18,7 +18,7 @@ use Zend\Math\Rand;
 
 /*
  * Pi::api('token', 'tools')->generate($length, $charlist);
- * Pi::api('token', 'tools')->check();
+ * Pi::api('token', 'tools')->check($token, $module, $section);
  */
 
 class Token extends AbstractApi
@@ -26,7 +26,8 @@ class Token extends AbstractApi
     public function generate($length = 128, $charlist = '')
     {
         $length = ($length > 63) ? $length : 128;
-        $charlist = !empty($charlist) ? $charlist : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
+        $systemCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
+        $charlist = !empty($charlist) ? $charlist : $systemCharList;
         $string = Rand::getString($length, $charlist, true);
         return $string;
     }
