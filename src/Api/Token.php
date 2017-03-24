@@ -49,7 +49,14 @@ class Token extends AbstractApi
             );
         }
         // Check module and section is set true
-        if ($token->use_module != $module || $token->use_section != $section) {
+        if ($token->use_module != $module) {
+            return array(
+                'status' => 0,
+                'message' => __('This token is not for this part !')
+            );
+        }
+        // Check module and section is set true
+        if ($token->use_section != $section) {
             return array(
                 'status' => 0,
                 'message' => __('This token is not for this part !')
