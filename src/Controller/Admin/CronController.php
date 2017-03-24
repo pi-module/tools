@@ -28,12 +28,12 @@ class CronController extends ActionController
             'module'      => 'tools',
             'controller'  => 'cron',
             'action'      => 'index',
-            'password'    => $config['cron_password'],
+            'token'       => $config['cron_token'],
         )));
         // Set template
         $this->view()->setTemplate('cron-index');
         $this->view()->assign('cronUrl', $cronUrl);
         $this->view()->assign('cronActive', $config['cron_active']);
-        $this->view()->assign('cronPassword', $config['cron_password']);
+        $this->view()->assign('cronToken', $config['cron_token']);
     }
 }

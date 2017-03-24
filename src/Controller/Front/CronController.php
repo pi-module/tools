@@ -25,22 +25,22 @@ class CronController extends ActionController
         $this->view()->setTemplate(false)->setLayout('layout-content');
         // Get info from url
         $module = $this->params('module');
-        $password = $this->params('password');
+        $token = $this->params('token');
         // Get config
         $config = Pi::service('registry')->config->read($module);
-        // Get password
-        if ($config['cron_active'] && !empty($config['cron_password']) && $password == $config['cron_password']) {
+        // Get token
+        if ($config['cron_active'] && !empty($config['cron_token']) && $token == $config['cron_token']) {
             // Do cron
             Pi::service('cron')->start();
             // return
             return array(
-                'message' => 'Cron system work fine, and cron process finished successfully.',
+                'message' => __('Cron system work fine, and cron process finished successfully.'),
                 'status'  => 1,
                 'time'    => time(),
             );
         } else {
             return array(
-                'message' => 'Error : password not true !',
+                'message' => __('Error : token not true !'),
                 'status'  => 0,
                 'time'    => time(),
             );

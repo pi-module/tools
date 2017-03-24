@@ -1,7 +1,41 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: voltan
- * Date: 3/22/17
- * Time: 2:51 PM
- */
+<?php $this->css($this->assetModule('css/admin.css')); ?>
+<div class="clearfix">
+    <h3><?php _e('List of social networks'); ?></h3>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th><?php _e('ID'); ?></th>
+            <th><?php _e('Title'); ?></th>
+            <th><?php _e('Slug'); ?></th>
+            <th><?php _e('Action'); ?></th>
+        </tr>
+        <?php foreach ($list as $social) { ?>
+            <?php if ($social['status'] == 1) {
+                $labelIdClass = 'label-success';
+            } elseif ($social['status'] == 5) {
+                $labelIdClass = 'label-danger';
+            } else {
+                $labelIdClass = 'label-warning';
+            } ?>
+            <tr>
+                <td>
+                    <span class="label <?php echo $labelIdClass; ?>">
+                        <?php echo $this->escape($social['id']); ?>
+                    </span>
+                </td>
+                <td>
+                    <a target="_blank" href="<?php echo $this->escape($social['url']); ?>" title="<?php echo $this->escape($social['title']); ?>">
+                        <i class="fa <?php echo $this->escape($social['icon']); ?>"></i> <?php echo $this->escape($social['title']); ?>
+                    </a>
+                </td>
+                <td>
+                    <?php echo $this->escape($social['slug']); ?>
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
+                       href="<?php echo $this->url('', array('action' => 'update', 'id' => $social['id'])); ?>"><i
+                            class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+</div>

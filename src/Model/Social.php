@@ -25,8 +25,8 @@ class Social extends Model
         'title',
         'slug',
         'url',
-        'time_create',
         'status',
         'icon',
+        'order',
     );
 }

@@ -43,9 +43,9 @@ return array(
             'value'         => 0
         ),
 
-        'cron_password' => array(
+        'cron_token' => array(
             'category'      => 'cron',
-            'title'         => _a('Cron password'),
+            'title'         => _a('Cron token'),
             'edit'          => 'text',
             'filter'        => 'string',
             'value'         => md5(rand()),

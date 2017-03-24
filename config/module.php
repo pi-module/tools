@@ -15,7 +15,7 @@ return array(
     'meta' => array(
         'title'        => _a('Tools'),
         'description'  => _a('Admin tools for pi engine'),
-        'version'      => '0.0.2',
+        'version'      => '0.0.8',
         'license'      => 'New BSD',
         'logo'         => 'image/logo.png',
         'readme'       => 'docs/readme.txt',
@@ -36,5 +36,6 @@ return array(
         'permission'   => 'permission.php',
         'page'         => 'page.php',
         'navigation'   => 'navigation.php',
+        'block'        => 'block.php',
     ),
 );

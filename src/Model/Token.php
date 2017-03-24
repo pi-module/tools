@@ -27,7 +27,6 @@ class Token extends Model
         'used',
         'time_create',
         'status',
-        'use_type',
         'use_module',
         'use_section',
     );

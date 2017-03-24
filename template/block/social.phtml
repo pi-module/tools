@@ -1,0 +1,16 @@
+<div class="social-network <?php echo $this->escape($block['div-class']); ?>">
+    <?php if (isset($block['text-description']) && !empty($block['text-description'])) { ?>
+        <div class="social-network-description">
+            <?php echo $this->escape($block['text-description']); ?>
+        </div>
+    <?php } ?>
+    <ul class="social-network-list <?php echo $this->escape($block['ul-class']); ?>">
+        <?php foreach ($block['list'] as $social) { ?>
+            <li class="social-network-single social-network-<?php echo $this->escape($social['slug']); ?> <?php echo $this->escape($block['li-class']); ?>">
+                <a target="_blank" href="<?php echo $this->escape($social['url']); ?>" title="<?php echo $this->escape($social['title']); ?>">
+                    <i class="fa <?php echo $this->escape($social['icon']); ?>"></i>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+</div>
