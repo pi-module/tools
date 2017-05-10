@@ -24,9 +24,9 @@ use Zend\Math\Rand;
 
 class Token extends AbstractApi
 {
-    public function generate($length = 128, $charlist = '')
+    public function generate($length = 16, $charlist = '')
     {
-        $length = ($length > 63) ? $length : 128;
+        $length = ($length > 15) ? $length : 16;
         $systemCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
         $charlist = !empty($charlist) ? $charlist : $systemCharList;
         $string = Rand::getString($length, $charlist, true);
