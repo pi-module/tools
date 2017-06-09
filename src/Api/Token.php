@@ -18,18 +18,65 @@ use Zend\Math\Rand;
 
 /*
  * Pi::api('token', 'tools')->generate($length, $charlist);
+ * Pi::api('token', 'tools')->getList($module);
  * Pi::api('token', 'tools')->check($token, $module, $section);
  */
 
 class Token extends AbstractApi
 {
-    public function generate($length = 128, $charlist = '')
+    public function generate($length = 16, $charlist = '')
     {
-        $length = ($length > 63) ? $length : 128;
+        $length = ($length > 15) ? $length : 16;
         $systemCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
         $charlist = !empty($charlist) ? $charlist : $systemCharList;
         $string = Rand::getString($length, $charlist, true);
         return $string;
+    }
+
+    public function getList($module, $section = '')
+    {
+        // Get info
+        $list = array();
+        $order = array('time_create DESC', 'id DESC');
+        $where = array('use_module' => $module, 'status' => 1);
+        if (!empty($section)) {
+            $where['use_section'] = $section;
+        }
+        $select = Pi::model('token', $this->getModule())->select()->where($where)->order($order);
+        $rowset = Pi::model('token', $this->getModule())->selectWith($select);
+        // Get module list
+        $modules = Pi::registry('modulelist')->read('active');
+        // Make list
+        foreach ($rowset as $row) {
+            switch ($row->use_section) {
+                case 'general':
+                    $section = __('General API');
+                    break;
+
+                case 'api':
+                    $section = __('External API');
+                    break;
+
+                case 'user':
+                    $section = __('External API for login user');
+                    break;
+
+                case 'server':
+                    $section = __('Server API');
+                    break;
+
+                case 'system':
+                    $section = __('System API');
+                    break;
+            }
+            $list[$row->id] = $row->toArray();
+            $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
+            $list[$row->id]['use_section_view'] = $section;
+            $list[$row->id]['used_view'] = _number($row->used);
+            $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
+        }
+
+        return $list;
     }
 
     public function check($token, $module, $section)

@@ -58,7 +58,7 @@ class TokenDuplicate extends AbstractValidator
                 $this->error(static::CHARACTER);
                 return false;
             }
-            if (strlen($value) < 64) {
+            if (strlen($value) < 16) {
                 $this->error(static::LENGTH);
                 return false;
             }
