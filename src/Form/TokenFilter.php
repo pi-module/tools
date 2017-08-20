@@ -54,10 +54,10 @@ class TokenFilter extends InputFilter
             'required' => false,
         ));
         // use_section
-        $this->add(array(
+        /* $this->add(array(
             'name' => 'use_section',
             'required' => false,
-        ));
+        )); */
         // status
         $this->add(array(
             'name' => 'status',

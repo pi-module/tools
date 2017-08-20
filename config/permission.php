@@ -13,18 +13,23 @@
 return array(
     // Admin section
     'admin' => array(
-        'cron' => array(
-            'title' => _a('Cron'),
-            'access' => array(//'admin',
-            ),
-        ),
         'token' => array(
             'title' => _a('Token'),
             'access' => array(//'admin',
             ),
         ),
+        'user' => array(
+            'title' => _a('User'),
+            'access' => array(//'admin',
+            ),
+        ),
         'social' => array(
             'title' => _a('Social'),
+            'access' => array(//'admin',
+            ),
+        ),
+        'cron' => array(
+            'title' => _a('Cron'),
             'access' => array(//'admin',
             ),
         ),

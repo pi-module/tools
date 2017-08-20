@@ -39,16 +39,16 @@ class Token extends AbstractApi
         $list = array();
         $order = array('time_create DESC', 'id DESC');
         $where = array('use_module' => $module, 'status' => 1);
-        if (!empty($section)) {
+        /* if (!empty($section)) {
             $where['use_section'] = $section;
-        }
+        } */
         $select = Pi::model('token', $this->getModule())->select()->where($where)->order($order);
         $rowset = Pi::model('token', $this->getModule())->selectWith($select);
         // Get module list
         $modules = Pi::registry('modulelist')->read('active');
         // Make list
         foreach ($rowset as $row) {
-            switch ($row->use_section) {
+            /* switch ($row->use_section) {
                 case 'general':
                     $section = __('General API');
                     break;
@@ -68,10 +68,10 @@ class Token extends AbstractApi
                 case 'system':
                     $section = __('System API');
                     break;
-            }
+            } */
             $list[$row->id] = $row->toArray();
             $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
-            $list[$row->id]['use_section_view'] = $section;
+            // $list[$row->id]['use_section_view'] = $section;
             $list[$row->id]['used_view'] = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
         }
@@ -79,7 +79,7 @@ class Token extends AbstractApi
         return $list;
     }
 
-    public function check($token, $module, $section)
+    public function check($token, $module, $section = '')
     {
         $token = Pi::model('token', $this->getModule())->find($token, 'token');
         // Check token exist
@@ -104,12 +104,12 @@ class Token extends AbstractApi
             );
         }
         // Check module and section is set true
-        if ($token->use_section != $section) {
+        /* if ($token->use_section != $section) {
             return array(
                 'status' => 0,
                 'message' => __('This token is not for this part !')
             );
-        }
+        } */
         // Update information
         $token->time_used = time();
         $token->used = $token->used + 1;

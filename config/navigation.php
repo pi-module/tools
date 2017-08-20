@@ -13,17 +13,6 @@
 return array(
     'front' => false,
     'admin' => array(
-        'cron' => array(
-            'label'        => _a('Cron'),
-            'permission'   => array(
-                'resource' => 'cron',
-            ),
-            'route'        => 'admin',
-            'module'       => 'tools',
-            'controller'   => 'cron',
-            'action'       => 'index',
-        ),
-
         'token' => array(
             'label'        => _a('Token'),
             'permission'   => array(
@@ -53,6 +42,39 @@ return array(
                     'module'       => 'tools',
                     'controller'   => 'token',
                     'action'       => 'update',
+                ),
+            ),
+        ),
+
+        'user' => array(
+            'label'        => _a('User'),
+            'permission'   => array(
+                'resource' => 'user',
+            ),
+            'route'        => 'admin',
+            'module'       => 'tools',
+            'controller'   => 'user',
+            'action'       => 'export',
+            'pages' => array(
+                'export' => array(
+                    'label'        => _a('Export'),
+                    'permission'   => array(
+                        'resource' => 'user',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'user',
+                    'action'       => 'export',
+                ),
+                'import' => array(
+                    'label'        => _a('Import'),
+                    'permission'   => array(
+                        'resource' => 'user',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'user',
+                    'action'       => 'import',
                 ),
             ),
         ),
@@ -88,6 +110,17 @@ return array(
                     'action'       => 'update',
                 ),
             ),
+        ),
+
+        'cron' => array(
+            'label'        => _a('Cron'),
+            'permission'   => array(
+                'resource' => 'cron',
+            ),
+            'route'        => 'admin',
+            'module'       => 'tools',
+            'controller'   => 'cron',
+            'action'       => 'index',
         ),
     ),
 );

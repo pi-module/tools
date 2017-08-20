@@ -30,7 +30,7 @@ class TokenController extends ActionController
         $modules = Pi::registry('modulelist')->read('active');
         // Make list
         foreach ($rowset as $row) {
-            switch ($row->use_section) {
+            /* switch ($row->use_section) {
                 case 'general':
                     $section = __('General API');
                     break;
@@ -50,10 +50,10 @@ class TokenController extends ActionController
                 case 'system':
                     $section = __('System API');
                     break;
-            }
+            } */
             $list[$row->id] = $row->toArray();
             $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
-            $list[$row->id]['use_section_view'] = $section;
+            // $list[$row->id]['use_section_view'] = $section;
             $list[$row->id]['used_view'] = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
         }

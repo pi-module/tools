@@ -9,12 +9,10 @@ CREATE TABLE `{token}` (
   `time_used`   INT(10) UNSIGNED    NOT NULL DEFAULT '0',
   `status`      TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
   `use_module`  VARCHAR(64)         NOT NULL DEFAULT '',
-  `use_section` VARCHAR(64)         NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`),
   KEY `status` (`status`),
-  KEY `use_module` (`use_module`),
-  KEY `use_section` (`use_section`)
+  KEY `use_module` (`use_module`)
 );
 
 CREATE TABLE `{social}` (

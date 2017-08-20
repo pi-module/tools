@@ -80,7 +80,7 @@ class TokenForm extends BaseForm
             ),
         ));
         // use_section
-        $this->add(array(
+        /* $this->add(array(
             'name' => 'use_section',
             'type' => 'select',
             'options' => array(
@@ -93,7 +93,7 @@ class TokenForm extends BaseForm
                     'system' => __('System API'),
                 ),
             ),
-        ));
+        )); */
         // status
         $this->add(array(
             'name' => 'status',

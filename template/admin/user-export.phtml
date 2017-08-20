@@ -1,0 +1,88 @@
+<?php $this->css($this->assetModule('css/admin.css')); ?>
+<div class="clearfix">
+    <?php if ($confirm == 0) { ?>
+        <div class="well">
+            <a title="<?php _e('Export users'); ?>" href="<?php echo Pi::url($this->url('', array(
+                'action'  => 'export',
+                'confirm' => 1,
+            ))); ?>" class="btn btn-primary" ><?php _e('Export users'); ?></a>
+        </div>
+    <?php } else { ?>
+        <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percent; ?>" aria-valuemin="0"
+                 aria-valuemax="100" style="width: <?php echo $percent; ?>%">
+                <?php echo $percent; ?> % Complete
+            </div>
+        </div>
+        <pre><?php print_r($info); ?></pre>
+    <?php if (!empty($nextUrl)) { ?>
+        <script>
+            window.setTimeout(function () {
+                window.location.href = '<?php echo $nextUrl; ?>';
+            }, 1000);
+        </script>
+    <?php } elseif ($downloadAllow) { ?>
+        <div class="clearfix">
+
+
+            <ul class="list-group-item list-inline">
+                <li><?php echo $file; ?></li>
+                <li>
+                    <a href="<?php echo Pi::url($this->url('', array(
+                        'action' => 'download',
+                        'type'   => 'csv',
+                        'file'   => $file,
+                    ))); ?>">
+                        <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('CSV version'); ?>
+                    </a>
+                </li>
+                <?php if ($checkExcel) { ?>
+                    <li>
+                        <a href="<?php echo Pi::url($this->url('', array(
+                            'action' => 'download',
+                            'type'   => 'xlsx',
+                            'file'   => $file,
+                        ))); ?>">
+                            <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('Xlsx version'); ?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+
+        </div>
+    <?php } ?>
+    <?php } ?>
+    <?php if (isset($fileList) && !empty($fileList)) { ?>
+        <h4><?php _e('List of old exported files'); ?></h4>
+        <div class="list-group">
+            <?php foreach ($fileList as $file) { ?>
+                <?php if (substr( $file, 0, 11 ) === 'user-export') { ?>
+                    <?php $fileName = pathinfo($file, PATHINFO_FILENAME); ?>
+                    <ul class="list-group-item list-inline">
+                        <li><?php echo $fileName; ?></li>
+                        <li>
+                            <a href="<?php echo Pi::url($this->url('', array(
+                                'action' => 'download',
+                                'type'   => 'csv',
+                                'file'   => $fileName,
+                            ))); ?>">
+                                <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('CSV version'); ?>
+                            </a>
+                        </li>
+                        <?php if ($checkExcel) { ?>
+                            <li>
+                                <a href="<?php echo Pi::url($this->url('', array(
+                                    'action' => 'download',
+                                    'type'   => 'xlsx',
+                                    'file'   => $fileName,
+                                ))); ?>">
+                                    <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('Xlsx version'); ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php } ?>
+            <?php } ?>
+        </div>
+    <?php } ?>
+</div>
