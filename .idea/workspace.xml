@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="028d56c6-8f52-4e88-9485-aaad1afde164" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Api/CSVToExcelConverter.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Api/Csv.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/Admin/UserController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/admin/user-export.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/admin/user-import.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/module.php" afterPath="$PROJECT_DIR$/config/module.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/navigation.php" afterPath="$PROJECT_DIR$/config/navigation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/page.php" afterPath="$PROJECT_DIR$/config/page.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/permission.php" afterPath="$PROJECT_DIR$/config/permission.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/mysql.sql" afterPath="$PROJECT_DIR$/sql/mysql.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Api/Token.php" afterPath="$PROJECT_DIR$/src/Api/Token.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/IndexController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/TokenController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/TokenController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/TokenFilter.php" afterPath="$PROJECT_DIR$/src/Form/TokenFilter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/TokenForm.php" afterPath="$PROJECT_DIR$/src/Form/TokenForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Token.php" afterPath="$PROJECT_DIR$/src/Model/Token.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/token-index.phtml" afterPath="$PROJECT_DIR$/template/admin/token-index.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/user-export.phtml" afterPath="$PROJECT_DIR$/template/admin/user-export.phtml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -48,8 +31,8 @@
       <file leaf-file-name="user-export.phtml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/template/admin/user-export.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1566">
-              <caret line="87" column="6" lean-forward="false" selection-start-line="87" selection-start-column="6" selection-end-line="87" selection-end-column="6" />
+            <state relative-caret-position="486">
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -90,8 +73,8 @@
         <option value="$PROJECT_DIR$/template/admin/user-import.phtml" />
         <option value="$PROJECT_DIR$/src/Api/Csv.php" />
         <option value="$PROJECT_DIR$/src/Api/CSVToExcelConverter.php" />
-        <option value="$PROJECT_DIR$/template/admin/user-export.phtml" />
         <option value="$PROJECT_DIR$/src/Controller/Admin/UserController.php" />
+        <option value="$PROJECT_DIR$/template/admin/user-export.phtml" />
       </list>
     </option>
   </component>
@@ -397,7 +380,7 @@
       <workItem from="1494411367720" duration="21000" />
       <workItem from="1494419167336" duration="98000" />
       <workItem from="1497768904712" duration="19000" />
-      <workItem from="1503204602861" duration="3517000" />
+      <workItem from="1503204602861" duration="3532000" />
     </task>
     <task id="LOCAL-00001" summary="Work on module">
       <created>1494411381426</created>
@@ -406,11 +389,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494411381426</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Work on module">
+      <created>1503208127878</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1503208127878</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3656000" />
+    <option name="totallyTimeSpent" value="3671000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="994" extended-state="6" />
@@ -631,8 +621,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/template/admin/user-export.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="87" column="6" lean-forward="false" selection-start-line="87" selection-start-column="6" selection-end-line="87" selection-end-column="6" />
+        <state relative-caret-position="486">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
