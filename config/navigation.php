@@ -112,6 +112,39 @@ return array(
             ),
         ),
 
+        'oauth' => array(
+            'label'        => _a('oAuth'),
+            'permission'   => array(
+                'resource' => 'oauth',
+            ),
+            'route'        => 'admin',
+            'module'       => 'tools',
+            'controller'   => 'oauth',
+            'action'       => 'index',
+            'pages' => array(
+                'oauth' => array(
+                    'label'        => _a('Request'),
+                    'permission'   => array(
+                        'resource' => 'oauth',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'oauth',
+                    'action'       => 'index',
+                ),
+                'user' => array(
+                    'label'        => _a('User'),
+                    'permission'   => array(
+                        'resource' => 'oauth',
+                    ),
+                    'route'        => 'admin',
+                    'module'       => 'tools',
+                    'controller'   => 'oauth',
+                    'action'       => 'user',
+                ),
+            ),
+        ),
+
         'cron' => array(
             'label'        => _a('Cron'),
             'permission'   => array(

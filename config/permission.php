@@ -28,6 +28,11 @@ return array(
             'access' => array(//'admin',
             ),
         ),
+        'oauth' => array(
+            'title' => _a('oAuth'),
+            'access' => array(//'admin',
+            ),
+        ),
         'cron' => array(
             'title' => _a('Cron'),
             'access' => array(//'admin',

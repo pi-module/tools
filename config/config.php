@@ -21,6 +21,10 @@ return array(
             'name'      => 'cron',
             'title'     => _t('Cron'),
         ),
+        array(
+            'name'      => 'oauth',
+            'title'     => _t('oAuth'),
+        ),
     ),
     'item' => array(
         // Admin
@@ -49,6 +53,32 @@ return array(
             'edit'          => 'text',
             'filter'        => 'string',
             'value'         => md5(rand()),
+        ),
+
+        // oauth
+        'oauth_login' => array(
+            'category'      => 'oauth',
+            'title'         => _a('oAuth login'),
+            'description'   => _a('At this moment just support google'),
+            'edit'          => 'checkbox',
+            'filter'        => 'number_int',
+            'value'         => 0
+        ),
+
+        'oauth_google_client_id' => array(
+            'category'      => 'oauth',
+            'title'         => _a('Google client id'),
+            'edit'          => 'text',
+            'filter'        => 'string',
+            'value'         => '',
+        ),
+
+        'oauth_google_client_secret' => array(
+            'category'      => 'oauth',
+            'title'         => _a('Google client secret'),
+            'edit'          => 'text',
+            'filter'        => 'string',
+            'value'         => '',
         ),
     ),
 );
