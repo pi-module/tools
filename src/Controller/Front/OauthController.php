@@ -58,7 +58,7 @@ class OauthController extends ActionController
             'action'     => 'callback',
         )));
 
-        $googleApiUrl = 'https://www.googleapis.com/plus/v1/people/me?fields=aboutMe%2Cemails%2Cimage%2Cname&access_token=%s';
+        $googleApiUrl = 'https://www.googleapis.com/plus/v1/people/me?fields=aboutMe%2Cemails%2Cimage%2Cname&access_token=';
         $googleUrl = "https://www.googleapis.com/oauth2/v4/token";
         
         if (empty($_GET['redirect'])) {
@@ -83,23 +83,20 @@ class OauthController extends ActionController
         if (!empty($result['error'])) {
             $this->jump($redirect, __('Error on login'));
         } else {
-            $access_token = $result['access_token']; // User access token
-            
-            $googleApiUrl = sprintf($googleApiUrl, $access_token);
-            $user_info    = $this->googleRequest(0, $googleApiUrl, 0, 0);
-            $email        = $user_info['emails'][0]['value'];
-
+            $googleApiUrl = $googleApiUrl . $result['access_token'];
+            $userInfo     = $this->googleRequest(0, $googleApiUrl, 0, 0);
+            $email        = $userInfo['emails'][0]['value'];
 
             // Check user
-            $userAccount = Pi::model('user_account')->find($email, 'email');
+            $userAccount  = Pi::model('user_account')->find($email, 'email');
             if (!$userAccount) {
                 // Add user
                 $user                   = array();
-                $user['first_name']     = $user_info['name']['givenName'];
-                $user['last_name']      = $user_info['name']['familyName'];
-                $user['email']          = $user_info['emails'][0]['value'];
-                $user['identity']       = $user_info['emails'][0]['value'];
-                $user['name']           = sprintf('%s %s', $user_info['name']['givenName'], $user_info['name']['familyName']);
+                $user['first_name']     = $userInfo['name']['givenName'];
+                $user['last_name']      = $userInfo['name']['familyName'];
+                $user['email']          = $userInfo['emails'][0]['value'];
+                $user['identity']       = $userInfo['emails'][0]['value'];
+                $user['name']           = sprintf('%s %s', $userInfo['name']['givenName'], $userInfo['name']['familyName']);
                 $user['last_modified']  = time();
                 $user['ip_register']    = Pi::user()->getIp();
                 $uid = Pi::api('user', 'user')->addUser($user);
