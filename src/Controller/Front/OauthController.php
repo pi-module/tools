@@ -22,6 +22,11 @@ class OauthController extends ActionController
 {
     public function indexAction()
     {
+        // Check user
+        if (Pi::service('user')->hasIdentity()) {
+            $this->jump(array('route' => 'home'), __('You logged in before.'));
+        }
+
         $redirectUri = Pi::url($this->url('', array(
             'module'     => 'tools',
             'controller' => 'oauth',
@@ -30,13 +35,6 @@ class OauthController extends ActionController
 
         $googleAccountUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=%s&response_type=code&redirect_uri=%s&client_id=%s';
         $googleScope = 'https://www.googleapis.com/auth/userinfo.email';
-        
-        //accounts.google.com/signin/oauth/oauthchooseaccount?
-        //client_id=XXX
-        //&as=XXXXX
-        //&destination=XXXXX
-        //&approval_state=XXXX
-        //&flowName=GeneralOAuthFlow
 
         $loginUrl = sprintf(
             $googleAccountUrl,
@@ -48,6 +46,7 @@ class OauthController extends ActionController
         // Set template
         $this->view()->setTemplate('oauth-index');
         $this->view()->assign('loginUrl', $loginUrl);
+        $this->view()->assign('uid', $uid);
     }
 
     public function callbackAction()
@@ -65,6 +64,11 @@ class OauthController extends ActionController
             $redirect = array('route' => 'home');
         } else {
             $redirect = urldecode($_GET['redirect']);
+        }
+
+        // Check user
+        if (Pi::service('user')->hasIdentity()) {
+            $this->jump($redirect, __('You logged in before.'));
         }
 
         $header = array("Content-Type: application/x-www-form-urlencoded");
