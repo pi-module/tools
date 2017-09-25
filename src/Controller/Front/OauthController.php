@@ -22,6 +22,9 @@ class OauthController extends ActionController
 {
     public function indexAction()
     {
+        return false;
+        exit();
+
         // Check user
         if (Pi::service('user')->hasIdentity()) {
             $this->jump(array('route' => 'home'), __('You logged in before.'));
@@ -51,6 +54,9 @@ class OauthController extends ActionController
 
     public function callbackAction()
     {
+        return false;
+        exit();
+
         $redirectUri = Pi::url($this->url('', array(
             'module'     => 'tools',
             'controller' => 'oauth',

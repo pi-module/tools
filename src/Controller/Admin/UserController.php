@@ -20,230 +20,240 @@ class UserController extends ActionController
 {
     public function exportAction()
     {
-        // Get inf0
-        $module = $this->params('module');
-        $file = $this->params('file');
-        $start = $this->params('start', 0);
-        $count = $this->params('count');
-        $complete = $this->params('complete', 0);
-        $confirm = $this->params('confirm', 0);
-
-        // Set file
-        if (empty($file)) {
-            $file = sprintf('user-export-%s-%s', date('Y-m-d-H-i-s'), rand(100, 999));
-        }
-
-        // Set path
-        $path = Pi::path('upload/tools');
-        if (!Pi::service('file')->exists($path . '/index.html')) {
-            Pi::service('file')->copy(
-                Pi::path('upload/index.html'),
-                Pi::path('upload/tools/index.html')
-            );
-        }
-        
-        // Set fields
-        $fields = array_keys(Pi::registry('field', 'user')->read('', 'display'));
-
-        // Get config
-        $config = Pi::service('registry')->config->read($module);
-        // Check request
-        if ($confirm == 1) {
+        if (!Pi::service('module')->isActive('user')) {
+            // Set view
+            $this->view()->setTemplate('user-install');
+        } else {
+            // Get inf0
+            $module = $this->params('module');
+            $file = $this->params('file');
+            $start = $this->params('start', 0);
+            $count = $this->params('count');
+            $complete = $this->params('complete', 0);
+            $confirm = $this->params('confirm', 0);
 
             // Set file
-            Pi::service('audit')->attach('user-export', array(
-                'file'   => Pi::path(sprintf('upload/tools/%s.csv', $file)),
-                'format' => 'csv',
-            ));
+            if (empty($file)) {
+                $file = sprintf('user-export-%s-%s', date('Y-m-d-H-i-s'), rand(100, 999));
+            }
 
-            $order = array('id ASC');
-            $where = array('active' => 1);
+            // Set path
+            $path = Pi::path('upload/tools');
+            if (!Pi::service('file')->exists($path . '/index.html')) {
+                Pi::service('file')->copy(
+                    Pi::path('upload/index.html'),
+                    Pi::path('upload/tools/index.html')
+                );
+            }
 
-            $users = Pi::api('user', 'user')->getList(
-                $where,
-                50,
-                $start,
-                $order,
-                $fields
-            );
+            // Set fields
+            $fields = array_keys(Pi::registry('field', 'user')->read('', 'display'));
 
-            // Make list
-            foreach ($users as $user) {
-                // Set key
-                if ($complete == 0) {
-                    Pi::service('audit')->log('user-export', array_keys($user));
+            // Get config
+            $config = Pi::service('registry')->config->read($module);
+            // Check request
+            if ($confirm == 1) {
+
+                // Set file
+                Pi::service('audit')->attach('user-export', array(
+                    'file'   => Pi::path(sprintf('upload/tools/%s.csv', $file)),
+                    'format' => 'csv',
+                ));
+
+                $order = array('id ASC');
+                $where = array('active' => 1);
+
+                $users = Pi::api('user', 'user')->getList(
+                    $where,
+                    50,
+                    $start,
+                    $order,
+                    $fields
+                );
+
+                // Make list
+                foreach ($users as $user) {
+                    // Set key
+                    if ($complete == 0) {
+                        Pi::service('audit')->log('user-export', array_keys($user));
+                    }
+
+                    // Set to csv
+                    Pi::service('audit')->log('user-export', $user);
+
+                    // Set extra
+                    $lastId = $user['id'];
+                    $complete++;
                 }
 
-                // Set to csv
-                Pi::service('audit')->log('user-export', $user);
+                // Get count
+                if (!$count) {
+                    $columns = array('count' => new Expression('count(*)'));
+                    $select = Pi::Model('user_account')->select()->columns($columns)->where($where);
+                    $count = Pi::Model('user_account')->selectWith($select)->current()->count + $count;
+                }
 
-                // Set extra
-                $lastId = $user['id'];
-                $complete++;
-            }
+                // Set complete
+                $percent = (100 * $complete) / $count;
+                // Set next url
+                if ($complete >= $count) {
+                    $nextUrl = '';
+                    $downloadAllow = 1;
+                } else {
+                    $nextUrl = Pi::url($this->url('', array(
+                        'action' => 'export',
+                        'start' => $lastId,
+                        'count' => $count,
+                        'complete' => $complete,
+                        'confirm' => $confirm,
+                        'file' => $file,
 
-            // Get count
-            if (!$count) {
-                $columns = array('count' => new Expression('count(*)'));
-                $select = Pi::Model('user_account')->select()->columns($columns)->where($where);
-                $count = Pi::Model('user_account')->selectWith($select)->current()->count + $count;
-            }
+                    )));
+                    $downloadAllow = 0;
+                }
 
-            // Set complete
-            $percent = (100 * $complete) / $count;
-            // Set next url
-            if ($complete >= $count) {
-                $nextUrl = '';
-                $downloadAllow = 1;
-            } else {
-                $nextUrl = Pi::url($this->url('', array(
-                    'action' => 'export',
+                $info = array(
                     'start' => $lastId,
                     'count' => $count,
                     'complete' => $complete,
-                    'confirm' => $confirm,
-                    'file' => $file,
+                    'percent' => $percent,
+                    'nextUrl' => $nextUrl,
+                    'downloadAllow' => $downloadAllow,
+                );
 
-                )));
+                $percent = ($percent > 99 && $percent < 100) ? (intval($percent) + 1) : intval($percent);
+
+                $fileList = '';
+            } else {
+                // Set info
+                $info = array();
+                $percent = 0;
+                $nextUrl = '';
                 $downloadAllow = 0;
+                // Set filter
+                $filter = function ($fileinfo) {
+                    if (!$fileinfo->isFile()) {
+                        return false;
+                    }
+                    $filename = $fileinfo->getFilename();
+                    if ('index.html' == $filename) {
+                        return false;
+                    }
+                    return $filename;
+                };
+                // Get file list
+                $fileList = Pi::service('file')->getList($path, $filter);
             }
-
-            $info = array(
-                'start' => $lastId,
-                'count' => $count,
-                'complete' => $complete,
-                'percent' => $percent,
-                'nextUrl' => $nextUrl,
-                'downloadAllow' => $downloadAllow,
-            );
-
-            $percent = ($percent > 99 && $percent < 100) ? (intval($percent) + 1) : intval($percent);
-
-            $fileList = '';
-        } else {
-            // Set info
-            $info = array();
-            $percent = 0;
-            $nextUrl = '';
-            $downloadAllow = 0;
-            // Set filter
-            $filter = function ($fileinfo) {
-                if (!$fileinfo->isFile()) {
-                    return false;
-                }
-                $filename = $fileinfo->getFilename();
-                if ('index.html' == $filename) {
-                    return false;
-                }
-                return $filename;
-            };
-            // Get file list
-            $fileList = Pi::service('file')->getList($path, $filter);
+            // Check convert to excel
+            $checkExcel = Pi::api('CSVToExcelConverter', 'tools')->check();
+            // Set view
+            $this->view()->setTemplate('user-export');
+            $this->view()->assign('config', $config);
+            $this->view()->assign('nextUrl', $nextUrl);
+            $this->view()->assign('downloadAllow', $downloadAllow);
+            $this->view()->assign('percent', $percent);
+            $this->view()->assign('info', $info);
+            $this->view()->assign('confirm', $confirm);
+            $this->view()->assign('fileList', $fileList);
+            $this->view()->assign('file', $file);
+            $this->view()->assign('checkExcel', $checkExcel);
         }
-        // Check convert to excel
-        $checkExcel = Pi::api('CSVToExcelConverter', 'shop')->check();
-        // Set view
-        $this->view()->setTemplate('user-export');
-        $this->view()->assign('config', $config);
-        $this->view()->assign('nextUrl', $nextUrl);
-        $this->view()->assign('downloadAllow', $downloadAllow);
-        $this->view()->assign('percent', $percent);
-        $this->view()->assign('info', $info);
-        $this->view()->assign('confirm', $confirm);
-        $this->view()->assign('fileList', $fileList);
-        $this->view()->assign('file', $file);
-        $this->view()->assign('checkExcel', $checkExcel);
     }
 
     public function importAction()
     {
-        // Get from url
-        $addUser = $this->params('addUser');
-        // Set file
-        $file = Pi::path('upload/tools/userimport.csv');
-        // Set user array
-        $users = array();
-        // Check file
-        if (Pi::service('file')->exists($file)) {
-            // Set
-            $message = sprintf(__('You can import this information from %s'), $file);
-            $countOfUser = 0;
-            // Get user meta
-            $meta = Pi::registry('field', 'user')->read();
-            // Set file users to array
-            // from : https://secure.php.net/manual/en/function.fgetcsv.php
-            $userData = array();
-            $row = 1;
-            if (($handle = fopen($file, "r")) !== false) {
-                while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-                    $num = count($data);
-                    $i = 1;
-                    for ($c = 0; $c < $num; $c++) {
-                        $userData[$row][$i] = $data[$c];
-                        $i++;
-                    }
-                    $row++;
-                }
-                fclose($handle);
-            }
-            // Make user field list
-            $fieldList = array_shift($userData);
-            // Make user array and import to DB
-            foreach ($userData as $userId => $userInfo) {
-                // Set user values
-                foreach ($userInfo as $key => $field) {
-                    if (isset($meta[$fieldList[$key]])) {
-                        $users[$userId][$fieldList[$key]] = $field;
-                    }
-                }
-                $users[$userId]['last_modified'] = time();
-                $users[$userId]['ip_register']   = Pi::user()->getIp();
-                // Check allow add user by admin
-                if ($addUser == 'OK') {
-                    // Check field list
-                    $mainFieldList = array('identity', 'identity', 'email', 'name');
-                    foreach ($mainFieldList as $mainField) {
-                        if (!in_array($mainField, $fieldList)) {
-                            $url = array('action' => 'index');
-                            $this->jump($url, sprintf(__('%s field not set'), $mainField), 'error');
-                        }
-                    }
-                    // Add user
-                    $uid = Pi::api('user', 'user')->addUser($users[$userId]);
-                    // Check user add or not
-                    if ($uid) {
-                        // Set user role
-                        Pi::api('user', 'user')->setRole($uid, 'member');
-                        // Active user
-                        $status = Pi::api('user', 'user')->activateUser($uid);
-                        if ($status) {
-                            // Target activate user event
-                            Pi::service('event')->trigger('user_activate', $uid);
-                            // Update count
-                            $countOfUser++;
-                        }
-                    }
-                }
-            }
-            // Back to index if add user if OK
-            if ($addUser == 'OK') {
-                $url = array('action' => 'index');
-                if ($countOfUser > 0) {
-                    $this->jump($url, sprintf(__('%s user added'), $countOfUser));
-                } else {
-                    $this->jump($url, __('No user added !'), 'error');
-                }
-            }
+        if (!Pi::service('module')->isActive('user')) {
+            // Set view
+            $this->view()->setTemplate('user-install');
         } else {
-            $message = sprintf(__('User.csv not exist on %s'), $file);
-        }
+            // Get from url
+            $addUser = $this->params('addUser');
+            // Set file
+            $file = Pi::path('upload/tools/userimport.csv');
+            // Set user array
+            $users = array();
+            // Check file
+            if (Pi::service('file')->exists($file)) {
+                // Set
+                $message = sprintf(__('You can import this information from %s'), $file);
+                $countOfUser = 0;
+                // Get user meta
+                $meta = Pi::registry('field', 'user')->read();
+                // Set file users to array
+                // from : https://secure.php.net/manual/en/function.fgetcsv.php
+                $userData = array();
+                $row = 1;
+                if (($handle = fopen($file, "r")) !== false) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                        $num = count($data);
+                        $i = 1;
+                        for ($c = 0; $c < $num; $c++) {
+                            $userData[$row][$i] = $data[$c];
+                            $i++;
+                        }
+                        $row++;
+                    }
+                    fclose($handle);
+                }
+                // Make user field list
+                $fieldList = array_shift($userData);
+                // Make user array and import to DB
+                foreach ($userData as $userId => $userInfo) {
+                    // Set user values
+                    foreach ($userInfo as $key => $field) {
+                        if (isset($meta[$fieldList[$key]])) {
+                            $users[$userId][$fieldList[$key]] = $field;
+                        }
+                    }
+                    $users[$userId]['last_modified'] = time();
+                    $users[$userId]['ip_register']   = Pi::user()->getIp();
+                    // Check allow add user by admin
+                    if ($addUser == 'OK') {
+                        // Check field list
+                        $mainFieldList = array('identity', 'identity', 'email', 'name');
+                        foreach ($mainFieldList as $mainField) {
+                            if (!in_array($mainField, $fieldList)) {
+                                $url = array('action' => 'index');
+                                $this->jump($url, sprintf(__('%s field not set'), $mainField), 'error');
+                            }
+                        }
+                        // Add user
+                        $uid = Pi::api('user', 'user')->addUser($users[$userId]);
+                        // Check user add or not
+                        if ($uid) {
+                            // Set user role
+                            Pi::api('user', 'user')->setRole($uid, 'member');
+                            // Active user
+                            $status = Pi::api('user', 'user')->activateUser($uid);
+                            if ($status) {
+                                // Target activate user event
+                                Pi::service('event')->trigger('user_activate', $uid);
+                                // Update count
+                                $countOfUser++;
+                            }
+                        }
+                    }
+                }
+                // Back to index if add user if OK
+                if ($addUser == 'OK') {
+                    $url = array('action' => 'index');
+                    if ($countOfUser > 0) {
+                        $this->jump($url, sprintf(__('%s user added'), $countOfUser));
+                    } else {
+                        $this->jump($url, __('No user added !'), 'error');
+                    }
+                }
+            } else {
+                $message = sprintf(__('User.csv not exist on %s'), $file);
+            }
 
-        // Set view
-        $this->view()->setTemplate('user-import');
-        $this->view()->assign('message', $message);
-        $this->view()->assign('file', $file);
-        $this->view()->assign('users', $users);
-        $this->view()->assign('f', Pi::registry('field', 'user')->read());
+            // Set view
+            $this->view()->setTemplate('user-import');
+            $this->view()->assign('message', $message);
+            $this->view()->assign('file', $file);
+            $this->view()->assign('users', $users);
+            $this->view()->assign('f', Pi::registry('field', 'user')->read());
+        }
     }
 
     public function downloadAction()
