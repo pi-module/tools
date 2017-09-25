@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="028d56c6-8f52-4e88-9485-aaad1afde164" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/admin/user-install.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/UserController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Front/OauthController.php" afterPath="$PROJECT_DIR$/src/Controller/Front/OauthController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/user-export.phtml" afterPath="$PROJECT_DIR$/template/admin/user-export.phtml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,33 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="OauthController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Front/OauthController.php">
+      <file leaf-file-name="user-export.phtml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/template/admin/user-export.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding>
-                <element signature="e#305#312#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Admin/UserController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="147" column="75" lean-forward="false" selection-start-line="147" selection-start-column="75" selection-end-line="147" selection-end-column="75" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CSVToExcelConverter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Api/CSVToExcelConverter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="21" column="3" lean-forward="false" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="52" />
+            <state relative-caret-position="1037">
+              <caret line="61" column="34" lean-forward="false" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -95,7 +71,6 @@
         <option value="$PROJECT_DIR$/template/admin/user-import.phtml" />
         <option value="$PROJECT_DIR$/src/Api/Csv.php" />
         <option value="$PROJECT_DIR$/src/Api/CSVToExcelConverter.php" />
-        <option value="$PROJECT_DIR$/template/admin/user-export.phtml" />
         <option value="$PROJECT_DIR$/src/Controller/Admin/GoogleController.php" />
         <option value="$PROJECT_DIR$/src/Controller/Front/OAuthController.php" />
         <option value="$PROJECT_DIR$/config/page.php" />
@@ -110,6 +85,7 @@
         <option value="$PROJECT_DIR$/src/Controller/Front/OauthController.php" />
         <option value="$PROJECT_DIR$/template/admin/user-install.phtml" />
         <option value="$PROJECT_DIR$/src/Controller/Admin/UserController.php" />
+        <option value="$PROJECT_DIR$/template/admin/user-export.phtml" />
       </list>
     </option>
   </component>
@@ -157,37 +133,6 @@
             <path>
               <item name="tools" type="b2602c69:ProjectViewProjectNode" />
               <item name="tools" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="tools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tools" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="tools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tools" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="tools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tools" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controller" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="tools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tools" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controller" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="tools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tools" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controller" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Front" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="tools" type="b2602c69:ProjectViewProjectNode" />
@@ -321,7 +266,7 @@
       <workItem from="1505222720041" duration="636000" />
       <workItem from="1505223540003" duration="148000" />
       <workItem from="1506316329550" duration="143000" />
-      <workItem from="1506316520531" duration="299000" />
+      <workItem from="1506316520531" duration="1708000" />
     </task>
     <task id="LOCAL-00001" summary="Work on module">
       <created>1494411381426</created>
@@ -351,17 +296,24 @@
       <option name="project" value="LOCAL" />
       <updated>1505223349845</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix user export">
+      <created>1506316893112</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1506316893112</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12982000" />
+    <option name="totallyTimeSpent" value="14391000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="484" y="290" width="1440" height="870" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18402778" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -389,7 +341,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Work on module" />
     <MESSAGE value="Add login by google support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add login by google support" />
+    <MESSAGE value="Fix user export" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix user export" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -717,16 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/Front/OauthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="e#305#312#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Admin/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -739,14 +682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
           <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="60" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template/admin/user-export.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -769,8 +704,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Admin/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="147" column="75" lean-forward="false" selection-start-line="147" selection-start-column="75" selection-end-line="147" selection-end-column="75" />
+        <state relative-caret-position="2073">
+          <caret line="299" column="5" lean-forward="true" selection-start-line="299" selection-start-column="5" selection-end-line="299" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Front/OauthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <element signature="e#305#312#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/admin/user-export.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="61" column="34" lean-forward="false" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
           <folding />
         </state>
       </provider>
