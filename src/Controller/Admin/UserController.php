@@ -25,12 +25,12 @@ class UserController extends ActionController
             $this->view()->setTemplate('user-install');
         } else {
             // Get inf0
-            $module = $this->params('module');
-            $file = $this->params('file');
-            $start = $this->params('start', 0);
-            $count = $this->params('count');
+            $module   = $this->params('module');
+            $file     = $this->params('file');
+            $page     = $this->params('page', 1);
+            $count    = $this->params('count');
             $complete = $this->params('complete', 0);
-            $confirm = $this->params('confirm', 0);
+            $confirm  = $this->params('confirm', 0);
 
             // Set file
             if (empty($file)) {
@@ -60,13 +60,15 @@ class UserController extends ActionController
                     'format' => 'csv',
                 ));
 
-                $order = array('id ASC');
-                $where = array('active' => 1);
+                $order  = array('id ASC');
+                $where  = array('active' => 1);
+                $limit  = 50;
+                $offset = (int)($page - 1) * $limit;
 
                 $users = Pi::api('user', 'user')->getList(
                     $where,
-                    50,
-                    $start,
+                    $limit,
+                    $offset,
                     $order,
                     $fields
                 );
@@ -81,10 +83,12 @@ class UserController extends ActionController
                     // Set to csv
                     Pi::service('audit')->log('user-export', $user);
 
-                    // Set extra
-                    $lastId = $user['id'];
+                    // Set complete
                     $complete++;
                 }
+
+                // Update page
+                $page++;
 
                 // Get count
                 if (!$count) {
@@ -101,23 +105,22 @@ class UserController extends ActionController
                     $downloadAllow = 1;
                 } else {
                     $nextUrl = Pi::url($this->url('', array(
-                        'action' => 'export',
-                        'start' => $lastId,
-                        'count' => $count,
+                        'action'   => 'export',
+                        'page'     => $page,
+                        'count'    => $count,
                         'complete' => $complete,
-                        'confirm' => $confirm,
-                        'file' => $file,
+                        'confirm'  => $confirm,
+                        'file'     => $file,
 
                     )));
                     $downloadAllow = 0;
                 }
 
                 $info = array(
-                    'start' => $lastId,
-                    'count' => $count,
-                    'complete' => $complete,
-                    'percent' => $percent,
-                    'nextUrl' => $nextUrl,
+                    'count'         => $count,
+                    'complete'      => $complete,
+                    'percent'       => $percent,
+                    'nextUrl'       => $nextUrl,
                     'downloadAllow' => $downloadAllow,
                 );
 
