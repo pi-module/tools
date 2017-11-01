@@ -70,7 +70,7 @@ class OauthController extends ActionController
 
         // Set url array
         $url = [
-            'google' => $google,
+            'google'  => $google,
             'twitter' => $twitter,
         ];
 
@@ -123,7 +123,7 @@ class OauthController extends ActionController
 
         // Set url array
         $url = [
-            'google' => $google,
+            'google'  => $google,
             'twitter' => $twitter,
         ];
 
