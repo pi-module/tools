@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Controller\Admin;
 
 use Pi;
@@ -25,12 +26,12 @@ class UserController extends ActionController
             $this->view()->setTemplate('user-install');
         } else {
             // Get inf0
-            $module   = $this->params('module');
-            $file     = $this->params('file');
-            $page     = $this->params('page', 1);
-            $count    = $this->params('count');
+            $module = $this->params('module');
+            $file = $this->params('file');
+            $page = $this->params('page', 1);
+            $count = $this->params('count');
             $complete = $this->params('complete', 0);
-            $confirm  = $this->params('confirm', 0);
+            $confirm = $this->params('confirm', 0);
 
             // Set file
             if (empty($file)) {
@@ -55,14 +56,14 @@ class UserController extends ActionController
             if ($confirm == 1) {
 
                 // Set file
-                Pi::service('audit')->attach('user-export', array(
+                Pi::service('audit')->attach('user-export', [
                     'file'   => Pi::path(sprintf('upload/tools/%s.csv', $file)),
                     'format' => 'csv',
-                ));
+                ]);
 
-                $order  = array('id ASC');
-                $where  = array('active' => 1);
-                $limit  = 50;
+                $order = ['id ASC'];
+                $where = ['active' => 1];
+                $limit = 50;
                 $offset = (int)($page - 1) * $limit;
 
                 $users = Pi::api('user', 'user')->getList(
@@ -92,7 +93,7 @@ class UserController extends ActionController
 
                 // Get count
                 if (!$count) {
-                    $columns = array('count' => new Expression('count(*)'));
+                    $columns = ['count' => new Expression('count(*)')];
                     $select = Pi::Model('user_account')->select()->columns($columns)->where($where);
                     $count = Pi::Model('user_account')->selectWith($select)->current()->count + $count;
                 }
@@ -104,7 +105,7 @@ class UserController extends ActionController
                     $nextUrl = '';
                     $downloadAllow = 1;
                 } else {
-                    $nextUrl = Pi::url($this->url('', array(
+                    $nextUrl = Pi::url($this->url('', [
                         'action'   => 'export',
                         'page'     => $page,
                         'count'    => $count,
@@ -112,24 +113,24 @@ class UserController extends ActionController
                         'confirm'  => $confirm,
                         'file'     => $file,
 
-                    )));
+                    ]));
                     $downloadAllow = 0;
                 }
 
-                $info = array(
+                $info = [
                     'count'         => $count,
                     'complete'      => $complete,
                     'percent'       => $percent,
                     'nextUrl'       => $nextUrl,
                     'downloadAllow' => $downloadAllow,
-                );
+                ];
 
                 $percent = ($percent > 99 && $percent < 100) ? (intval($percent) + 1) : intval($percent);
 
                 $fileList = '';
             } else {
                 // Set info
-                $info = array();
+                $info = [];
                 $percent = 0;
                 $nextUrl = '';
                 $downloadAllow = 0;
@@ -174,7 +175,7 @@ class UserController extends ActionController
             // Set file
             $file = Pi::path('upload/tools/userimport.csv');
             // Set user array
-            $users = array();
+            $users = [];
             // Check file
             if (Pi::service('file')->exists($file)) {
                 // Set
@@ -184,7 +185,7 @@ class UserController extends ActionController
                 $meta = Pi::registry('field', 'user')->read();
                 // Set file users to array
                 // from : https://secure.php.net/manual/en/function.fgetcsv.php
-                $userData = array();
+                $userData = [];
                 $row = 1;
                 if (($handle = fopen($file, "r")) !== false) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== false) {
@@ -209,14 +210,14 @@ class UserController extends ActionController
                         }
                     }
                     $users[$userId]['last_modified'] = time();
-                    $users[$userId]['ip_register']   = Pi::user()->getIp();
+                    $users[$userId]['ip_register'] = Pi::user()->getIp();
                     // Check allow add user by admin
                     if ($addUser == 'OK') {
                         // Check field list
-                        $mainFieldList = array('identity', 'identity', 'email', 'name');
+                        $mainFieldList = ['identity', 'identity', 'email', 'name'];
                         foreach ($mainFieldList as $mainField) {
                             if (!in_array($mainField, $fieldList)) {
-                                $url = array('action' => 'index');
+                                $url = ['action' => 'index'];
                                 $this->jump($url, sprintf(__('%s field not set'), $mainField), 'error');
                             }
                         }
@@ -239,7 +240,7 @@ class UserController extends ActionController
                 }
                 // Back to index if add user if OK
                 if ($addUser == 'OK') {
-                    $url = array('action' => 'index');
+                    $url = ['action' => 'index'];
                     if ($countOfUser > 0) {
                         $this->jump($url, sprintf(__('%s user added'), $countOfUser));
                     } else {

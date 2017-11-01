@@ -1,8 +1,17 @@
 <?php $this->css($this->assetModule('css/front.css')); ?>
 <div class="clearfix">
-    <div class="oauth-login">
-        <a class="loginBtn loginBtn-google" href="<?php echo $this->escape($loginUrl); ?>">
-            <i class="fa fa-google"></i> <?php _e('Login with Google'); ?>
-        </a>
-    </div>
+    <?php if (!empty($url['google'])) { ?>
+        <div class="oauth-login">
+            <a class="loginBtn loginBtn-google" href="<?php echo $this->escape($url['google']); ?>">
+                <i class="fa fa-google"></i> <?php _e('Login with google'); ?>
+            </a>
+        </div>
+    <?php } ?>
+    <?php if (!empty($url['twitter'])) { ?>
+        <div class="oauth-login">
+            <a class="loginBtn loginBtn-twitter" href="<?php echo $this->escape($url['twitter']); ?>">
+                <i class="fa fa-twitter"></i> <?php _e('Login with twitter'); ?>
+            </a>
+        </div>
+    <?php } ?>
 </div>

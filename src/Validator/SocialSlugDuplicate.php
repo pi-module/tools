@@ -18,15 +18,15 @@ use Zend\Validator\AbstractValidator;
 
 class SocialSlugDuplicate extends AbstractValidator
 {
-    const TAKEN        = 'socialExists';
-    const CHARACTER    = 'socialCharacter';
+    const TAKEN = 'socialExists';
+    const CHARACTER = 'socialCharacter';
 
     public function __construct()
     {
-        $this->messageTemplates = array(
-            self::TAKEN      => _a('Social slug already exists.'),
-            self::CHARACTER  => _a('Just [a-zA-Z0-9] supported'),
-        );
+        $this->messageTemplates = [
+            self::TAKEN     => _a('Social slug already exists.'),
+            self::CHARACTER => _a('Just [a-zA-Z0-9] supported'),
+        ];
 
         parent::__construct();
     }
@@ -44,7 +44,7 @@ class SocialSlugDuplicate extends AbstractValidator
 
         if (null !== $value) {
             $value = strval($value);
-            $where = array('slug' => $value);
+            $where = ['slug' => $value];
             if (!empty($context['id'])) {
                 $where['id <> ?'] = $context['id'];
             }

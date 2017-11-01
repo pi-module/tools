@@ -9,6 +9,8 @@
 
 namespace Module\Tools\Controller\Front;
 
+use Hybridauth\Provider\Google as HybridauthGoogle;
+use Hybridauth\Provider\Twitter as HybridauthTwitter;
 use Pi;
 use Pi\Authentication\Result;
 use Pi\Mvc\Controller\ActionController;
@@ -22,93 +24,214 @@ class OauthController extends ActionController
 {
     public function indexAction()
     {
-        return false;
-        exit();
-
         // Check user
         if (Pi::service('user')->hasIdentity()) {
-            $this->jump(array('route' => 'home'), __('You logged in before.'));
+            $this->jump(['route' => 'home'], __('You logged in before.'));
         }
 
-        $redirectUri = Pi::url($this->url('', array(
-            'module'     => 'tools',
-            'controller' => 'oauth',
-            'action'     => 'callback',
-        )));
+        // Get info from url
+        $module = $this->params('module');
 
-        $googleAccountUrl = 'https://accounts.google.com/o/oauth2/v2/auth?scope=%s&response_type=code&redirect_uri=%s&client_id=%s';
-        $googleScope = 'https://www.googleapis.com/auth/userinfo.email';
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
 
-        $loginUrl = sprintf(
-            $googleAccountUrl,
-            $googleScope,
-            $redirectUri,
-            $this->config('oauth_google_client_id')
-        );
+        // Check user
+        if (!$config['oauth_login']) {
+            $this->jump(['route' => 'home'], __('oauth login is inactive'));
+        }
+
+        // Set google
+        $google = '';
+        if ($config['oauth_google']
+            && !empty($config['oauth_google_client_id'])
+            && !empty($config['oauth_google_client_secret'])
+        ) {
+            $google = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'google',
+            ]));
+        }
+
+        // Set twitter
+        $twitter = '';
+        if ($config['oauth_twitter']
+            && !empty($config['oauth_twitter_api_key'])
+            && !empty($config['oauth_twitter_api_secret'])
+        ) {
+            $twitter = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'twitter',
+            ]));
+        }
+
+        // Set url array
+        $url = [
+            'google' => $google,
+            'twitter' => $twitter,
+        ];
 
         // Set template
         $this->view()->setTemplate('oauth-index');
-        $this->view()->assign('loginUrl', $loginUrl);
-        $this->view()->assign('uid', $uid);
+        $this->view()->assign('url', $url);
     }
 
     public function callbackAction()
     {
-        return false;
-        exit();
-
-        $redirectUri = Pi::url($this->url('', array(
-            'module'     => 'tools',
-            'controller' => 'oauth',
-            'action'     => 'callback',
-        )));
-
-        $googleApiUrl = 'https://www.googleapis.com/plus/v1/people/me?fields=aboutMe%2Cemails%2Cimage%2Cname&access_token=';
-        $googleUrl = "https://www.googleapis.com/oauth2/v4/token";
-        
-        if (empty($_GET['redirect'])) {
-            $redirect = array('route' => 'home');
-        } else {
-            $redirect = urldecode($_GET['redirect']);
-        }
-
         // Check user
         if (Pi::service('user')->hasIdentity()) {
-            $this->jump($redirect, __('You logged in before.'));
+            $this->jump(['route' => 'home'], __('You logged in before.'));
         }
 
-        $header = array("Content-Type: application/x-www-form-urlencoded");
-        $data = http_build_query(
-            array(
-                'code'          => str_replace("#", null, $_GET['code']),
-                'client_id'     => $this->config('oauth_google_client_id'),
-                'client_secret' => $this->config('oauth_google_client_secret'),
-                'redirect_uri'  => $redirectUri,
-                'grant_type'    => 'authorization_code'
-            )
-        );
-        
-        $result = $this->googleRequest(1, $googleUrl, $header, $data);
+        // Get info from url
+        $module = $this->params('module');
+        $provider = $this->params('provider');
 
-        if (!empty($result['error'])) {
-            $this->jump($redirect, __('Error on login'));
-        } else {
-            $googleApiUrl = $googleApiUrl . $result['access_token'];
-            $userInfo     = $this->googleRequest(0, $googleApiUrl, 0, 0);
-            $email        = $userInfo['emails'][0]['value'];
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
 
+        // Set google
+        $google = '';
+        if ($config['oauth_google'] &&
+            !empty($config['oauth_google_client_id']) &&
+            !empty($config['oauth_google_client_secret'])
+        ) {
+            $google = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'google',
+            ]));
+        }
+
+        // Set twitter
+        $twitter = '';
+        if ($config['oauth_twitter'] &&
+            !empty($config['oauth_twitter_api_key']) &&
+            !empty($config['oauth_twitter_api_secret'])
+        ) {
+            $twitter = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'twitter',
+            ]));
+        }
+
+        // Set url array
+        $url = [
+            'google' => $google,
+            'twitter' => $twitter,
+        ];
+
+        // Check provider
+        switch ($provider) {
+            case 'google':
+                if (!empty($url['google'])
+                    && $config['oauth_google']
+                    && !empty($config['oauth_google_client_id'])
+                    && !empty($config['oauth_google_client_secret'])
+                ) {
+
+                    // Set hybridauth config
+                    $configHybridauth = [
+                        'callback' => $url['google'],
+                        'keys'     => [
+                            'id'     => $config['oauth_google_client_id'],
+                            'secret' => $config['oauth_google_client_secret'],
+                        ],
+                    ];
+
+                    try {
+                        //Instantiate adapter directly
+                        $adapter = new HybridauthGoogle($configHybridauth);
+
+                        //Attempt to authenticate the user with Facebook
+                        $adapter->authenticate();
+
+                        //Retrieve the user's profile
+                        $userProfile = (array)$adapter->getUserProfile();
+
+                        //Disconnect the adapter
+                        $adapter->disconnect();
+
+                    } catch (\Exception $e) {
+                        echo 'Oops, we ran into an issue! ' . $e->getMessage();
+                    }
+                } else {
+                    $this->jump(['route' => 'home'], __('Google login not active'));
+                }
+                break;
+
+            case 'twitter':
+                if (!empty($url['twitter'])
+                    && $config['oauth_twitter']
+                    && !empty($config['oauth_twitter_api_key'])
+                    && !empty($config['oauth_twitter_api_secret'])
+                ) {
+
+                    // Set hybridauth config
+                    $configHybridauth = [
+                        'callback' => $url['twitter'],
+                        'keys'     => [
+                            'id'     => $config['oauth_twitter_api_key'],
+                            'secret' => $config['oauth_twitter_api_secret'],
+                        ],
+                    ];
+
+                    try {
+                        //Instantiate adapter directly
+                        $adapter = new HybridauthTwitter($configHybridauth);
+
+                        //Attempt to authenticate the user with Facebook
+                        $adapter->authenticate();
+
+                        //Retrieve the user's profile
+                        $userProfile = (array)$adapter->getUserProfile();
+
+                        //Disconnect the adapter
+                        $adapter->disconnect();
+
+                    } catch (\Exception $e) {
+                        echo 'Oops, we ran into an issue! ' . $e->getMessage();
+                    }
+                } else {
+                    $this->jump(['route' => 'home'], __('Ttwitter login not active'));
+                }
+                break;
+
+            default:
+            case '':
+                $this->jump(['route' => 'home'], __('Provider not set'));
+                break;
+        }
+
+        if (isset($userProfile)
+            && isset($userProfile['email'])
+            && !empty($userProfile['email'])
+        ) {
             // Check user
-            $userAccount  = Pi::model('user_account')->find($email, 'email');
+            $userAccount = Pi::model('user_account')->find($userProfile['email'], 'email');
+
+            // Add user if not exist
             if (!$userAccount) {
+
                 // Add user
-                $user                   = array();
-                $user['first_name']     = $userInfo['name']['givenName'];
-                $user['last_name']      = $userInfo['name']['familyName'];
-                $user['email']          = $userInfo['emails'][0]['value'];
-                $user['identity']       = $userInfo['emails'][0]['value'];
-                $user['name']           = sprintf('%s %s', $userInfo['name']['givenName'], $userInfo['name']['familyName']);
-                $user['last_modified']  = time();
-                $user['ip_register']    = Pi::user()->getIp();
+                // ToDo : set password
+                $user = [
+                    'first_name'    => $userProfile['firstName'],
+                    'last_name'     => $userProfile['lastName'],
+                    'email'         => $userProfile['email'],
+                    'identity'      => $userProfile['email'],
+                    'name'          => $userProfile['displayName'],
+                    'last_modified' => time(),
+                    'ip_register'   => Pi::user()->getIp(),
+                ];
+
+                // Get user id
                 $uid = Pi::api('user', 'user')->addUser($user);
 
                 // Check user add or not
@@ -122,31 +245,32 @@ class OauthController extends ActionController
                         Pi::service('event')->trigger('user_activate', $uid);
                     }
                 }
+
+                // ToDo : send notification email
             }
 
             // Set authentication
             Pi::service('authentication')->setStrategy('oAuth');
-            $result = Pi::service('authentication')->authenticate($email, '', '');
+            $result = Pi::service('authentication')->authenticate($userProfile['email'], '', '');
             $result = $this->verifyResult($result);
 
             if (!$result->isValid()) {
-                $this->jump($redirect, __('Error on login'));
+                $this->jump(['route' => 'home'], __('Error on login'));
             } else {
-                $configs = Pi::user()->config();
+                $configUser = Pi::user()->config();
 
                 $uid = (int)$result->getData('id');
                 try {
                     Pi::service('user')->bind($uid);
                 } catch (\Exception $e) {
-
                     return;
                 }
 
                 Pi::service('session')->setUser($uid);
 
                 $rememberMe = 0;
-                if ($configs['rememberme']) {
-                    $rememberMe = $configs['rememberme'] * 86400;
+                if ($configUser['rememberme']) {
+                    $rememberMe = $configUser['rememberme'] * 86400;
                     Pi::service('session')->manager()
                         ->rememberme($rememberMe);
                 }
@@ -156,48 +280,19 @@ class OauthController extends ActionController
                 }
 
                 // Trigger login event
-                $args = array(
-                    'uid' => $uid,
+                $args = [
+                    'uid'           => $uid,
                     'remember_time' => $rememberMe,
-                );
+                ];
                 Pi::service('event')->trigger('user_login', $args);
 
-                $this->jump($redirect, __('You have logged in successfully.'));
+                $this->jump(['route' => 'home'], __('You have logged in successfully.'));
             }
-        }
-    }
 
-    public function googleRequest($method, $url, $header, $data)
-    {
-        if ($method == 1) {
-            $method_type = 1; // 1 = POST
         } else {
-            $method_type = 0; // 0 = GET
+            $this->jump(['route' => 'home'], __('Information not true'));
         }
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-
-        if ($header !== 0) {
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-        }
-
-        curl_setopt($curl, CURLOPT_POST, $method_type);
-
-        if ($data !== 0) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        }
-
-        $response = curl_exec($curl);
-        $json = json_decode($response, true);
-        curl_close($curl);
-
-        return $json;
     }
-
 
     /**
      * Filtering Result after authentication

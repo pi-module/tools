@@ -20,7 +20,7 @@ class Token extends Model
     /**
      * {@inheritDoc}
      */
-    protected $columns = array(
+    protected $columns = [
         'id',
         'title',
         'token',
@@ -30,5 +30,5 @@ class Token extends Model
         'status',
         'use_module',
         // 'use_section',
-    );
+    ];
 }

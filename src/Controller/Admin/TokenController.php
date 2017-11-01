@@ -10,20 +10,21 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Controller\Admin;
 
+use Module\Tools\Form\TokenFilter;
+use Module\Tools\Form\TokenForm;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Module\Tools\Form\TokenForm;
-use Module\Tools\Form\TokenFilter;
 
 class TokenController extends ActionController
 {
     public function indexAction()
     {
         // Get info
-        $list = array();
-        $order = array('time_create DESC', 'id DESC');
+        $list = [];
+        $order = ['time_create DESC', 'id DESC'];
         $select = $this->getModel('token')->select()->order($order);
         $rowset = $this->getModel('token')->selectWith($select);
         // Get module list
@@ -85,13 +86,13 @@ class TokenController extends ActionController
                 $row->save();
                 // jump
                 $message = __('Token data saved successfully.');
-                $this->jump(array('action' => 'index'), $message);
+                $this->jump(['action' => 'index'], $message);
             }
         } else {
             if ($id) {
                 $token = $this->getModel('token')->find($id)->toArray();
             } else {
-                $token = array();
+                $token = [];
                 $token['token'] = Pi::api('token', 'tools')->generate();
             }
             $form->setData($token);

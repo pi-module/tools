@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Api;
 
 use Pi;
@@ -36,9 +37,9 @@ class Token extends AbstractApi
     public function getList($module, $section = '')
     {
         // Get info
-        $list = array();
-        $order = array('time_create DESC', 'id DESC');
-        $where = array('use_module' => $module, 'status' => 1);
+        $list = [];
+        $order = ['time_create DESC', 'id DESC'];
+        $where = ['use_module' => $module, 'status' => 1];
         /* if (!empty($section)) {
             $where['use_section'] = $section;
         } */
@@ -84,24 +85,24 @@ class Token extends AbstractApi
         $token = Pi::model('token', $this->getModule())->find($token, 'token');
         // Check token exist
         if (!$token) {
-            return array(
-                'status' => 0,
-                'message' => __('Token is not valid !')
-            );
+            return [
+                'status'  => 0,
+                'message' => __('Token is not valid !'),
+            ];
         }
         // Check token active
         if ($token->status != 1) {
-            return array(
-                'status' => 0,
-                'message' => __('Token is not active !')
-            );
+            return [
+                'status'  => 0,
+                'message' => __('Token is not active !'),
+            ];
         }
         // Check module and section is set true
         if ($token->use_module != $module) {
-            return array(
-                'status' => 0,
-                'message' => __('This token is not for this part !')
-            );
+            return [
+                'status'  => 0,
+                'message' => __('This token is not for this part !'),
+            ];
         }
         // Check module and section is set true
         /* if ($token->use_section != $section) {
@@ -115,9 +116,9 @@ class Token extends AbstractApi
         $token->used = $token->used + 1;
         $token->save();
         // return result
-        return array(
-            'status' => 1,
-            'message' => __('Token is valid !')
-        );
+        return [
+            'status'  => 1,
+            'message' => __('Token is valid !'),
+        ];
     }
 }

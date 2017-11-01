@@ -33,17 +33,17 @@ class CronController extends ActionController
             // Do cron
             Pi::service('cron')->start();
             // return
-            return array(
+            return [
                 'message' => __('Cron system work fine, and cron process finished successfully.'),
                 'status'  => 1,
                 'time'    => time(),
-            );
+            ];
         } else {
-            return array(
+            return [
                 'message' => __('Error : token not true !'),
                 'status'  => 0,
                 'time'    => time(),
-            );
+            ];
         }
     }
 }

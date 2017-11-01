@@ -10,150 +10,150 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     'front' => false,
-    'admin' => array(
-        'token' => array(
-            'label'        => _a('Token'),
-            'permission'   => array(
+    'admin' => [
+        'token' => [
+            'label'      => _a('Token'),
+            'permission' => [
                 'resource' => 'token',
-            ),
-            'route'        => 'admin',
-            'module'       => 'tools',
-            'controller'   => 'token',
-            'action'       => 'index',
-            'pages' => array(
-                'token' => array(
-                    'label'        => _a('Token'),
-                    'permission'   => array(
+            ],
+            'route'      => 'admin',
+            'module'     => 'tools',
+            'controller' => 'token',
+            'action'     => 'index',
+            'pages'      => [
+                'token'  => [
+                    'label'      => _a('Token'),
+                    'permission' => [
                         'resource' => 'token',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'token',
-                    'action'       => 'index',
-                ),
-                'update' => array(
-                    'label'        => _a('Manage'),
-                    'permission'   => array(
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'token',
+                    'action'     => 'index',
+                ],
+                'update' => [
+                    'label'      => _a('Manage'),
+                    'permission' => [
                         'resource' => 'token',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'token',
-                    'action'       => 'update',
-                ),
-            ),
-        ),
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'token',
+                    'action'     => 'update',
+                ],
+            ],
+        ],
 
-        'user' => array(
-            'label'        => _a('User'),
-            'permission'   => array(
+        'user' => [
+            'label'      => _a('User'),
+            'permission' => [
                 'resource' => 'user',
-            ),
-            'route'        => 'admin',
-            'module'       => 'tools',
-            'controller'   => 'user',
-            'action'       => 'export',
-            'pages' => array(
-                'export' => array(
-                    'label'        => _a('Export'),
-                    'permission'   => array(
+            ],
+            'route'      => 'admin',
+            'module'     => 'tools',
+            'controller' => 'user',
+            'action'     => 'export',
+            'pages'      => [
+                'export' => [
+                    'label'      => _a('Export'),
+                    'permission' => [
                         'resource' => 'user',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'user',
-                    'action'       => 'export',
-                ),
-                'import' => array(
-                    'label'        => _a('Import'),
-                    'permission'   => array(
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'user',
+                    'action'     => 'export',
+                ],
+                'import' => [
+                    'label'      => _a('Import'),
+                    'permission' => [
                         'resource' => 'user',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'user',
-                    'action'       => 'import',
-                ),
-            ),
-        ),
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'user',
+                    'action'     => 'import',
+                ],
+            ],
+        ],
 
-        'social' => array(
-            'label'        => _a('Social'),
-            'permission'   => array(
+        'social' => [
+            'label'      => _a('Social'),
+            'permission' => [
                 'resource' => 'social',
-            ),
-            'route'        => 'admin',
-            'module'       => 'tools',
-            'controller'   => 'social',
-            'action'       => 'index',
-            'pages' => array(
-                'social' => array(
-                    'label'        => _a('Social'),
-                    'permission'   => array(
+            ],
+            'route'      => 'admin',
+            'module'     => 'tools',
+            'controller' => 'social',
+            'action'     => 'index',
+            'pages'      => [
+                'social' => [
+                    'label'      => _a('Social'),
+                    'permission' => [
                         'resource' => 'social',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'social',
-                    'action'       => 'index',
-                ),
-                'update' => array(
-                    'label'        => _a('Manage'),
-                    'permission'   => array(
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'social',
+                    'action'     => 'index',
+                ],
+                'update' => [
+                    'label'      => _a('Manage'),
+                    'permission' => [
                         'resource' => 'social',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'social',
-                    'action'       => 'update',
-                ),
-            ),
-        ),
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'social',
+                    'action'     => 'update',
+                ],
+            ],
+        ],
 
-        'oauth' => array(
-            'label'        => _a('oAuth'),
-            'permission'   => array(
+        'oauth' => [
+            'label'      => _a('oAuth'),
+            'permission' => [
                 'resource' => 'oauth',
-            ),
-            'route'        => 'admin',
-            'module'       => 'tools',
-            'controller'   => 'oauth',
-            'action'       => 'index',
-            'pages' => array(
-                'oauth' => array(
-                    'label'        => _a('Request'),
-                    'permission'   => array(
+            ],
+            'route'      => 'admin',
+            'module'     => 'tools',
+            'controller' => 'oauth',
+            'action'     => 'index',
+            'pages'      => [
+                'oauth' => [
+                    'label'      => _a('Request'),
+                    'permission' => [
                         'resource' => 'oauth',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'oauth',
-                    'action'       => 'index',
-                ),
-                'user' => array(
-                    'label'        => _a('User'),
-                    'permission'   => array(
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'oauth',
+                    'action'     => 'index',
+                ],
+                'user'  => [
+                    'label'      => _a('User'),
+                    'permission' => [
                         'resource' => 'oauth',
-                    ),
-                    'route'        => 'admin',
-                    'module'       => 'tools',
-                    'controller'   => 'oauth',
-                    'action'       => 'user',
-                ),
-            ),
-        ),
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'oauth',
+                    'action'     => 'user',
+                ],
+            ],
+        ],
 
-        'cron' => array(
-            'label'        => _a('Cron'),
-            'permission'   => array(
+        'cron' => [
+            'label'      => _a('Cron'),
+            'permission' => [
                 'resource' => 'cron',
-            ),
-            'route'        => 'admin',
-            'module'       => 'tools',
-            'controller'   => 'cron',
-            'action'       => 'index',
-        ),
-    ),
-);
+            ],
+            'route'      => 'admin',
+            'module'     => 'tools',
+            'controller' => 'cron',
+            'action'     => 'index',
+        ],
+    ],
+];

@@ -18,50 +18,50 @@ use Zend\InputFilter\InputFilter;
 
 class TokenFilter extends InputFilter
 {
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         // id
-        $this->add(array(
-            'name' => 'id',
+        $this->add([
+            'name'     => 'id',
             'required' => false,
-        ));
+        ]);
         // title
-        $this->add(array(
-            'name' => 'title',
+        $this->add([
+            'name'     => 'title',
             'required' => true,
-            'filters' => array(
-                array(
+            'filters'  => [
+                [
                     'name' => 'StringTrim',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         // token
-        $this->add(array(
-            'name' => 'token',
-            'required' => true,
-            'filters' => array(
-                array(
+        $this->add([
+            'name'       => 'token',
+            'required'   => true,
+            'filters'    => [
+                [
                     'name' => 'StringTrim',
-                ),
-            ),
-            'validators' => array(
+                ],
+            ],
+            'validators' => [
                 new \Module\Tools\Validator\TokenDuplicate,
-            ),
-        ));
+            ],
+        ]);
         // use_module
-        $this->add(array(
-            'name' => 'use_module',
+        $this->add([
+            'name'     => 'use_module',
             'required' => false,
-        ));
+        ]);
         // use_section
         /* $this->add(array(
             'name' => 'use_section',
             'required' => false,
         )); */
         // status
-        $this->add(array(
-            'name' => 'status',
+        $this->add([
+            'name'     => 'status',
             'required' => false,
-        ));
+        ]);
     }
 }

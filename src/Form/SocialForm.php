@@ -18,7 +18,7 @@ use Pi\Form\Form as BaseForm;
 
 class SocialForm extends BaseForm
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         $this->options = $options;
         parent::__construct($name);
@@ -35,94 +35,94 @@ class SocialForm extends BaseForm
     public function init()
     {
         // id
-        $this->add(array(
-            'name' => 'id',
-            'attributes' => array(
+        $this->add([
+            'name'       => 'id',
+            'attributes' => [
                 'type' => 'hidden',
-            ),
-        ));
+            ],
+        ]);
         // title
-        $this->add(array(
-            'name' => 'title',
-            'options' => array(
+        $this->add([
+            'name'       => 'title',
+            'options'    => [
                 'label' => __('Title'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
+            ],
+            'attributes' => [
+                'type'        => 'text',
                 'description' => '',
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // slug
-        $this->add(array(
-            'name' => 'slug',
-            'options' => array(
+        $this->add([
+            'name'       => 'slug',
+            'options'    => [
                 'label' => __('Slug'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
+            ],
+            'attributes' => [
+                'type'        => 'text',
                 'description' => __('Use direct social network name, for example twitter or facebook, you can add each social network just one time'),
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // url
-        $this->add(array(
-            'name' => 'url',
-            'options' => array(
+        $this->add([
+            'name'       => 'url',
+            'options'    => [
                 'label' => __('Url'),
-            ),
-            'attributes' => array(
-                'type' => 'url',
+            ],
+            'attributes' => [
+                'type'        => 'url',
                 'description' => '',
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // icon
-        $this->add(array(
-            'name' => 'icon',
-            'options' => array(
+        $this->add([
+            'name'       => 'icon',
+            'options'    => [
                 'label' => __('Icon'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
+            ],
+            'attributes' => [
+                'type'        => 'text',
                 'description' => __('Just use http://fontawesome.io/icons website icons and just put icon name, for example fa-home'),
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // order
-        $this->add(array(
-            'name' => 'order',
-            'options' => array(
+        $this->add([
+            'name'       => 'order',
+            'options'    => [
                 'label' => __('Sort order'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
+            ],
+            'attributes' => [
+                'type'        => 'text',
                 'description' => '',
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // status
-        $this->add(array(
-            'name' => 'status',
-            'type' => 'select',
-            'options' => array(
-                'label' => __('Status'),
-                'value_options' => array(
+        $this->add([
+            'name'    => 'status',
+            'type'    => 'select',
+            'options' => [
+                'label'         => __('Status'),
+                'value_options' => [
                     1 => __('Published'),
                     2 => __('Pending review'),
                     3 => __('Draft'),
                     4 => __('Private'),
                     5 => __('Delete'),
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         // Save
-        $this->add(array(
-            'name' => 'submit',
-            'type' => 'submit',
-            'attributes' => array(
+        $this->add([
+            'name'       => 'submit',
+            'type'       => 'submit',
+            'attributes' => [
                 'value' => __('Submit'),
-            )
-        ));
+            ],
+        ]);
     }
 }

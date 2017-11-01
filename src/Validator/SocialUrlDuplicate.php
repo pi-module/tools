@@ -18,13 +18,13 @@ use Zend\Validator\AbstractValidator;
 
 class SocialUrlDuplicate extends AbstractValidator
 {
-    const TAKEN        = 'urlExists';
+    const TAKEN = 'urlExists';
 
     public function __construct()
     {
-        $this->messageTemplates = array(
+        $this->messageTemplates = [
             self::TAKEN => _a('Social url already exists.'),
-        );
+        ];
 
         parent::__construct();
     }
@@ -41,7 +41,7 @@ class SocialUrlDuplicate extends AbstractValidator
         $this->setValue($value);
 
         if (null !== $value) {
-            $where = array('url' => $value);
+            $where = ['url' => $value];
             if (!empty($context['id'])) {
                 $where['id <> ?'] = $context['id'];
             }

@@ -18,16 +18,19 @@
                     $labelIdClass = 'label-warning';
                 } ?>
                 <tr>
-                    <td><span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($social['id']); ?></span></td>
                     <td>
-                        <a target="_blank" href="<?php echo $this->escape($social['url']); ?>" title="<?php echo $this->escape($social['title']); ?>">
+                        <span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($social['id']); ?></span>
+                    </td>
+                    <td>
+                        <a target="_blank" href="<?php echo $this->escape($social['url']); ?>"
+                           title="<?php echo $this->escape($social['title']); ?>">
                             <i class="fa <?php echo $this->escape($social['icon']); ?>"></i> <?php echo $this->escape($social['title']); ?>
                         </a>
                     </td>
                     <td><?php echo $this->escape($social['slug']); ?></td>
                     <td>
                         <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
-                           href="<?php echo $this->url('', array('action' => 'update', 'id' => $social['id'])); ?>"><i
+                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $social['id']]); ?>"><i
                                     class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
                     </td>
                 </tr>

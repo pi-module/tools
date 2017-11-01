@@ -11,74 +11,108 @@
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
 
-return array(
-    'category' => array(
-        array(
+return [
+    'category' => [
+        [
             'title' => _a('Admin'),
-            'name' => 'admin'
-        ),
-        array(
-            'name'      => 'cron',
-            'title'     => _t('Cron'),
-        ),
-        array(
-            'name'      => 'oauth',
-            'title'     => _t('oAuth'),
-        ),
-    ),
-    'item' => array(
+            'name'  => 'admin',
+        ],
+        [
+            'name'  => 'cron',
+            'title' => _t('Cron'),
+        ],
+        [
+            'name'  => 'oauth',
+            'title' => _t('oAuth'),
+        ],
+    ],
+    'item'     => [
         // Admin
-        'admin_perpage' => array(
-            'category' => 'admin',
-            'title' => _a('Perpage'),
+        'admin_perpage' => [
+            'category'    => 'admin',
+            'title'       => _a('Perpage'),
             'description' => '',
-            'edit' => 'text',
-            'filter' => 'number_int',
-            'value' => 25
-        ),
+            'edit'        => 'text',
+            'filter'      => 'number_int',
+            'value'       => 25,
+        ],
 
         // Cron
-        'cron_active' => array(
-            'category'      => 'cron',
-            'title'         => _a('Active cron'),
-            'description'   => '',
-            'edit'          => 'checkbox',
-            'filter'        => 'number_int',
-            'value'         => 0
-        ),
+        'cron_active'   => [
+            'category'    => 'cron',
+            'title'       => _a('Active cron'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
 
-        'cron_token' => array(
-            'category'      => 'cron',
-            'title'         => _a('Cron token'),
-            'edit'          => 'text',
-            'filter'        => 'string',
-            'value'         => md5(rand()),
-        ),
+        'cron_token'  => [
+            'category' => 'cron',
+            'title'    => _a('Cron token'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => md5(rand()),
+        ],
 
         // oauth
-        'oauth_login' => array(
-            'category'      => 'oauth',
-            'title'         => _a('oAuth login'),
-            'description'   => _a('At this moment just support google'),
-            'edit'          => 'checkbox',
-            'filter'        => 'number_int',
-            'value'         => 0
-        ),
+        'oauth_login' => [
+            'category'    => 'oauth',
+            'title'       => _a('oAuth login'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
 
-        'oauth_google_client_id' => array(
-            'category'      => 'oauth',
-            'title'         => _a('Google client id'),
-            'edit'          => 'text',
-            'filter'        => 'string',
-            'value'         => '',
-        ),
+        'oauth_google' => [
+            'category'    => 'oauth',
+            'title'       => _a('Login by google'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
 
-        'oauth_google_client_secret' => array(
-            'category'      => 'oauth',
-            'title'         => _a('Google client secret'),
-            'edit'          => 'text',
-            'filter'        => 'string',
-            'value'         => '',
-        ),
-    ),
-);
+        'oauth_google_client_id' => [
+            'category' => 'oauth',
+            'title'    => _a('Google client id'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_google_client_secret' => [
+            'category' => 'oauth',
+            'title'    => _a('Google client secret'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_twitter' => [
+            'category'    => 'oauth',
+            'title'       => _a('Login by twitter'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'oauth_twitter_api_key' => [
+            'category' => 'oauth',
+            'title'    => _a('Consumer Key (API Key)'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_twitter_api_secret' => [
+            'category' => 'oauth',
+            'title'    => _a('Consumer Secret (API Secret)'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+    ],
+];
