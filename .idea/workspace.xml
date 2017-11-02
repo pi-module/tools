@@ -7,42 +7,9 @@
     <list default="true" id="028d56c6-8f52-4e88-9485-aaad1afde164" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/css/front.css" afterPath="$PROJECT_DIR$/asset/css/front.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/block.php" afterPath="$PROJECT_DIR$/config/block.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/config.php" afterPath="$PROJECT_DIR$/config/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.php" afterPath="$PROJECT_DIR$/config/database.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/module.php" afterPath="$PROJECT_DIR$/config/module.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/navigation.php" afterPath="$PROJECT_DIR$/config/navigation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/page.php" afterPath="$PROJECT_DIR$/config/page.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/permission.php" afterPath="$PROJECT_DIR$/config/permission.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Api/CSVToExcelConverter.php" afterPath="$PROJECT_DIR$/src/Api/CSVToExcelConverter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Api/Csv.php" afterPath="$PROJECT_DIR$/src/Api/Csv.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Api/Social.php" afterPath="$PROJECT_DIR$/src/Api/Social.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Api/Token.php" afterPath="$PROJECT_DIR$/src/Api/Token.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Block/Block.php" afterPath="$PROJECT_DIR$/src/Block/Block.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/CronController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/CronController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/IndexController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/OauthController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/OauthController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/SocialController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/SocialController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/TokenController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/TokenController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Admin/UserController.php" afterPath="$PROJECT_DIR$/src/Controller/Admin/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Front/CronController.php" afterPath="$PROJECT_DIR$/src/Controller/Front/CronController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Front/OauthController.php" afterPath="$PROJECT_DIR$/src/Controller/Front/OauthController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/SocialFilter.php" afterPath="$PROJECT_DIR$/src/Form/SocialFilter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/SocialForm.php" afterPath="$PROJECT_DIR$/src/Form/SocialForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/TokenFilter.php" afterPath="$PROJECT_DIR$/src/Form/TokenFilter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/TokenForm.php" afterPath="$PROJECT_DIR$/src/Form/TokenForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Social.php" afterPath="$PROJECT_DIR$/src/Model/Social.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Token.php" afterPath="$PROJECT_DIR$/src/Model/Token.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Registry/SocialList.php" afterPath="$PROJECT_DIR$/src/Registry/SocialList.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Validator/SocialSlugDuplicate.php" afterPath="$PROJECT_DIR$/src/Validator/SocialSlugDuplicate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Validator/SocialUrlDuplicate.php" afterPath="$PROJECT_DIR$/src/Validator/SocialUrlDuplicate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Validator/TokenDuplicate.php" afterPath="$PROJECT_DIR$/src/Validator/TokenDuplicate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/cron-index.phtml" afterPath="$PROJECT_DIR$/template/admin/cron-index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/social-index.phtml" afterPath="$PROJECT_DIR$/template/admin/social-index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/token-index.phtml" afterPath="$PROJECT_DIR$/template/admin/token-index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/user-export.phtml" afterPath="$PROJECT_DIR$/template/admin/user-export.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/admin/user-import.phtml" afterPath="$PROJECT_DIR$/template/admin/user-import.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/block/social.phtml" afterPath="$PROJECT_DIR$/template/block/social.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/front/oauth-index.phtml" afterPath="$PROJECT_DIR$/template/front/oauth-index.phtml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,10 +25,10 @@
       <file leaf-file-name="OauthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/Front/OauthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="222" column="38" lean-forward="false" selection-start-line="222" selection-start-column="38" selection-end-line="222" selection-end-column="38" />
+            <state relative-caret-position="-90">
+              <caret line="376" column="28" lean-forward="false" selection-start-line="376" selection-start-column="28" selection-end-line="376" selection-end-column="28" />
               <folding>
-                <element signature="e#305#356#0#PHP" expanded="true" />
+                <element signature="e#305#360#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,7 +47,7 @@
       <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-356">
+            <state relative-caret-position="990">
               <caret line="61" column="30" lean-forward="false" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
               <folding />
             </state>
@@ -91,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/template/front/oauth-index.phtml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="31" />
+              <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -214,6 +181,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -364,8 +333,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -487,7 +454,10 @@
       <workItem from="1506400825177" duration="1322000" />
       <workItem from="1507093582939" duration="76000" />
       <workItem from="1507095647848" duration="2000" />
-      <workItem from="1509558188405" duration="3439000" />
+      <workItem from="1509558188405" duration="3631000" />
+      <workItem from="1509562650999" duration="6000" />
+      <workItem from="1509604517675" duration="179000" />
+      <workItem from="1509604904891" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="Work on module">
       <created>1494411381426</created>
@@ -531,22 +501,34 @@
       <option name="project" value="LOCAL" />
       <updated>1506318233039</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Work on oauth by hybridauth https://github.com/pi-engine/pi/issues/1561">
+      <created>1509561687015</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1509561687015</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Work on oauth by hybridauth">
+      <created>1509561749566</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1509561749566</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20673000" />
+    <option name="totallyTimeSpent" value="21062000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="994" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34652665" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32823366" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -554,10 +536,12 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -568,10 +552,14 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Work on module" />
     <MESSAGE value="Add login by google support" />
     <MESSAGE value="Fix user export" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix user export" />
+    <MESSAGE value="Work on oauth by hybridauth https://github.com/pi-engine/pi/issues/1561" />
+    <MESSAGE value="Work on oauth by hybridauth" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work on oauth by hybridauth" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -906,7 +894,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-356">
+        <state relative-caret-position="990">
           <caret line="61" column="30" lean-forward="false" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
           <folding />
         </state>
@@ -923,7 +911,7 @@
     <entry file="file://$PROJECT_DIR$/template/front/oauth-index.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="31" />
+          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -938,10 +926,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Front/OauthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="222" column="38" lean-forward="false" selection-start-line="222" selection-start-column="38" selection-end-line="222" selection-end-column="38" />
+        <state relative-caret-position="-90">
+          <caret line="376" column="28" lean-forward="false" selection-start-line="376" selection-start-column="28" selection-end-line="376" selection-end-column="28" />
           <folding>
-            <element signature="e#305#356#0#PHP" expanded="true" />
+            <element signature="e#305#360#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

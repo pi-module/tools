@@ -101,7 +101,7 @@ return [
 
         'oauth_twitter_api_key' => [
             'category' => 'oauth',
-            'title'    => _a('Consumer Key (API Key)'),
+            'title'    => _a('Twitter consumer Key (API Key)'),
             'edit'     => 'text',
             'filter'   => 'string',
             'value'    => '',
@@ -109,7 +109,57 @@ return [
 
         'oauth_twitter_api_secret' => [
             'category' => 'oauth',
-            'title'    => _a('Consumer Secret (API Secret)'),
+            'title'    => _a('Twitter consumer Secret (API Secret)'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_facebook' => [
+            'category'    => 'oauth',
+            'title'       => _a('Login by facebook'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'oauth_facebook_api_id' => [
+            'category' => 'oauth',
+            'title'    => _a('Facebook app ID'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_facebook_api_secret' => [
+            'category' => 'oauth',
+            'title'    => _a('Facebook app Secret'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_github' => [
+            'category'    => 'oauth',
+            'title'       => _a('Login by github'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'oauth_github_client_id' => [
+            'category' => 'oauth',
+            'title'    => _a('Github client id'),
+            'edit'     => 'text',
+            'filter'   => 'string',
+            'value'    => '',
+        ],
+
+        'oauth_github_client_secret' => [
+            'category' => 'oauth',
+            'title'    => _a('Github client secret'),
             'edit'     => 'text',
             'filter'   => 'string',
             'value'    => '',

@@ -9,11 +9,14 @@
 
 namespace Module\Tools\Controller\Front;
 
+use Hybridauth\Provider\Facebook as HybridauthFacebook;
+use Hybridauth\Provider\GitHub as HybridauthGitHub;
 use Hybridauth\Provider\Google as HybridauthGoogle;
 use Hybridauth\Provider\Twitter as HybridauthTwitter;
 use Pi;
 use Pi\Authentication\Result;
 use Pi\Mvc\Controller\ActionController;
+use Zend\Math\Rand;
 
 /**
  * OAuth controller
@@ -68,10 +71,40 @@ class OauthController extends ActionController
             ]));
         }
 
+        // Set github
+        $github = '';
+        if ($config['oauth_github']
+            && !empty($config['oauth_github_client_id'])
+            && !empty($config['oauth_github_client_secret'])
+        ) {
+            $github = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'github',
+            ]));
+        }
+
+        // Set facebook
+        $facebook = '';
+        if ($config['oauth_facebook']
+            && !empty($config['oauth_facebook_api_id'])
+            && !empty($config['oauth_facebook_api_secret'])
+        ) {
+            $facebook = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'facebook',
+            ]));
+        }
+
         // Set url array
         $url = [
-            'google'  => $google,
-            'twitter' => $twitter,
+            'google'   => $google,
+            'twitter'  => $twitter,
+            'github'   => $github,
+            'facebook' => $facebook,
         ];
 
         // Set template
@@ -121,10 +154,40 @@ class OauthController extends ActionController
             ]));
         }
 
+        // Set github
+        $github = '';
+        if ($config['oauth_github']
+            && !empty($config['oauth_github_client_id'])
+            && !empty($config['oauth_github_client_secret'])
+        ) {
+            $github = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'github',
+            ]));
+        }
+
+        // Set facebook
+        $facebook = '';
+        if ($config['oauth_facebook']
+            && !empty($config['oauth_facebook_api_id'])
+            && !empty($config['oauth_facebook_api_secret'])
+        ) {
+            $facebook = Pi::url($this->url('', [
+                'module'     => 'tools',
+                'controller' => 'oauth',
+                'action'     => 'callback',
+                'provider'   => 'facebook',
+            ]));
+        }
+
         // Set url array
         $url = [
-            'google'  => $google,
-            'twitter' => $twitter,
+            'google'   => $google,
+            'twitter'  => $twitter,
+            'github'   => $github,
+            'facebook' => $facebook,
         ];
 
         // Check provider
@@ -199,9 +262,84 @@ class OauthController extends ActionController
                         echo 'Oops, we ran into an issue! ' . $e->getMessage();
                     }
                 } else {
-                    $this->jump(['route' => 'home'], __('Ttwitter login not active'));
+                    $this->jump(['route' => 'home'], __('Twitter login not active'));
                 }
                 break;
+
+            case 'facebook':
+                if (!empty($url['facebook'])
+                    && $config['oauth_facebook']
+                    && !empty($config['oauth_facebook_api_id'])
+                    && !empty($config['oauth_facebook_api_secret'])
+                ) {
+
+                    // Set hybridauth config
+                    $configHybridauth = [
+                        'callback' => $url['facebook'],
+                        'keys'     => [
+                            'id'     => $config['oauth_facebook_api_id'],
+                            'secret' => $config['oauth_facebook_api_secret'],
+                        ],
+                    ];
+
+                    try {
+                        //Instantiate adapter directly
+                        $adapter = new HybridauthFacebook($configHybridauth);
+
+                        //Attempt to authenticate the user with Facebook
+                        $adapter->authenticate();
+
+                        //Retrieve the user's profile
+                        $userProfile = (array)$adapter->getUserProfile();
+
+                        //Disconnect the adapter
+                        $adapter->disconnect();
+
+                    } catch (\Exception $e) {
+                        echo 'Oops, we ran into an issue! ' . $e->getMessage();
+                    }
+                } else {
+                    $this->jump(['route' => 'home'], __('Facebookr login not active'));
+                }
+                break;
+
+            case 'github':
+                if (!empty($url['github'])
+                    && $config['oauth_github']
+                    && !empty($config['oauth_github_client_id'])
+                    && !empty($config['oauth_github_client_secret'])
+                ) {
+
+                    // Set hybridauth config
+                    $configHybridauth = [
+                        'callback' => $url['github'],
+                        'keys'     => [
+                            'id'     => $config['oauth_github_client_id'],
+                            'secret' => $config['oauth_github_client_secret'],
+                        ],
+                    ];
+
+                    try {
+                        //Instantiate adapter directly
+                        $adapter = new HybridauthGithub($configHybridauth);
+
+                        //Attempt to authenticate the user with Facebook
+                        $adapter->authenticate();
+
+                        //Retrieve the user's profile
+                        $userProfile = (array)$adapter->getUserProfile();
+
+                        //Disconnect the adapter
+                        $adapter->disconnect();
+
+                    } catch (\Exception $e) {
+                        echo 'Oops, we ran into an issue! ' . $e->getMessage();
+                    }
+                } else {
+                    $this->jump(['route' => 'home'], __('Github login not active'));
+                }
+                break;
+
 
             default:
             case '':
@@ -220,7 +358,6 @@ class OauthController extends ActionController
             if (!$userAccount) {
 
                 // Add user
-                // ToDo : set password
                 $user = [
                     'first_name'    => $userProfile['firstName'],
                     'last_name'     => $userProfile['lastName'],
@@ -229,6 +366,7 @@ class OauthController extends ActionController
                     'name'          => $userProfile['displayName'],
                     'last_modified' => time(),
                     'ip_register'   => Pi::user()->getIp(),
+                    'credential'    => Rand::getString(16, 'abcdefghijklmnopqrstuvwxyz123456789', true),
                 ];
 
                 // Get user id

@@ -48,3 +48,26 @@
     background: #2c93ee;
     color: #fff;
 }
+
+/* github */
+.loginBtn-github {
+    background: #333;
+}
+
+.loginBtn-github:hover,
+.loginBtn-github:focus {
+    background: #232323;
+    color: #fff;
+}
+
+/* facebook */
+.loginBtn-facebook {
+    background: #3b5998;
+}
+
+.loginBtn-facebook:hover,
+.loginBtn-facebook:focus {
+    background: #334398;
+    color: #fff;
+}
+

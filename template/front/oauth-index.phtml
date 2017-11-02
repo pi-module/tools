@@ -14,4 +14,18 @@
             </a>
         </div>
     <?php } ?>
+    <?php if (!empty($url['facebook'])) { ?>
+        <div class="oauth-login">
+            <a class="loginBtn loginBtn-facebook" href="<?php echo $this->escape($url['facebook']); ?>">
+                <i class="fa fa-facebook"></i> <?php _e('Login with facebook'); ?>
+            </a>
+        </div>
+    <?php } ?>
+    <?php if (!empty($url['github'])) { ?>
+        <div class="oauth-login">
+            <a class="loginBtn loginBtn-github" href="<?php echo $this->escape($url['github']); ?>">
+                <i class="fa fa-github"></i> <?php _e('Login with github'); ?>
+            </a>
+        </div>
+    <?php } ?>
 </div>
