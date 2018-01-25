@@ -20,7 +20,7 @@ class Social extends Model
     /**
      * {@inheritDoc}
      */
-    protected $columns = array(
+    protected $columns = [
         'id',
         'title',
         'slug',
@@ -28,5 +28,5 @@ class Social extends Model
         'status',
         'icon',
         'order',
-    );
+    ];
 }

@@ -7,7 +7,6 @@
                 <th><?php _e('ID'); ?></th>
                 <th><?php _e('Title'); ?></th>
                 <th><?php _e('Module'); ?></th>
-                <th><?php _e('Section'); ?></th>
                 <th><?php _e('Last usd time'); ?></th>
                 <th><?php _e('Used'); ?></th>
                 <th><?php _e('Action'); ?></th>
@@ -21,24 +20,30 @@
                     $labelIdClass = 'label-warning';
                 } ?>
                 <tr>
-                    <td><span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($social['id']); ?></span></td>
+                    <td>
+                        <span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($social['id']); ?></span>
+                    </td>
                     <td><?php echo $this->escape($social['title']); ?></td>
                     <td><?php echo $this->escape($social['use_module']); ?></td>
-                    <td><?php echo $this->escape($social['use_section']); ?></td>
                     <td><?php echo $this->escape($social['time_used_view']); ?></td>
                     <td><?php echo $this->escape($social['used_view']); ?></td>
                     <td>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#tokenModal<?php echo $this->escape($social['id']); ?>">
+                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal"
+                                data-target="#tokenModal<?php echo $this->escape($social['id']); ?>">
                             <?php _e('View token'); ?>
                         </button>
                         <!-- Modal -->
-                        <div class="modal fade" id="tokenModal<?php echo $this->escape($social['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="tokenModalLabel<?php echo $this->escape($social['id']); ?>">
+                        <div class="modal fade" id="tokenModal<?php echo $this->escape($social['id']); ?>" tabindex="-1"
+                             role="dialog" aria-labelledby="tokenModalLabel<?php echo $this->escape($social['id']); ?>">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="<?php _e('Close'); ?>"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="tokenModalLabel<?php echo $this->escape($social['id']); ?>"><?php _e('Token information'); ?></h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="<?php _e('Close'); ?>"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title"
+                                            id="tokenModalLabel<?php echo $this->escape($social['id']); ?>"><?php _e('Token information'); ?></h4>
                                     </div>
                                     <div class="modal-body">
                                         <p class="token-view"><?php echo $this->escape($social['token']); ?></p>
@@ -47,8 +52,8 @@
                             </div>
                         </div>
                         <a class="btn btn-primary btn-xs" title="<?php _e('Edit'); ?>"
-                           href="<?php echo $this->url('', array('action' => 'update', 'id' => $social['id'])); ?>"><i
-                                class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $social['id']]); ?>"><i
+                                    class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
                     </td>
                 </tr>
             <?php } ?>

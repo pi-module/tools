@@ -10,20 +10,21 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Controller\Admin;
 
+use Module\Tools\Form\SocialFilter;
+use Module\Tools\Form\SocialForm;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Module\Tools\Form\SocialForm;
-use Module\Tools\Form\SocialFilter;
 
 class SocialController extends ActionController
 {
     public function indexAction()
     {
         // Get info
-        $list = array();
-        $order = array('order ASC', 'id DESC');
+        $list = [];
+        $order = ['order ASC', 'id DESC'];
         $select = $this->getModel('social')->select()->order($order);
         $rowset = $this->getModel('social')->selectWith($select);
         // Make list
@@ -60,7 +61,7 @@ class SocialController extends ActionController
                 Pi::registry('socialList', 'tools')->clear();
                 // jump
                 $message = __('Social data saved successfully.');
-                $this->jump(array('action' => 'index'), $message);
+                $this->jump(['action' => 'index'], $message);
             }
         } else {
             if ($id) {

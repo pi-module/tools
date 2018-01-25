@@ -18,17 +18,17 @@ use Zend\Validator\AbstractValidator;
 
 class TokenDuplicate extends AbstractValidator
 {
-    const TAKEN        = 'tokenExists';
-    const CHARACTER    = 'tokenCharacter';
-    const LENGTH       = 'tokenLength';
+    const TAKEN = 'tokenExists';
+    const CHARACTER = 'tokenCharacter';
+    const LENGTH = 'tokenLength';
 
     public function __construct()
     {
-        $this->messageTemplates = array(
-            self::TAKEN      => _a('This token already exists.'),
-            self::CHARACTER  => _a('Just [a-zA-Z0-9] supported'),
-            self::LENGTH     => _a('Token shorter than 64 length'),
-        );
+        $this->messageTemplates = [
+            self::TAKEN     => _a('This token already exists.'),
+            self::CHARACTER => _a('Just [a-zA-Z0-9] supported'),
+            self::LENGTH    => _a('Token shorter than 64 length'),
+        ];
 
         parent::__construct();
     }
@@ -45,7 +45,7 @@ class TokenDuplicate extends AbstractValidator
         $this->setValue($value);
 
         if (null !== $value) {
-            $where = array('token' => $value);
+            $where = ['token' => $value];
             if (!empty($context['id'])) {
                 $where['id <> ?'] = $context['id'];
             }

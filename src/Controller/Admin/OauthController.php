@@ -16,13 +16,17 @@ namespace Module\Tools\Controller\Admin;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
 
-class IndexController extends ActionController
+class OauthController extends ActionController
 {
     public function indexAction()
     {
-        return $this->redirect()->toRoute('', [
-            'controller' => 'token',
-            'action'     => 'index',
-        ]);
+        // Set template
+        $this->view()->setTemplate('oauth-index');
+    }
+
+    public function userAction()
+    {
+        // Set template
+        $this->view()->setTemplate('oauth-user');
     }
 }

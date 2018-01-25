@@ -11,6 +11,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Registry;
 
 use Pi;
@@ -24,11 +25,11 @@ class SocialList extends AbstractRegistry
     /**
      * {@inheritDoc}
      */
-    protected function loadDynamic($options = array())
+    protected function loadDynamic($options = [])
     {
-        $return = array();
-        $where = array('status' => 1);
-        $order = array('order ASC', 'id DESC');
+        $return = [];
+        $where = ['status' => 1];
+        $order = ['order ASC', 'id DESC'];
         $select = Pi::model('social', $this->module)->select()->where($where)->order($order);
         $rowset = Pi::model('social', $this->module)->selectWith($select);
         foreach ($rowset as $row) {
@@ -43,7 +44,7 @@ class SocialList extends AbstractRegistry
      */
     public function read()
     {
-        $options = array();
+        $options = [];
         $result = $this->loadData($options);
 
         return $result;

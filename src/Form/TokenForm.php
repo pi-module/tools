@@ -18,7 +18,7 @@ use Pi\Form\Form as BaseForm;
 
 class TokenForm extends BaseForm
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         $this->options = $options;
         parent::__construct($name);
@@ -35,52 +35,52 @@ class TokenForm extends BaseForm
     public function init()
     {
         // id
-        $this->add(array(
-            'name' => 'id',
-            'attributes' => array(
+        $this->add([
+            'name'       => 'id',
+            'attributes' => [
                 'type' => 'hidden',
-            ),
-        ));
+            ],
+        ]);
         // title
-        $this->add(array(
-            'name' => 'title',
-            'options' => array(
+        $this->add([
+            'name'       => 'title',
+            'options'    => [
                 'label' => __('Title'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
+            ],
+            'attributes' => [
+                'type'        => 'text',
                 'description' => '',
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // token
-        $this->add(array(
-            'name' => 'token',
-            'options' => array(
+        $this->add([
+            'name'       => 'token',
+            'options'    => [
                 'label' => __('Token'),
-            ),
-            'attributes' => array(
-                'type' => 'text',
+            ],
+            'attributes' => [
+                'type'        => 'text',
                 'description' => '',
-                'required' => true,
-            )
-        ));
+                'required'    => true,
+            ],
+        ]);
         // use_module
-        $moduleList = array();
+        $moduleList = [];
         $modules = Pi::registry('modulelist')->read('active');
         foreach ($modules as $module) {
             $moduleList[$module['name']] = $module['title'];
         }
-        $this->add(array(
-            'name' => 'use_module',
-            'type' => 'select',
-            'options' => array(
-                'label' => __('Module'),
+        $this->add([
+            'name'    => 'use_module',
+            'type'    => 'select',
+            'options' => [
+                'label'         => __('Module'),
                 'value_options' => $moduleList,
-            ),
-        ));
+            ],
+        ]);
         // use_section
-        $this->add(array(
+        /* $this->add(array(
             'name' => 'use_section',
             'type' => 'select',
             'options' => array(
@@ -93,29 +93,29 @@ class TokenForm extends BaseForm
                     'system' => __('System API'),
                 ),
             ),
-        ));
+        )); */
         // status
-        $this->add(array(
-            'name' => 'status',
-            'type' => 'select',
-            'options' => array(
-                'label' => __('Status'),
-                'value_options' => array(
+        $this->add([
+            'name'    => 'status',
+            'type'    => 'select',
+            'options' => [
+                'label'         => __('Status'),
+                'value_options' => [
                     1 => __('Published'),
                     2 => __('Pending review'),
                     3 => __('Draft'),
                     4 => __('Private'),
                     5 => __('Delete'),
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         // Save
-        $this->add(array(
-            'name' => 'submit',
-            'type' => 'submit',
-            'attributes' => array(
+        $this->add([
+            'name'       => 'submit',
+            'type'       => 'submit',
+            'attributes' => [
                 'value' => __('Submit'),
-            )
-        ));
+            ],
+        ]);
     }
 }

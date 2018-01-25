@@ -10,23 +10,33 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // Admin section
-    'admin' => array(
-        array(
-            'label'      => _a('Cron'),
-            'controller' => 'cron',
-            'permission' => 'cron',
-        ),
-        array(
+    'admin' => [
+        [
             'label'      => _a('Token'),
             'controller' => 'token',
             'permission' => 'token',
-        ),
-        array(
+        ],
+        [
+            'label'      => _a('User'),
+            'controller' => 'user',
+            'permission' => 'user',
+        ],
+        [
             'label'      => _a('Social'),
             'controller' => 'social',
             'permission' => 'social',
-        ),
-    ),
-);
+        ],
+        [
+            'label'      => _a('oAuth'),
+            'controller' => 'oauth',
+            'permission' => 'oauth',
+        ],
+        [
+            'label'      => _a('Cron'),
+            'controller' => 'cron',
+            'permission' => 'cron',
+        ],
+    ],
+];

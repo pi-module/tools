@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Api;
 
 use Pi;
@@ -24,9 +25,9 @@ class Social extends AbstractApi
 {
     public function getList()
     {
-        $list = array();
-        $where = array('status' => 1);
-        $order = array('order ASC', 'id DESC');
+        $list = [];
+        $where = ['status' => 1];
+        $order = ['order ASC', 'id DESC'];
         $select = Pi::model('social', $this->getModule())->select()->where($where)->order($order);
         $rowset = Pi::model('social', $this->getModule())->selectWith($select);
         foreach ($rowset as $row) {

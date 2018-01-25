@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Block;
 
 use Pi;
@@ -17,10 +18,10 @@ use Zend\Db\Sql\Predicate\Expression;
 
 class Block
 {
-    public static function social($options = array(), $module = null)
+    public static function social($options = [], $module = null)
     {
         // Set options
-        $block = array();
+        $block = [];
         $block = array_merge($block, $options);
         // Get list of social
         $block['list'] = Pi::registry('socialList', 'tools')->read();

@@ -10,27 +10,28 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Tools\Controller\Admin;
 
+use Module\Tools\Form\TokenFilter;
+use Module\Tools\Form\TokenForm;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Module\Tools\Form\TokenForm;
-use Module\Tools\Form\TokenFilter;
 
 class TokenController extends ActionController
 {
     public function indexAction()
     {
         // Get info
-        $list = array();
-        $order = array('time_create DESC', 'id DESC');
+        $list = [];
+        $order = ['time_create DESC', 'id DESC'];
         $select = $this->getModel('token')->select()->order($order);
         $rowset = $this->getModel('token')->selectWith($select);
         // Get module list
         $modules = Pi::registry('modulelist')->read('active');
         // Make list
         foreach ($rowset as $row) {
-            switch ($row->use_section) {
+            /* switch ($row->use_section) {
                 case 'general':
                     $section = __('General API');
                     break;
@@ -50,10 +51,10 @@ class TokenController extends ActionController
                 case 'system':
                     $section = __('System API');
                     break;
-            }
+            } */
             $list[$row->id] = $row->toArray();
             $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
-            $list[$row->id]['use_section_view'] = $section;
+            // $list[$row->id]['use_section_view'] = $section;
             $list[$row->id]['used_view'] = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
         }
@@ -85,13 +86,13 @@ class TokenController extends ActionController
                 $row->save();
                 // jump
                 $message = __('Token data saved successfully.');
-                $this->jump(array('action' => 'index'), $message);
+                $this->jump(['action' => 'index'], $message);
             }
         } else {
             if ($id) {
                 $token = $this->getModel('token')->find($id)->toArray();
             } else {
-                $token = array();
+                $token = [];
                 $token['token'] = Pi::api('token', 'tools')->generate();
             }
             $form->setData($token);

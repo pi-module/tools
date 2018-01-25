@@ -18,68 +18,68 @@ use Zend\InputFilter\InputFilter;
 
 class SocialFilter extends InputFilter
 {
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         // id
-        $this->add(array(
-            'name' => 'id',
+        $this->add([
+            'name'     => 'id',
             'required' => false,
-        ));
+        ]);
         // title
-        $this->add(array(
-            'name' => 'title',
+        $this->add([
+            'name'     => 'title',
             'required' => true,
-            'filters' => array(
-                array(
+            'filters'  => [
+                [
                     'name' => 'StringTrim',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         // slug
-        $this->add(array(
-            'name' => 'slug',
-            'required' => true,
-            'filters' => array(
-                array(
+        $this->add([
+            'name'       => 'slug',
+            'required'   => true,
+            'filters'    => [
+                [
                     'name' => 'StringTrim',
-                ),
-            ),
-            'validators' => array(
+                ],
+            ],
+            'validators' => [
                 new \Module\Tools\Validator\SocialSlugDuplicate,
-            ),
-        ));
+            ],
+        ]);
         // url
-        $this->add(array(
-            'name' => 'url',
-            'required' => true,
-            'filters' => array(
-                array(
+        $this->add([
+            'name'       => 'url',
+            'required'   => true,
+            'filters'    => [
+                [
                     'name' => 'StringTrim',
-                ),
-            ),
-            'validators' => array(
+                ],
+            ],
+            'validators' => [
                 new \Module\Tools\Validator\SocialUrlDuplicate,
-            ),
-        ));
+            ],
+        ]);
         // icon
-        $this->add(array(
-            'name' => 'icon',
+        $this->add([
+            'name'     => 'icon',
             'required' => true,
-            'filters' => array(
-                array(
+            'filters'  => [
+                [
                     'name' => 'StringTrim',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         // order
-        $this->add(array(
-            'name' => 'order',
+        $this->add([
+            'name'     => 'order',
             'required' => true,
-        ));
+        ]);
         // status
-        $this->add(array(
-            'name' => 'status',
+        $this->add([
+            'name'     => 'status',
             'required' => false,
-        ));
+        ]);
     }
 }
