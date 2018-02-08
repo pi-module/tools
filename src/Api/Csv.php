@@ -23,10 +23,10 @@ class Csv
 
     function __construct($file_name, $parse_header = false, $delimiter = ',', $length = 8000)
     {
-        $this->fp = fopen($file_name, "r");
+        $this->fp           = fopen($file_name, "r");
         $this->parse_header = $parse_header;
-        $this->delimiter = $delimiter;
-        $this->length = $length;
+        $this->delimiter    = $delimiter;
+        $this->length       = $length;
         //$this->lines = $lines;
 
         if ($this->parse_header) {

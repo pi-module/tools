@@ -47,11 +47,11 @@ class CSVToExcelConverter extends AbstractApi
         if ($csv_enc != null)
             $objReader->setInputEncoding($csv_enc);
         $objPHPExcel = $objReader->load($csv_file);
-        $in_sheet = $objPHPExcel->getActiveSheet();
+        $in_sheet    = $objPHPExcel->getActiveSheet();
 
         //open excel file
         $objPHPExcel = new \PHPExcel();
-        $out_sheet = $objPHPExcel->getActiveSheet();
+        $out_sheet   = $objPHPExcel->getActiveSheet();
 
         //row index start from 1
         $row_index = 0;

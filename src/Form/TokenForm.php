@@ -67,7 +67,7 @@ class TokenForm extends BaseForm
         ]);
         // use_module
         $moduleList = [];
-        $modules = Pi::registry('modulelist')->read('active');
+        $modules    = Pi::registry('modulelist')->read('active');
         foreach ($modules as $module) {
             $moduleList[$module['name']] = $module['title'];
         }

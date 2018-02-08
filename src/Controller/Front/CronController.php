@@ -25,7 +25,7 @@ class CronController extends ActionController
         $this->view()->setTemplate(false)->setLayout('layout-content');
         // Get info from url
         $module = $this->params('module');
-        $token = $this->params('token');
+        $token  = $this->params('token');
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Get token

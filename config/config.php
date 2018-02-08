@@ -43,7 +43,7 @@ return [
             'value'       => 0,
         ],
 
-        'cron_token'  => [
+        'cron_token' => [
             'category' => 'cron',
             'title'    => _a('Cron token'),
             'edit'     => 'text',

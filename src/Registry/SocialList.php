@@ -28,8 +28,8 @@ class SocialList extends AbstractRegistry
     protected function loadDynamic($options = [])
     {
         $return = [];
-        $where = ['status' => 1];
-        $order = ['order ASC', 'id DESC'];
+        $where  = ['status' => 1];
+        $order  = ['order ASC', 'id DESC'];
         $select = Pi::model('social', $this->module)->select()->where($where)->order($order);
         $rowset = Pi::model('social', $this->module)->selectWith($select);
         foreach ($rowset as $row) {
@@ -45,7 +45,7 @@ class SocialList extends AbstractRegistry
     public function read()
     {
         $options = [];
-        $result = $this->loadData($options);
+        $result  = $this->loadData($options);
 
         return $result;
     }

@@ -20,13 +20,14 @@ class Social extends Model
     /**
      * {@inheritDoc}
      */
-    protected $columns = [
-        'id',
-        'title',
-        'slug',
-        'url',
-        'status',
-        'icon',
-        'order',
-    ];
+    protected $columns
+        = [
+            'id',
+            'title',
+            'slug',
+            'url',
+            'status',
+            'icon',
+            'order',
+        ];
 }

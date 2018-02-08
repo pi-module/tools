@@ -18,9 +18,9 @@ use Zend\Validator\AbstractValidator;
 
 class TokenDuplicate extends AbstractValidator
 {
-    const TAKEN = 'tokenExists';
+    const TAKEN     = 'tokenExists';
     const CHARACTER = 'tokenCharacter';
-    const LENGTH = 'tokenLength';
+    const LENGTH    = 'tokenLength';
 
     public function __construct()
     {

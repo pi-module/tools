@@ -23,8 +23,8 @@ class SocialController extends ActionController
     public function indexAction()
     {
         // Get info
-        $list = [];
-        $order = ['order ASC', 'id DESC'];
+        $list   = [];
+        $order  = ['order ASC', 'id DESC'];
         $select = $this->getModel('social')->select()->order($order);
         $rowset = $this->getModel('social')->selectWith($select);
         // Make list

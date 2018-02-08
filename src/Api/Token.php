@@ -27,17 +27,17 @@ class Token extends AbstractApi
 {
     public function generate($length = 16, $charlist = '')
     {
-        $length = ($length > 15) ? $length : 16;
+        $length         = ($length > 15) ? $length : 16;
         $systemCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
-        $charlist = !empty($charlist) ? $charlist : $systemCharList;
-        $string = Rand::getString($length, $charlist, true);
+        $charlist       = !empty($charlist) ? $charlist : $systemCharList;
+        $string         = Rand::getString($length, $charlist, true);
         return $string;
     }
 
     public function getList($module, $section = '')
     {
         // Get info
-        $list = [];
+        $list  = [];
         $order = ['time_create DESC', 'id DESC'];
         $where = ['use_module' => $module, 'status' => 1];
         /* if (!empty($section)) {
@@ -70,10 +70,10 @@ class Token extends AbstractApi
                     $section = __('System API');
                     break;
             } */
-            $list[$row->id] = $row->toArray();
+            $list[$row->id]                    = $row->toArray();
             $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
             // $list[$row->id]['use_section_view'] = $section;
-            $list[$row->id]['used_view'] = _number($row->used);
+            $list[$row->id]['used_view']      = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
         }
 
@@ -113,7 +113,7 @@ class Token extends AbstractApi
         } */
         // Update information
         $token->time_used = time();
-        $token->used = $token->used + 1;
+        $token->used      = $token->used + 1;
         $token->save();
         // return result
         return [

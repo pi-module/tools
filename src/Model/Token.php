@@ -20,15 +20,16 @@ class Token extends Model
     /**
      * {@inheritDoc}
      */
-    protected $columns = [
-        'id',
-        'title',
-        'token',
-        'used',
-        'time_create',
-        'time_used',
-        'status',
-        'use_module',
-        // 'use_section',
-    ];
+    protected $columns
+        = [
+            'id',
+            'title',
+            'token',
+            'used',
+            'time_create',
+            'time_used',
+            'status',
+            'use_module',
+            // 'use_section',
+        ];
 }

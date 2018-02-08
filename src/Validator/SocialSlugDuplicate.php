@@ -18,7 +18,7 @@ use Zend\Validator\AbstractValidator;
 
 class SocialSlugDuplicate extends AbstractValidator
 {
-    const TAKEN = 'socialExists';
+    const TAKEN     = 'socialExists';
     const CHARACTER = 'socialCharacter';
 
     public function __construct()
