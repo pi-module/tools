@@ -173,7 +173,7 @@ class UserController extends ActionController
             // Get from url
             $addUser = $this->params('addUser');
             // Set file
-            $file = Pi::path('upload/tools/userimport.csv');
+            $file = Pi::path('upload/tools/user-import.csv');
             // Set user array
             $users = [];
             // Check file
@@ -214,13 +214,20 @@ class UserController extends ActionController
                     // Check allow add user by admin
                     if ($addUser == 'OK') {
                         // Check field list
-                        $mainFieldList = ['identity', 'identity', 'email', 'name'];
+                        $mainFieldList = ['identity', 'credential', 'email', 'first_name', 'last_name', 'mobile'];
                         foreach ($mainFieldList as $mainField) {
                             if (!in_array($mainField, $fieldList)) {
-                                $url = ['action' => 'index'];
+                                $url = ['action' => 'import'];
                                 $this->jump($url, sprintf(__('%s field not set'), $mainField), 'error');
                             }
                         }
+
+                        $users[$userId]['name'] = sprintf(
+                            '%s %s',
+                                $users[$userId]['first_name'],
+                                $users[$userId]['last_name']
+                        );
+
                         // Add user
                         $uid = Pi::api('user', 'user')->addUser($users[$userId]);
                         // Check user add or not
@@ -235,12 +242,21 @@ class UserController extends ActionController
                                 // Update count
                                 $countOfUser++;
                             }
+                            // Add credit
+                            Pi::api('credit', 'order')->addCredit(
+                                $uid,
+                                $users[$userId]['credit'],
+                                'increase',
+                                'automatic',
+                                __('Add first credit'),
+                                __('Add first credit')
+                            );
                         }
                     }
                 }
                 // Back to index if add user if OK
                 if ($addUser == 'OK') {
-                    $url = ['action' => 'index'];
+                    $url = ['action' => 'import'];
                     if ($countOfUser > 0) {
                         $this->jump($url, sprintf(__('%s user added'), $countOfUser));
                     } else {
@@ -248,7 +264,7 @@ class UserController extends ActionController
                     }
                 }
             } else {
-                $message = sprintf(__('User.csv not exist on %s'), $file);
+                $message = sprintf(__('user-import.csv not exist on %s'), $file);
             }
 
             // Set view

@@ -29,11 +29,6 @@ return [
             'permission' => 'social',
         ],
         [
-            'label'      => _a('oAuth'),
-            'controller' => 'oauth',
-            'permission' => 'oauth',
-        ],
-        [
             'label'      => _a('Cron'),
             'controller' => 'cron',
             'permission' => 'cron',

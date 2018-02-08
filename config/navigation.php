@@ -112,39 +112,6 @@ return [
             ],
         ],
 
-        'oauth' => [
-            'label'      => _a('oAuth'),
-            'permission' => [
-                'resource' => 'oauth',
-            ],
-            'route'      => 'admin',
-            'module'     => 'tools',
-            'controller' => 'oauth',
-            'action'     => 'index',
-            'pages'      => [
-                'oauth' => [
-                    'label'      => _a('Request'),
-                    'permission' => [
-                        'resource' => 'oauth',
-                    ],
-                    'route'      => 'admin',
-                    'module'     => 'tools',
-                    'controller' => 'oauth',
-                    'action'     => 'index',
-                ],
-                'user'  => [
-                    'label'      => _a('User'),
-                    'permission' => [
-                        'resource' => 'oauth',
-                    ],
-                    'route'      => 'admin',
-                    'module'     => 'tools',
-                    'controller' => 'oauth',
-                    'action'     => 'user',
-                ],
-            ],
-        ],
-
         'cron' => [
             'label'      => _a('Cron'),
             'permission' => [

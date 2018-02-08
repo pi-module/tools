@@ -28,11 +28,6 @@ return [
             'access' => [//'admin',
             ],
         ],
-        'oauth'  => [
-            'title'  => _a('oAuth'),
-            'access' => [//'admin',
-            ],
-        ],
         'cron'   => [
             'title'  => _a('Cron'),
             'access' => [//'admin',
