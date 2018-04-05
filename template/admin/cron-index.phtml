@@ -18,7 +18,7 @@ $this->js($this->assetModule('script/system-msg.js', 'system'));
         </div>
         <div class="form-group">
             <label for="cronUrl"><?php _e('Cron Command'); ?></label>
-            <input type="text" class="form-control" id="cronCommand" value="GET <?php echo $this->escape($cronUrl); ?>">
+            <input type="text" class="form-control" id="cronCommand" value="wget <?php echo $this->escape($cronUrl); ?>">
             <p class="help-block"><?php _e('Set cron command on your server and set cron time'); ?></p>
         </div>
         <div class="form-group">
