@@ -32,8 +32,8 @@
     <?php } elseif ($downloadAllow) { ?>
         <div class="clearfix">
             <ul class="list-group-item list-inline">
-                <li><?php echo $file; ?></li>
-                <li>
+                <li class="list-inline-item"><?php echo $file; ?></li>
+                <li class="list-inline-item">
                     <a href="<?php echo Pi::url($this->url('', [
                         'action' => 'download',
                         'type'   => 'csv',
@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <?php if ($checkExcel) { ?>
-                    <li>
+                    <li class="list-inline-item">
                         <a href="<?php echo Pi::url($this->url('', [
                             'action' => 'download',
                             'type'   => 'xlsx',
@@ -65,8 +65,8 @@
                 <?php if (substr($file, 0, 11) === 'user-export') { ?>
                     <?php $fileName = pathinfo($file, PATHINFO_FILENAME); ?>
                     <ul class="list-group-item list-inline">
-                        <li><?php echo $fileName; ?></li>
-                        <li>
+                        <li class="list-inline-item"><?php echo $fileName; ?></li>
+                        <li class="list-inline-item">
                             <a href="<?php echo Pi::url($this->url('', [
                                 'action' => 'download',
                                 'type'   => 'csv',
@@ -76,7 +76,7 @@
                             </a>
                         </li>
                         <?php if ($checkExcel) { ?>
-                            <li>
+                            <li class="list-inline-item">
                                 <a href="<?php echo Pi::url($this->url('', [
                                     'action' => 'download',
                                     'type'   => 'xlsx',
