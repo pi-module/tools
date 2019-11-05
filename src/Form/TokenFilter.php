@@ -25,6 +25,7 @@ class TokenFilter extends InputFilter
             'name'     => 'id',
             'required' => false,
         ]);
+
         // title
         $this->add([
             'name'     => 'title',
@@ -35,6 +36,7 @@ class TokenFilter extends InputFilter
                 ],
             ],
         ]);
+
         // token
         $this->add([
             'name'       => 'token',
@@ -48,16 +50,19 @@ class TokenFilter extends InputFilter
                 new \Module\Tools\Validator\TokenDuplicate,
             ],
         ]);
+
         // use_module
-        $this->add([
+        /* $this->add([
             'name'     => 'use_module',
             'required' => false,
-        ]);
+        ]); */
+
         // use_section
         /* $this->add(array(
             'name' => 'use_section',
             'required' => false,
         )); */
+
         // status
         $this->add([
             'name'     => 'status',

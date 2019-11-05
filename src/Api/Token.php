@@ -45,8 +45,10 @@ class Token extends AbstractApi
         } */
         $select = Pi::model('token', $this->getModule())->select()->where($where)->order($order);
         $rowset = Pi::model('token', $this->getModule())->selectWith($select);
+
         // Get module list
         $modules = Pi::registry('modulelist')->read('active');
+
         // Make list
         foreach ($rowset as $row) {
             /* switch ($row->use_section) {
@@ -70,6 +72,7 @@ class Token extends AbstractApi
                     $section = __('System API');
                     break;
             } */
+
             $list[$row->id]                    = $row->toArray();
             $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
             // $list[$row->id]['use_section_view'] = $section;
@@ -83,6 +86,7 @@ class Token extends AbstractApi
     public function check($token, $module, $section = '')
     {
         $token = Pi::model('token', $this->getModule())->find($token, 'token');
+
         // Check token exist
         if (!$token) {
             return [
@@ -90,6 +94,7 @@ class Token extends AbstractApi
                 'message' => __('Token is not valid !'),
             ];
         }
+
         // Check token active
         if ($token->status != 1) {
             return [
@@ -97,13 +102,15 @@ class Token extends AbstractApi
                 'message' => __('Token is not active !'),
             ];
         }
+
         // Check module and section is set true
-        if ($token->use_module != $module) {
+        /* if ($token->use_module != $module) {
             return [
                 'status'  => 0,
                 'message' => __('This token is not for this part !'),
             ];
-        }
+        } */
+
         // Check module and section is set true
         /* if ($token->use_section != $section) {
             return array(
@@ -111,10 +118,12 @@ class Token extends AbstractApi
                 'message' => __('This token is not for this part !')
             );
         } */
+
         // Update information
         $token->time_used = time();
         $token->used      = $token->used + 1;
         $token->save();
+
         // return result
         return [
             'status'  => 1,

@@ -41,6 +41,7 @@ class TokenForm extends BaseForm
                 'type' => 'hidden',
             ],
         ]);
+
         // title
         $this->add([
             'name'       => 'title',
@@ -53,6 +54,7 @@ class TokenForm extends BaseForm
                 'required'    => true,
             ],
         ]);
+
         // token
         $this->add([
             'name'       => 'token',
@@ -65,8 +67,9 @@ class TokenForm extends BaseForm
                 'required'    => true,
             ],
         ]);
+
         // use_module
-        $moduleList = [];
+        /* $moduleList = [];
         $modules    = Pi::registry('modulelist')->read('active');
         foreach ($modules as $module) {
             $moduleList[$module['name']] = $module['title'];
@@ -78,7 +81,8 @@ class TokenForm extends BaseForm
                 'label'         => __('Module'),
                 'value_options' => $moduleList,
             ],
-        ]);
+        ]); */
+
         // use_section
         /* $this->add(array(
             'name' => 'use_section',
@@ -94,6 +98,7 @@ class TokenForm extends BaseForm
                 ),
             ),
         )); */
+
         // status
         $this->add([
             'name'    => 'status',
@@ -109,6 +114,7 @@ class TokenForm extends BaseForm
                 ],
             ],
         ]);
+
         // Save
         $this->add([
             'name'       => 'submit',
