@@ -10,30 +10,30 @@
                 <th><?php _e('Used'); ?></th>
                 <th><?php _e('Action'); ?></th>
             </tr>
-            <?php foreach ($list as $social) { ?>
-                <?php if ($social['status'] == 1) {
+            <?php foreach ($list as $token) { ?>
+                <?php if ($token['status'] == 1) {
                     $labelIdClass = 'label-success';
-                } elseif ($social['status'] == 5) {
+                } elseif ($token['status'] == 5) {
                     $labelIdClass = 'label-danger';
                 } else {
                     $labelIdClass = 'label-warning';
                 } ?>
                 <tr>
                     <td>
-                        <span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($social['id']); ?></span>
+                        <span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($token['id']); ?></span>
                     </td>
-                    <td><?php echo $this->escape($social['title']); ?></td>
-                    <td><?php echo $this->escape($social['time_used_view']); ?></td>
-                    <td><?php echo $this->escape($social['used_view']); ?></td>
+                    <td><?php echo $this->escape($token['title']); ?></td>
+                    <td><?php echo $this->escape($token['time_used_view']); ?></td>
+                    <td><?php echo $this->escape($token['used_view']); ?></td>
                     <td>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                data-target="#tokenModal<?php echo $this->escape($social['id']); ?>">
+                                data-target="#tokenModal<?php echo $this->escape($token['id']); ?>">
                             <?php _e('View token'); ?>
                         </button>
                         <!-- Modal -->
-                        <div class="modal fade" id="tokenModal<?php echo $this->escape($social['id']); ?>" tabindex="-1"
-                             role="dialog" aria-labelledby="tokenModalLabel<?php echo $this->escape($social['id']); ?>">
+                        <div class="modal fade" id="tokenModal<?php echo $this->escape($token['id']); ?>" tabindex="-1"
+                             role="dialog" aria-labelledby="tokenModalLabel<?php echo $this->escape($token['id']); ?>">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -41,16 +41,16 @@
                                                 aria-label="<?php _e('Close'); ?>"><span
                                                     aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title"
-                                            id="tokenModalLabel<?php echo $this->escape($social['id']); ?>"><?php _e('Token information'); ?></h4>
+                                            id="tokenModalLabel<?php echo $this->escape($token['id']); ?>"><?php _e('Token information'); ?></h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p class="token-view"><?php echo $this->escape($social['token']); ?></p>
+                                        <p class="token-view"><?php echo $this->escape($token['token']); ?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <a class="btn btn-primary btn-sm" title="<?php _e('Edit'); ?>"
-                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $social['id']]); ?>"><i
+                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $token['id']]); ?>"><i
                                     class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
                     </td>
                 </tr>

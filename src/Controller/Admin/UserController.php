@@ -56,16 +56,20 @@ class UserController extends ActionController
             if ($confirm == 1) {
 
                 // Set file
-                Pi::service('audit')->attach('user-export', [
-                    'file'   => Pi::path(sprintf('upload/tools/%s.csv', $file)),
-                    'format' => 'csv',
-                ]);
+                Pi::service('audit')->attach(
+                    'user-export', [
+                        'file'   => Pi::path(sprintf('upload/tools/%s.csv', $file)),
+                        'format' => 'csv',
+                    ]
+                );
 
+                // Set info
                 $order  = ['id ASC'];
                 $where  = ['active' => 1];
                 $limit  = 50;
                 $offset = (int)($page - 1) * $limit;
 
+                // Set user
                 $users = Pi::api('user', 'user')->getList(
                     $where,
                     $limit,
@@ -100,20 +104,25 @@ class UserController extends ActionController
 
                 // Set complete
                 $percent = (100 * $complete) / $count;
+
                 // Set next url
                 if ($complete >= $count) {
                     $nextUrl       = '';
                     $downloadAllow = 1;
                 } else {
-                    $nextUrl       = Pi::url($this->url('', [
-                        'action'   => 'export',
-                        'page'     => $page,
-                        'count'    => $count,
-                        'complete' => $complete,
-                        'confirm'  => $confirm,
-                        'file'     => $file,
+                    $nextUrl       = Pi::url(
+                        $this->url(
+                            '', [
+                                'action'   => 'export',
+                                'page'     => $page,
+                                'count'    => $count,
+                                'complete' => $complete,
+                                'confirm'  => $confirm,
+                                'file'     => $file,
 
-                    ]));
+                            ]
+                        )
+                    );
                     $downloadAllow = 0;
                 }
 
@@ -145,11 +154,11 @@ class UserController extends ActionController
                     }
                     return $filename;
                 };
+
                 // Get file list
                 $fileList = Pi::service('file')->getList($path, $filter);
             }
-            // Check convert to excel
-            $checkExcel = Pi::api('CSVToExcelConverter', 'tools')->check();
+
             // Set view
             $this->view()->setTemplate('user-export');
             $this->view()->assign('config', $config);
@@ -160,7 +169,6 @@ class UserController extends ActionController
             $this->view()->assign('confirm', $confirm);
             $this->view()->assign('fileList', $fileList);
             $this->view()->assign('file', $file);
-            $this->view()->assign('checkExcel', $checkExcel);
         }
     }
 
@@ -172,17 +180,23 @@ class UserController extends ActionController
         } else {
             // Get from url
             $addUser = $this->params('addUser');
+
             // Set file
             $file = Pi::path('upload/tools/user-import.csv');
+
             // Set user array
             $users = [];
+
             // Check file
             if (Pi::service('file')->exists($file)) {
+
                 // Set
                 $message     = sprintf(__('You can import this information from %s'), $file);
                 $countOfUser = 0;
+
                 // Get user meta
                 $meta = Pi::registry('field', 'user')->read();
+
                 // Set file users to array
                 // from : https://secure.php.net/manual/en/function.fgetcsv.php
                 $userData = [];
@@ -199,10 +213,13 @@ class UserController extends ActionController
                     }
                     fclose($handle);
                 }
+
                 // Make user field list
                 $fieldList = array_shift($userData);
+
                 // Make user array and import to DB
                 foreach ($userData as $userId => $userInfo) {
+
                     // Set user values
                     foreach ($userInfo as $key => $field) {
                         if (isset($meta[$fieldList[$key]])) {
@@ -211,8 +228,10 @@ class UserController extends ActionController
                     }
                     $users[$userId]['last_modified'] = time();
                     $users[$userId]['ip_register']   = Pi::user()->getIp();
+
                     // Check allow add user by admin
                     if ($addUser == 'OK') {
+
                         // Check field list
                         $mainFieldList = ['identity', 'credential', 'email', 'first_name', 'last_name', 'mobile'];
                         foreach ($mainFieldList as $mainField) {
@@ -230,10 +249,12 @@ class UserController extends ActionController
 
                         // Add user
                         $uid = Pi::api('user', 'user')->addUser($users[$userId]);
+
                         // Check user add or not
                         if ($uid) {
                             // Set user role
                             Pi::api('user', 'user')->setRole($uid, 'member');
+
                             // Active user
                             $status = Pi::api('user', 'user')->activateUser($uid);
                             if ($status) {
@@ -242,6 +263,7 @@ class UserController extends ActionController
                                 // Update count
                                 $countOfUser++;
                             }
+
                             // Add credit
                             Pi::api('credit', 'order')->addCredit(
                                 $uid,
@@ -278,44 +300,26 @@ class UserController extends ActionController
 
     public function downloadAction()
     {
+        // Get file
         $file = $this->params('file');
-        $type = $this->params('type');
 
-        $csvFile   = $file . '.csv';
-        $csvPath   = Pi::path('upload/tools/') . $csvFile;
-        $excelFile = $file . '.xlsx';
-        $excelPath = Pi::path('upload/tools/') . $excelFile;
-
-        switch ($type) {
-            case 'xlsx':
-                if (Pi::service('file')->exists($csvPath)) {
-                    // Check excel file exist
-                    if (!Pi::service('file')->exists($excelPath)) {
-                        try {
-                            Pi::api('CSVToExcelConverter', 'tools')->convert($csvPath, $excelPath);
-                        } catch (Exception $e) {
-                            echo $e->getMessage();
-                        }
-                    }
-                    $url = sprintf(
-                        '%s?upload/tools/%s',
-                        Pi::url('www/script/download.php'),
-                        $excelFile);
-                }
-                break;
-
-            default:
-            case 'csv':
-                if (Pi::service('file')->exists($csvPath)) {
-                    $url = sprintf(
-                        '%s?upload/tools/%s',
-                        Pi::url('www/script/download.php'),
-                        $csvFile);
-                }
-                break;
-        }
+        // Set file name
+        $csvFile = $file . '.csv';
+        $csvPath = Pi::path('upload/tools/') . $csvFile;
 
         // Set url
-        return $this->redirect()->toUrl($url);
+        if (Pi::service('file')->exists($csvPath)) {
+            $url = sprintf(
+                '%s?upload/tools/%s',
+                Pi::url('www/script/download.php'),
+                $csvFile
+            );
+
+            // Set url
+            return $this->redirect()->toUrl($url);
+        }
+
+        // Set error message
+        return ['message' => __('File not exit !')];
     }
 }

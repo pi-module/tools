@@ -42,17 +42,6 @@
                         <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('CSV version'); ?>
                     </a>
                 </li>
-                <?php if ($checkExcel) { ?>
-                    <li class="list-inline-item">
-                        <a href="<?php echo Pi::url($this->url('', [
-                            'action' => 'download',
-                            'type'   => 'xlsx',
-                            'file'   => $file,
-                        ])); ?>">
-                            <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('Xlsx version'); ?>
-                        </a>
-                    </li>
-                <?php } ?>
             </ul>
         </div>
     <?php } ?>
@@ -75,17 +64,6 @@
                                 <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('CSV version'); ?>
                             </a>
                         </li>
-                        <?php if ($checkExcel) { ?>
-                            <li class="list-inline-item">
-                                <a href="<?php echo Pi::url($this->url('', [
-                                    'action' => 'download',
-                                    'type'   => 'xlsx',
-                                    'file'   => $fileName,
-                                ])); ?>">
-                                    <i class="fa fa-cloud-download" aria-hidden="true"></i> <?php _e('Xlsx version'); ?>
-                                </a>
-                            </li>
-                        <?php } ?>
                     </ul>
                 <?php } ?>
             <?php } ?>
