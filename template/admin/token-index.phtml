@@ -12,15 +12,15 @@
             </tr>
             <?php foreach ($list as $token) { ?>
                 <?php if ($token['status'] == 1) {
-                    $labelIdClass = 'label-success';
+                    $badgeIdClass = 'badge-success';
                 } elseif ($token['status'] == 5) {
-                    $labelIdClass = 'label-danger';
+                    $badgeIdClass = 'badge-danger';
                 } else {
-                    $labelIdClass = 'label-warning';
+                    $badgeIdClass = 'badge-warning';
                 } ?>
                 <tr>
                     <td>
-                        <span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($token['id']); ?></span>
+                        <span class="badge <?php echo $badgeIdClass; ?>"><?php echo $this->escape($token['id']); ?></span>
                     </td>
                     <td><?php echo $this->escape($token['title']); ?></td>
                     <td><?php echo $this->escape($token['time_used_view']); ?></td>

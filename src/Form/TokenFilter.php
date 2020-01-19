@@ -20,41 +20,45 @@ class TokenFilter extends InputFilter
 {
     public function __construct($options = [])
     {
-        // id
-        $this->add([
-            'name'     => 'id',
-            'required' => false,
-        ]);
-
         // title
-        $this->add([
-            'name'     => 'title',
-            'required' => true,
-            'filters'  => [
-                [
-                    'name' => 'StringTrim',
+        $this->add(
+            [
+                'name'     => 'title',
+                'required' => true,
+                'filters'  => [
+                    [
+                        'name' => 'StringTrim',
+                    ],
                 ],
-            ],
-        ]);
+            ]
+        );
 
         // token
-        $this->add([
-            'name'       => 'token',
-            'required'   => true,
-            'filters'    => [
-                [
-                    'name' => 'StringTrim',
+        $this->add(
+            [
+                'name'       => 'token',
+                'required'   => true,
+                'filters'    => [
+                    [
+                        'name' => 'StringTrim',
+                    ],
                 ],
-            ],
-            'validators' => [
-                new \Module\Tools\Validator\TokenDuplicate,
-            ],
-        ]);
+                'validators' => [
+                    new \Module\Tools\Validator\TokenDuplicate(
+                        [
+                            'id' => $options['id'],
+                        ]
+                    ),
+                ],
+            ]
+        );
 
         // status
-        $this->add([
-            'name'     => 'status',
-            'required' => false,
-        ]);
+        $this->add(
+            [
+                'name'     => 'status',
+                'required' => false,
+            ]
+        );
     }
 }

@@ -22,7 +22,17 @@ class TokenDuplicate extends AbstractValidator
     const CHARACTER = 'tokenCharacter';
     const LENGTH    = 'tokenLength';
 
-    public function __construct()
+    /**
+     * @var array
+     */
+    protected $messageTemplates = [];
+
+    protected $options
+        = [
+            'id'
+        ];
+
+    public function __construct($options = null)
     {
         $this->messageTemplates = [
             self::TAKEN     => _a('This token already exists.'),
@@ -30,7 +40,7 @@ class TokenDuplicate extends AbstractValidator
             self::LENGTH    => _a('Token shorter than 64 length'),
         ];
 
-        parent::__construct();
+        parent::__construct($options);
     }
 
     /**
@@ -46,8 +56,8 @@ class TokenDuplicate extends AbstractValidator
 
         if (null !== $value) {
             $where = ['token' => $value];
-            if (!empty($context['id'])) {
-                $where['id <> ?'] = $context['id'];
+            if (!empty($this->options['id'])) {
+                $where['id <> ?'] = $this->options['id'];
             }
             $rowset = Pi::model('tools/token')->select($where);
             if ($rowset->count()) {

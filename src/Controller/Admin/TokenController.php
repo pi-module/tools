@@ -46,19 +46,24 @@ class TokenController extends ActionController
         // Get id
         $id = $this->params('id');
 
+        // Set option
+        $options = [
+            'id' => $id,
+        ];
+
         // Set form
-        $form = new TokenForm('token');
+        $form = new TokenForm('token', $options);
         $form->setAttribute('enctype', 'multipart/form-data');
         if ($this->request->isPost()) {
             $data = $this->request->getPost();
-            $form->setInputFilter(new TokenFilter);
+            $form->setInputFilter(new TokenFilter($options));
             $form->setData($data);
             if ($form->isValid()) {
                 $values = $form->getData();
 
                 // Save values
-                if (!empty($values['id'])) {
-                    $row = $this->getModel('token')->find($values['id']);
+                if (!empty($id)) {
+                    $row = $this->getModel('token')->find($id);
                 } else {
                     $row = $this->getModel('token')->createRow();
                 }
