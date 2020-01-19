@@ -20,6 +20,7 @@ use Zend\Math\Rand;
 /*
  * Pi::api('token', 'tools')->getList();
  * Pi::api('token', 'tools')->generate($length, $charList);
+ * Pi::api('token', 'tools')->add($uid);
  * Pi::api('token', 'tools')->check($token, $checkUser);
  * Pi::api('token', 'tools')->refresh($token, $uid);
  * Pi::api('token', 'tools')->remove($params);
@@ -56,6 +57,30 @@ class Token extends AbstractApi
         return $string;
     }
 
+    public function add($uid)
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+
+        // Generate token
+        $token = $this->generate($uid);
+
+        // Save token
+        $row              = Pi::model('token', $this->getModule())->createRow();
+        $row->uid         = $uid;
+        $row->title       = '';
+        $row->token       = $token;
+        $row->used        = 0;
+        $row->time_create = time();
+        $row->time_used   = 0;
+        $row->time_expire = time() + $config['valid_time'] * 60;
+        $row->status      = 1;
+        $row->save();
+
+        // return token
+        return $token;
+    }
+
     public function check($token, $checkUser = false)
     {
         // Get config
@@ -68,6 +93,7 @@ class Token extends AbstractApi
         if (!$token) {
             return [
                 'status'  => 0,
+                'code'    => 1,
                 'message' => __('Token is not valid !'),
             ];
         }
@@ -76,6 +102,7 @@ class Token extends AbstractApi
         if ($token->status != 1) {
             return [
                 'status'  => 0,
+                'code'    => 2,
                 'message' => __('Token is not active !'),
             ];
         }
@@ -85,12 +112,14 @@ class Token extends AbstractApi
             if ($token->time_expire < time()) {
                 return [
                     'status'  => 0,
+                    'code'    => 3,
                     'message' => __('This token is expire'),
                 ];
             }
         } elseif ($token->uid == 0 && $checkUser) {
             return [
                 'status'  => 0,
+                'code'    => 4,
                 'message' => __('This token not connect for any user'),
             ];
         }
