@@ -68,37 +68,6 @@ class TokenForm extends BaseForm
             ],
         ]);
 
-        // use_module
-        /* $moduleList = [];
-        $modules    = Pi::registry('modulelist')->read('active');
-        foreach ($modules as $module) {
-            $moduleList[$module['name']] = $module['title'];
-        }
-        $this->add([
-            'name'    => 'use_module',
-            'type'    => 'select',
-            'options' => [
-                'label'         => __('Module'),
-                'value_options' => $moduleList,
-            ],
-        ]); */
-
-        // use_section
-        /* $this->add(array(
-            'name' => 'use_section',
-            'type' => 'select',
-            'options' => array(
-                'label' => __('Module section'),
-                'value_options' => array(
-                    'general' => __('General API'),
-                    'api' => __('External API'),
-                    'user' => __('External API for login user'),
-                    'server' => __('Server API'),
-                    'system' => __('System API'),
-                ),
-            ),
-        )); */
-
         // status
         $this->add([
             'name'    => 'status',

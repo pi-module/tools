@@ -18,6 +18,10 @@ return [
             'name'  => 'admin',
         ],
         [
+            'title' => _a('Token'),
+            'name'  => 'token',
+        ],
+        [
             'name'  => 'cron',
             'title' => _t('Cron'),
         ],
@@ -31,6 +35,31 @@ return [
             'edit'        => 'text',
             'filter'      => 'number_int',
             'value'       => 25,
+        ],
+
+        // Token
+        'valid_time'    => [
+            'title'       => _a('User token valid time'),
+            'description' => '',
+            'edit'        => [
+                'type'    => 'select',
+                'options' => [
+                    'options' => [
+                        15    => _a('15 min'),
+                        30    => _a('30 min'),
+                        60    => _a('1 hour'),
+                        360   => _a('6 hours'),
+                        720   => _a('12 hours'),
+                        1440  => _a('1 day'),
+                        10080 => _a('7 days'),
+                        20160 => _a('14 days'),
+                        43200 => _a('30 days'),
+                    ],
+                ],
+            ],
+            'filter'      => 'number_int',
+            'value'       => 15,
+            'category'    => 'token',
         ],
 
         // Cron

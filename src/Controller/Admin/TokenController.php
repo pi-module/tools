@@ -25,39 +25,17 @@ class TokenController extends ActionController
         // Get info
         $list   = [];
         $order  = ['time_create DESC', 'id DESC'];
-        $select = $this->getModel('token')->select()->order($order);
+        $where  = ['uid' => 0, 'status' => 1];
+        $select = $this->getModel('token')->select()->where($where)->order($order);
         $rowset = $this->getModel('token')->selectWith($select);
-        // Get module list
-        $modules = Pi::registry('modulelist')->read('active');
+
         // Make list
         foreach ($rowset as $row) {
-            /* switch ($row->use_section) {
-                case 'general':
-                    $section = __('General API');
-                    break;
-
-                case 'api':
-                    $section = __('External API');
-                    break;
-
-                case 'user':
-                    $section = __('External API for login user');
-                    break;
-
-                case 'server':
-                    $section = __('Server API');
-                    break;
-
-                case 'system':
-                    $section = __('System API');
-                    break;
-            } */
-            $list[$row->id]                    = $row->toArray();
-            $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
-            // $list[$row->id]['use_section_view'] = $section;
+            $list[$row->id]                   = $row->toArray();
             $list[$row->id]['used_view']      = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
         }
+
         // Set view
         $this->view()->setTemplate('token-index');
         $this->view()->assign('list', $list);
@@ -67,6 +45,7 @@ class TokenController extends ActionController
     {
         // Get id
         $id = $this->params('id');
+
         // Set form
         $form = new TokenForm('token');
         $form->setAttribute('enctype', 'multipart/form-data');
@@ -76,6 +55,7 @@ class TokenController extends ActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $values = $form->getData();
+
                 // Save values
                 if (!empty($values['id'])) {
                     $row = $this->getModel('token')->find($values['id']);
@@ -84,6 +64,7 @@ class TokenController extends ActionController
                 }
                 $row->assign($values);
                 $row->save();
+
                 // jump
                 $message = __('Token data saved successfully.');
                 $this->jump(['action' => 'index'], $message);

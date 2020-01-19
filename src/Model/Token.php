@@ -23,13 +23,13 @@ class Token extends Model
     protected $columns
         = [
             'id',
+            'uid',
             'title',
             'token',
             'used',
             'time_create',
             'time_used',
+            'time_expire',
             'status',
-            'use_module',
-            // 'use_section',
         ];
 }

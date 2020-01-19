@@ -79,39 +79,6 @@ return [
             ],
         ],
 
-        'social' => [
-            'label'      => _a('Social'),
-            'permission' => [
-                'resource' => 'social',
-            ],
-            'route'      => 'admin',
-            'module'     => 'tools',
-            'controller' => 'social',
-            'action'     => 'index',
-            'pages'      => [
-                'social' => [
-                    'label'      => _a('Social'),
-                    'permission' => [
-                        'resource' => 'social',
-                    ],
-                    'route'      => 'admin',
-                    'module'     => 'tools',
-                    'controller' => 'social',
-                    'action'     => 'index',
-                ],
-                'update' => [
-                    'label'      => _a('Manage'),
-                    'permission' => [
-                        'resource' => 'social',
-                    ],
-                    'route'      => 'admin',
-                    'module'     => 'tools',
-                    'controller' => 'social',
-                    'action'     => 'update',
-                ],
-            ],
-        ],
-
         'cron' => [
             'label'      => _a('Cron'),
             'permission' => [

@@ -51,18 +51,6 @@ class TokenFilter extends InputFilter
             ],
         ]);
 
-        // use_module
-        /* $this->add([
-            'name'     => 'use_module',
-            'required' => false,
-        ]); */
-
-        // use_section
-        /* $this->add(array(
-            'name' => 'use_section',
-            'required' => false,
-        )); */
-
         // status
         $this->add([
             'name'     => 'status',

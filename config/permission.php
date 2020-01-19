@@ -23,11 +23,6 @@ return [
             'access' => [//'admin',
             ],
         ],
-        'social' => [
-            'title'  => _a('Social'),
-            'access' => [//'admin',
-            ],
-        ],
         'cron'   => [
             'title'  => _a('Cron'),
             'access' => [//'admin',

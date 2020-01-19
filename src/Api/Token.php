@@ -18,64 +18,27 @@ use Pi\Application\Api\AbstractApi;
 use Zend\Math\Rand;
 
 /*
- * Pi::api('token', 'tools')->generate($length, $charlist);
- * Pi::api('token', 'tools')->getList($module);
- * Pi::api('token', 'tools')->check($token, $module, $section);
+ * Pi::api('token', 'tools')->getList();
+ * Pi::api('token', 'tools')->generate($length, $charList);
+ * Pi::api('token', 'tools')->check($token, $checkUser);
+ * Pi::api('token', 'tools')->refresh($token, $uid);
+ * Pi::api('token', 'tools')->remove($params);
  */
 
 class Token extends AbstractApi
 {
-    public function generate($length = 16, $charlist = '')
-    {
-        $length         = ($length > 15) ? $length : 16;
-        $systemCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
-        $charlist       = !empty($charlist) ? $charlist : $systemCharList;
-        $string         = Rand::getString($length, $charlist, true);
-        return $string;
-    }
-
-    public function getList($module, $section = '')
+    public function getList()
     {
         // Get info
-        $list  = [];
-        $order = ['time_create DESC', 'id DESC'];
-        $where = ['use_module' => $module, 'status' => 1];
-        /* if (!empty($section)) {
-            $where['use_section'] = $section;
-        } */
+        $list   = [];
+        $order  = ['time_create DESC', 'id DESC'];
+        $where  = ['uid' => 0, 'status' => 1];
         $select = Pi::model('token', $this->getModule())->select()->where($where)->order($order);
         $rowset = Pi::model('token', $this->getModule())->selectWith($select);
 
-        // Get module list
-        $modules = Pi::registry('modulelist')->read('active');
-
         // Make list
         foreach ($rowset as $row) {
-            /* switch ($row->use_section) {
-                case 'general':
-                    $section = __('General API');
-                    break;
-
-                case 'api':
-                    $section = __('External API');
-                    break;
-
-                case 'user':
-                    $section = __('External API for login user');
-                    break;
-
-                case 'server':
-                    $section = __('Server API');
-                    break;
-
-                case 'system':
-                    $section = __('System API');
-                    break;
-            } */
-
-            $list[$row->id]                    = $row->toArray();
-            $list[$row->id]['use_module_view'] = $modules[$row->use_module]['title'];
-            // $list[$row->id]['use_section_view'] = $section;
+            $list[$row->id]                   = $row->toArray();
             $list[$row->id]['used_view']      = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
         }
@@ -83,8 +46,22 @@ class Token extends AbstractApi
         return $list;
     }
 
-    public function check($token, $module, $section = '')
+    public function generate($uid = 0, $length = 16, $charList = '')
     {
+        $length      = ($length > 15) ? $length : 16;
+        $sysCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
+        $charList    = !empty($charList) ? $charList : $sysCharList;
+        $string      = Rand::getString($length, $charList, true);
+        $string      = ($uid > 0) ? sprintf('user-%s', $string) : $string;
+        return $string;
+    }
+
+    public function check($token, $checkUser = false)
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+
+        // Get token
         $token = Pi::model('token', $this->getModule())->find($token, 'token');
 
         // Check token exist
@@ -103,31 +80,111 @@ class Token extends AbstractApi
             ];
         }
 
-        // Check module and section is set true
-        /* if ($token->use_module != $module) {
+        // Check user
+        if ($token->uid > 0) {
+            if ($token->time_expire < time()) {
+                return [
+                    'status'  => 0,
+                    'message' => __('This token is expire'),
+                ];
+            }
+        } elseif ($token->uid == 0 && $checkUser) {
             return [
                 'status'  => 0,
-                'message' => __('This token is not for this part !'),
+                'message' => __('This token not connect for any user'),
             ];
-        } */
-
-        // Check module and section is set true
-        /* if ($token->use_section != $section) {
-            return array(
-                'status' => 0,
-                'message' => __('This token is not for this part !')
-            );
-        } */
+        }
 
         // Update information
-        $token->time_used = time();
-        $token->used      = $token->used + 1;
+        $token->time_used   = time();
+        $token->used        = $token->used + 1;
+        $token->time_expire = time() + $config['valid_time'] * 60;
+        $token->save();
+
+        // return result
+        return [
+            'status'      => 1,
+            'uid'         => $token->uid,
+            'time_expire' => $token->time_expire,
+            'message'     => __('Token is valid !'),
+        ];
+    }
+
+    public function refresh($token, $uid)
+    {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+
+        // Get token
+        $token = Pi::model('token', $this->getModule())->find($token, 'token');
+
+        // Check token exist
+        if (!$token) {
+            return [
+                'status'  => 0,
+                'code'    => 1,
+                'message' => __('Token is not valid !'),
+            ];
+        }
+
+        // Check token active
+        if ($token->status != 1) {
+            return [
+                'status'  => 0,
+                'code'    => 2,
+                'message' => __('Token is not active !'),
+            ];
+        }
+
+        // Check token exist
+        if ($token->uid != $uid || $uid == 0) {
+            return [
+                'status'  => 0,
+                'code'    => 3,
+                'message' => __('This is not your token !'),
+            ];
+        }
+
+        // Check token exist
+        if ($token->time_expire > time()) {
+            return [
+                'status'  => 0,
+                'code'    => 4,
+                'message' => __('Your token is not expire yet !'),
+            ];
+        }
+
+        // Refresh
+        $token->time_expire = time() + $config['valid_time'] * 60;
         $token->save();
 
         // return result
         return [
             'status'  => 1,
-            'message' => __('Token is valid !'),
+            'message' => __('Token refreshed !'),
         ];
+    }
+
+    public function remove($params)
+    {
+        if (isset($params['uid']) && $params['uid'] > 0) {
+            Pi::model('token', $this->getModule())->delete(
+                [
+                    'uid' => $params['uid'],
+                ]
+            );
+        } elseif (isset($params['token'])) {
+            Pi::model('token', $this->getModule())->delete(
+                [
+                    'token' => $params['token'],
+                ]
+            );
+        } elseif (isset($params['expire_days'])) {
+            Pi::model('token', $this->getModule())->delete(
+                [
+                    'time_expire < ?' => time() - ($params['expire_days'] * 86400),
+                ]
+            );
+        }
     }
 }
