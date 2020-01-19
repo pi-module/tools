@@ -29,7 +29,7 @@ class TokenDuplicate extends AbstractValidator
 
     protected $options
         = [
-            'id'
+            'id',
         ];
 
     public function __construct($options = null)
@@ -46,8 +46,9 @@ class TokenDuplicate extends AbstractValidator
     /**
      * Token validate
      *
-     * @param  mixed $value
-     * @param  array $context
+     * @param mixed $value
+     * @param array $context
+     *
      * @return boolean
      */
     public function isValid($value, $context = null)

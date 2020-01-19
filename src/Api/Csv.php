@@ -48,12 +48,13 @@ class Csv
 
         $data = [];
 
-        if ($max_lines > 0)
+        if ($max_lines > 0) {
             $line_count = 0;
-        else
-            $line_count = -1; // so loop limit is ignored
+        } else {
+            $line_count = -1;
+        } // so loop limit is ignored
 
-        while ($line_count < $max_lines && ($row = fgetcsv($this->fp, $this->length, $this->delimiter)) !== FALSE) {
+        while ($line_count < $max_lines && ($row = fgetcsv($this->fp, $this->length, $this->delimiter)) !== false) {
             if ($this->parse_header) {
                 foreach ($this->header as $i => $heading_i) {
                     $row_new[$heading_i] = $row[$i];
@@ -63,8 +64,9 @@ class Csv
                 $data[] = $row;
             }
 
-            if ($max_lines > 0)
+            if ($max_lines > 0) {
                 $line_count++;
+            }
         }
         return $data;
     }

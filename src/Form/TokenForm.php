@@ -35,54 +35,62 @@ class TokenForm extends BaseForm
     public function init()
     {
         // title
-        $this->add([
-            'name'       => 'title',
-            'options'    => [
-                'label' => __('Title'),
-            ],
-            'attributes' => [
-                'type'        => 'text',
-                'description' => '',
-                'required'    => true,
-            ],
-        ]);
+        $this->add(
+            [
+                'name'       => 'title',
+                'options'    => [
+                    'label' => __('Title'),
+                ],
+                'attributes' => [
+                    'type'        => 'text',
+                    'description' => '',
+                    'required'    => true,
+                ],
+            ]
+        );
 
         // token
-        $this->add([
-            'name'       => 'token',
-            'options'    => [
-                'label' => __('Token'),
-            ],
-            'attributes' => [
-                'type'        => 'text',
-                'description' => '',
-                'required'    => true,
-            ],
-        ]);
+        $this->add(
+            [
+                'name'       => 'token',
+                'options'    => [
+                    'label' => __('Token'),
+                ],
+                'attributes' => [
+                    'type'        => 'text',
+                    'description' => '',
+                    'required'    => true,
+                ],
+            ]
+        );
 
         // status
-        $this->add([
-            'name'    => 'status',
-            'type'    => 'select',
-            'options' => [
-                'label'         => __('Status'),
-                'value_options' => [
-                    1 => __('Published'),
-                    2 => __('Pending review'),
-                    3 => __('Draft'),
-                    4 => __('Private'),
-                    5 => __('Delete'),
+        $this->add(
+            [
+                'name'    => 'status',
+                'type'    => 'select',
+                'options' => [
+                    'label'         => __('Status'),
+                    'value_options' => [
+                        1 => __('Published'),
+                        2 => __('Pending review'),
+                        3 => __('Draft'),
+                        4 => __('Private'),
+                        5 => __('Delete'),
+                    ],
                 ],
-            ],
-        ]);
+            ]
+        );
 
         // Save
-        $this->add([
-            'name'       => 'submit',
-            'type'       => 'submit',
-            'attributes' => [
-                'value' => __('Submit'),
-            ],
-        ]);
+        $this->add(
+            [
+                'name'       => 'submit',
+                'type'       => 'submit',
+                'attributes' => [
+                    'value' => __('Submit'),
+                ],
+            ]
+        );
     }
 }

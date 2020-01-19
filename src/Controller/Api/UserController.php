@@ -295,7 +295,7 @@ class UserController extends ActionController
             $result['error']['message'] = __('Post request not set');
         } else {
             // Get config
-            $config = Pi::user()->config();
+            $config     = Pi::user()->config();
             $configUser = Pi::service('registry')->config->read('user');
 
             // Get from post
@@ -425,7 +425,7 @@ class UserController extends ActionController
                             'result' => true,
                             'data'   => [
                                 'register_activation' => $configUser['register_activation'],
-                                'message' => __('Your account create and activate. please login to system'),
+                                'message'             => __('Your account create and activate. please login to system'),
                             ],
                             'error'  => [],
                         ];
@@ -436,7 +436,7 @@ class UserController extends ActionController
                         'result' => true,
                         'data'   => [
                             'register_activation' => $configUser['register_activation'],
-                            'message' => __('An email with activation link has been sent to you.'),
+                            'message'             => __('An email with activation link has been sent to you.'),
                         ],
                         'error'  => [],
                     ];
@@ -446,7 +446,9 @@ class UserController extends ActionController
                         'result' => true,
                         'data'   => [
                             'register_activation' => $configUser['register_activation'],
-                            'message' => __('You account has been registered successfully. However it needs to be approved by our admins before you can use it.'),
+                            'message'             => __(
+                                'You account has been registered successfully. However it needs to be approved by our admins before you can use it.'
+                            ),
                         ],
                         'error'  => [],
                     ];

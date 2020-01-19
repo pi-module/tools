@@ -25,12 +25,16 @@ class CronController extends ActionController
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Set cron url
-        $cronUrl = Pi::url($this->url('default', [
-            'module'     => 'tools',
-            'controller' => 'cron',
-            'action'     => 'index',
-            'token'      => $config['cron_token'],
-        ]));
+        $cronUrl = Pi::url(
+            $this->url(
+                'default', [
+                'module'     => 'tools',
+                'controller' => 'cron',
+                'action'     => 'index',
+                'token'      => $config['cron_token'],
+            ]
+            )
+        );
         // Set template
         $this->view()->setTemplate('cron-index');
         $this->view()->assign('cronUrl', $cronUrl);

@@ -23,10 +23,14 @@
             <pre><?php print_r($user); ?></pre>
         <?php } ?>
         <p>
-            <a title="<?php _e('Add all users'); ?>" href="<?php echo Pi::url($this->url('', [
-                'action'  => 'import',
-                'addUser' => 'OK',
-            ])); ?>" class="btn btn-primary btn-lg"><?php _e('Add all users'); ?></a>
+            <a title="<?php _e('Add all users'); ?>" href="<?php echo Pi::url(
+                $this->url(
+                    '', [
+                    'action'  => 'import',
+                    'addUser' => 'OK',
+                ]
+                )
+            ); ?>" class="btn btn-primary btn-lg"><?php _e('Add all users'); ?></a>
         </p>
     <?php } ?>
 </div>

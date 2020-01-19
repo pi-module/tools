@@ -1,8 +1,10 @@
 <?php
-$this->css([
-    $this->assetModule('css/admin.css'),
-    $this->assetModule('script/system-ui.css', 'system'),
-]);
+$this->css(
+    [
+        $this->assetModule('css/admin.css'),
+        $this->assetModule('script/system-ui.css', 'system'),
+    ]
+);
 $this->jQuery();
 $this->js($this->assetModule('script/system-msg.js', 'system'));
 ?>
@@ -10,7 +12,10 @@ $this->js($this->assetModule('script/system-msg.js', 'system'));
     <?php if ($cronActive) { ?>
         <div class="alert alert-success" role="alert">
             <p><?php echo _a('Cron system is active, you can inactive it from system configurations'); ?></p>
-            <p><?php echo sprintf(_a('Cron token is <strong>%s</strong> , you can change it from system configurations and Cron log save on <strong>%s/cron.log</strong>'), $cronToken, Pi::path('log')); ?></p>
+            <p><?php echo sprintf(
+                    _a('Cron token is <strong>%s</strong> , you can change it from system configurations and Cron log save on <strong>%s/cron.log</strong>'),
+                    $cronToken, Pi::path('log')
+                ); ?></p>
         </div>
         <div class="form-group">
             <label for="cronUrl"><?php _e('Cron URL'); ?></label>
@@ -27,7 +32,10 @@ $this->js($this->assetModule('script/system-msg.js', 'system'));
     <?php } else { ?>
         <div class="alert alert-danger" role="alert">
             <p><?php echo _a('Cron system is inactive, you can active it from system configurations'); ?></p>
-            <p><?php echo sprintf(_a('Cron token is <strong>%s</strong> , you can change it from system configurations and Cron log save on <strong>%s/cron.log</strong>'), $cronToken, Pi::path('log')); ?></p>
+            <p><?php echo sprintf(
+                    _a('Cron token is <strong>%s</strong> , you can change it from system configurations and Cron log save on <strong>%s/cron.log</strong>'),
+                    $cronToken, Pi::path('log')
+                ); ?></p>
         </div>
     <?php } ?>
 </div>
