@@ -75,6 +75,40 @@ class UserController extends ActionController
         return $result;
     }
 
+    public function refreshAction()
+    {
+        // Set default result
+        $result = [
+            'result' => false,
+            'data'   => [],
+            'error'  => [
+                'code'        => 1,
+                'message'     => __('Nothing selected'),
+                'messageFlag' => false,
+            ],
+        ];
+
+        // Get info from url
+        $token = $this->params('token');
+        $uid   = $this->params('uid');
+
+        // Check token
+        $refresh = Pi::api('token', 'tools')->refresh($token, $uid);
+        if ($refresh['status'] == 1) {
+            $result = [
+                'result' => true,
+                'data'   => $refresh,
+                'error'  => [],
+            ];
+        } else {
+            $result['error']['code']    = $refresh['code'];
+            $result['error']['message'] = $refresh['message'];
+        }
+
+        // Return result
+        return $result;
+    }
+
     public function loginAction()
     {
         // Set default result
@@ -443,7 +477,7 @@ class UserController extends ActionController
         $check = Pi::api('token', 'tools')->check($token, true);
         if ($check['status'] == 1) {
 
-            // ToDo
+            // ToDo : finish it
 
         } else {
             // Set error
