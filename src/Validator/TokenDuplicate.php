@@ -60,8 +60,8 @@ class TokenDuplicate extends AbstractValidator
             if (!empty($this->options['id'])) {
                 $where['id <> ?'] = $this->options['id'];
             }
-            $rowset = Pi::model('tools/token')->select($where);
-            if ($rowset->count()) {
+            $rowSet = Pi::model('tools/token')->select($where);
+            if ($rowSet->count()) {
                 $this->error(static::TAKEN);
                 return false;
             }

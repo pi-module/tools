@@ -27,10 +27,10 @@ class TokenController extends ActionController
         $order  = ['time_create DESC', 'id DESC'];
         $where  = ['uid' => 0, 'status' => 1];
         $select = $this->getModel('token')->select()->where($where)->order($order);
-        $rowset = $this->getModel('token')->selectWith($select);
+        $rowSet = $this->getModel('token')->selectWith($select);
 
         // Make list
-        foreach ($rowset as $row) {
+        foreach ($rowSet as $row) {
             $list[$row->id]                   = $row->toArray();
             $list[$row->id]['used_view']      = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');

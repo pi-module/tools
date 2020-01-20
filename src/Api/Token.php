@@ -35,10 +35,10 @@ class Token extends AbstractApi
         $order  = ['time_create DESC', 'id DESC'];
         $where  = ['uid' => 0, 'status' => 1];
         $select = Pi::model('token', $this->getModule())->select()->where($where)->order($order);
-        $rowset = Pi::model('token', $this->getModule())->selectWith($select);
+        $rowSet = Pi::model('token', $this->getModule())->selectWith($select);
 
         // Make list
-        foreach ($rowset as $row) {
+        foreach ($rowSet as $row) {
             $list[$row->id]                   = $row->toArray();
             $list[$row->id]['used_view']      = _number($row->used);
             $list[$row->id]['time_used_view'] = ($row->time_used > 0) ? _date($row->time_used) : __('Not used yet');
@@ -53,7 +53,7 @@ class Token extends AbstractApi
         $sysCharList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789';
         $charList    = !empty($charList) ? $charList : $sysCharList;
         $string      = Rand::getString($length, $charList, true);
-        $string      = ($uid > 0) ? sprintf('user-%s', $string) : $string;
+        $string      = ($uid > 0) ? sprintf('user-%s-%s', $uid, $string) : $string;
         return $string;
     }
 
@@ -63,7 +63,7 @@ class Token extends AbstractApi
         $config = Pi::service('registry')->config->read($this->getModule());
 
         // Generate token
-        $token = $this->generate($uid);
+        $token = $this->generate($uid, 32);
 
         // Save token
         $row              = Pi::model('token', $this->getModule())->createRow();
