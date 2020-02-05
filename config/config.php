@@ -62,6 +62,15 @@ return [
             'category'    => 'token',
         ],
 
+        'auto_refresh'   => [
+            'category'    => 'token',
+            'title'       => _a('Auto refresh'),
+            'description' => _a('Refresh token in check method if just token time expire'),
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
         // Cron
         'cron_active'   => [
             'category'    => 'cron',

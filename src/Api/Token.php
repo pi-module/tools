@@ -109,7 +109,7 @@ class Token extends AbstractApi
 
         // Check user
         if ($token->uid > 0) {
-            if ($token->time_expire < time()) {
+            if ($token->time_expire < time() && !$config['auto_refresh']) {
                 return [
                     'status'  => 0,
                     'code'    => 3,
