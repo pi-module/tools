@@ -54,14 +54,19 @@ class UserController extends ActionController
             $result = [
                 'result' => true,
                 'data'   => [
-                    'check'    => 1,
-                    'uid'      => $user['id'],
-                    'identity' => $user['identity'],
-                    'email'    => $user['email'],
-                    'name'     => $user['name'],
-                    'avatar'   => Pi::service('user')->avatar($user['id'], 'large', false),
+                    [
+                        'check'    => 1,
+                        'uid'      => $user['id'],
+                        'identity' => $user['identity'],
+                        'email'    => $user['email'],
+                        'name'     => $user['name'],
+                        'avatar'   => Pi::service('user')->avatar($user['id'], 'large', false),
+                    ],
                 ],
-                'error'  => [],
+                'error'  => [
+                    'code'    => 0,
+                    'message' => '',
+                ],
             ];
 
         } else {
@@ -97,8 +102,13 @@ class UserController extends ActionController
         if ($refresh['status'] == 1) {
             $result = [
                 'result' => true,
-                'data'   => $refresh,
-                'error'  => [],
+                'data'   => [
+                    $refresh,
+                ],
+                'error'  => [
+                    'code'    => 0,
+                    'message' => '',
+                ],
             ];
         } else {
             $result['error']['code']    = $refresh['code'];
@@ -141,8 +151,13 @@ class UserController extends ActionController
                 if ($loginResult['status'] == 1) {
                     $result = [
                         'result' => true,
-                        'data'   => $loginResult,
-                        'error'  => [],
+                        'data'   => [
+                            $loginResult,
+                        ],
+                        'error'  => [
+                            'code'    => 0,
+                            'message' => '',
+                        ],
                     ];
                 } else {
                     $result['error']['message'] = $loginResult['message'];
@@ -189,8 +204,15 @@ class UserController extends ActionController
             // Set default result
             $result = [
                 'result' => true,
-                'data'   => [],
-                'error'  => [],
+                'data'   => [
+                    [
+                        'message' => '',
+                    ],
+                ],
+                'error'  => [
+                    'code'    => 0,
+                    'message' => '',
+                ],
             ];
         } else {
             // Set error
@@ -237,29 +259,34 @@ class UserController extends ActionController
                 $result = [
                     'result' => true,
                     'data'   => [
-                        'uid'         => $user['id'],
-                        'identity'    => $user['identity'],
-                        'email'       => $user['email'],
-                        'name'        => $user['name'],
-                        'first_name'  => isset($user['first_name']) ? $user['first_name'] : '',
-                        'last_name'   => isset($user['last_name']) ? $user['last_name'] : '',
-                        'id_number'   => isset($user['id_number']) ? $user['id_number'] : '',
-                        'phone'       => isset($user['phone']) ? $user['phone'] : '',
-                        'mobile'      => isset($user['mobile']) ? $user['mobile'] : '',
-                        'address1'    => isset($user['address1']) ? $user['address1'] : '',
-                        'address2'    => isset($user['address2']) ? $user['address2'] : '',
-                        'country'     => isset($user['country']) ? $user['country'] : '',
-                        'state'       => isset($user['state']) ? $user['state'] : '',
-                        'city'        => isset($user['city']) ? $user['city'] : '',
-                        'zip_code'    => isset($user['zip_code']) ? $user['zip_code'] : '',
-                        'company'     => isset($user['company']) ? $user['company'] : '',
-                        'company_id'  => isset($user['company_id']) ? $user['company_id'] : '',
-                        'company_vat' => isset($user['company_vat']) ? $user['company_vat'] : '',
-                        'latitude'    => isset($user['latitude']) ? $user['latitude'] : '',
-                        'longitude'   => isset($user['longitude']) ? $user['longitude'] : '',
-                        'avatar'      => Pi::service('user')->avatar($user['id'], 'large', false),
+                        [
+                            'uid'         => $user['id'],
+                            'identity'    => $user['identity'],
+                            'email'       => $user['email'],
+                            'name'        => $user['name'],
+                            'first_name'  => isset($user['first_name']) ? $user['first_name'] : '',
+                            'last_name'   => isset($user['last_name']) ? $user['last_name'] : '',
+                            'id_number'   => isset($user['id_number']) ? $user['id_number'] : '',
+                            'phone'       => isset($user['phone']) ? $user['phone'] : '',
+                            'mobile'      => isset($user['mobile']) ? $user['mobile'] : '',
+                            'address1'    => isset($user['address1']) ? $user['address1'] : '',
+                            'address2'    => isset($user['address2']) ? $user['address2'] : '',
+                            'country'     => isset($user['country']) ? $user['country'] : '',
+                            'state'       => isset($user['state']) ? $user['state'] : '',
+                            'city'        => isset($user['city']) ? $user['city'] : '',
+                            'zip_code'    => isset($user['zip_code']) ? $user['zip_code'] : '',
+                            'company'     => isset($user['company']) ? $user['company'] : '',
+                            'company_id'  => isset($user['company_id']) ? $user['company_id'] : '',
+                            'company_vat' => isset($user['company_vat']) ? $user['company_vat'] : '',
+                            'latitude'    => isset($user['latitude']) ? $user['latitude'] : '',
+                            'longitude'   => isset($user['longitude']) ? $user['longitude'] : '',
+                            'avatar'      => Pi::service('user')->avatar($user['id'], 'large', false),
+                        ],
                     ],
-                    'error'  => [],
+                    'error'  => [
+                        'code'    => 0,
+                        'message' => '',
+                    ],
                 ];
             } else {
                 $result['error']['message'] = __('user not fined !');
@@ -424,10 +451,15 @@ class UserController extends ActionController
                         $result = [
                             'result' => true,
                             'data'   => [
-                                'register_activation' => $configUser['register_activation'],
-                                'message'             => __('Your account create and activate. please login to system'),
+                                [
+                                    'register_activation' => $configUser['register_activation'],
+                                    'message'             => __('Your account create and activate. please login to system'),
+                                ],
                             ],
-                            'error'  => [],
+                            'error'  => [
+                                'code'    => 0,
+                                'message' => '',
+                            ],
                         ];
                     }
                 } elseif ($configUser['register_activation'] == 'email') {
@@ -435,22 +467,32 @@ class UserController extends ActionController
                     $result = [
                         'result' => true,
                         'data'   => [
-                            'register_activation' => $configUser['register_activation'],
-                            'message'             => __('An email with activation link has been sent to you.'),
+                            [
+                                'register_activation' => $configUser['register_activation'],
+                                'message'             => __('An email with activation link has been sent to you.'),
+                            ],
                         ],
-                        'error'  => [],
+                        'error'  => [
+                            'code'    => 0,
+                            'message' => '',
+                        ],
                     ];
                 } elseif ($configUser['register_activation'] == 'approval') {
                     // Set result
                     $result = [
                         'result' => true,
                         'data'   => [
-                            'register_activation' => $configUser['register_activation'],
-                            'message'             => __(
-                                'You account has been registered successfully. However it needs to be approved by our admins before you can use it.'
-                            ),
+                            [
+                                'register_activation' => $configUser['register_activation'],
+                                'message'             => __(
+                                    'You account has been registered successfully. However it needs to be approved by our admins before you can use it.'
+                                ),
+                            ],
                         ],
-                        'error'  => [],
+                        'error'  => [
+                            'code'    => 0,
+                            'message' => '',
+                        ],
                     ];
                 }
             }
