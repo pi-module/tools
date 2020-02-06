@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Pi payment module\n"
+"POT-Creation-Date: 2020-01-29 18:42+0330\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Pi\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _a;_t\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: config/config.php:17
+msgid "Admin"
+msgstr ""
+
+#: config/config.php:21 config/navigation.php:17 config/navigation.php:27
+#: config/page.php:17 config/permission.php:17
+msgid "Token"
+msgstr ""
+
+#: config/config.php:26 config/navigation.php:83 config/page.php:27
+#: config/permission.php:27
+msgid "Cron"
+msgstr ""
+
+#: config/config.php:33
+msgid "Perpage"
+msgstr ""
+
+#: config/config.php:42
+msgid "User token valid time"
+msgstr ""
+
+#: config/config.php:48
+msgid "15 min"
+msgstr ""
+
+#: config/config.php:49
+msgid "30 min"
+msgstr ""
+
+#: config/config.php:50
+msgid "1 hour"
+msgstr ""
+
+#: config/config.php:51
+msgid "6 hours"
+msgstr ""
+
+#: config/config.php:52
+msgid "12 hours"
+msgstr ""
+
+#: config/config.php:53
+msgid "1 day"
+msgstr ""
+
+#: config/config.php:54
+msgid "7 days"
+msgstr ""
+
+#: config/config.php:55
+msgid "14 days"
+msgstr ""
+
+#: config/config.php:56
+msgid "30 days"
+msgstr ""
+
+#: config/config.php:68
+msgid "Active cron"
+msgstr ""
+
+#: config/config.php:77
+msgid "Cron token"
+msgstr ""
+
+#: config/module.php:16
+msgid "Tools"
+msgstr ""
+
+#: config/module.php:17
+msgid "Admin tools for pi engine"
+msgstr ""
+
+#: config/navigation.php:37
+msgid "Manage"
+msgstr ""
+
+#: config/navigation.php:50 config/page.php:22 config/permission.php:22
+msgid "User"
+msgstr ""
+
+#: config/navigation.php:60
+msgid "Export"
+msgstr ""
+
+#: config/navigation.php:70
+msgid "Import"
+msgstr ""
+
+#: src/Validator/TokenDuplicate.php:38
+msgid "This token already exists."
+msgstr ""
+
+#: src/Validator/TokenDuplicate.php:39
+msgid "Just [a-zA-Z0-9] supported"
+msgstr ""
+
+#: src/Validator/TokenDuplicate.php:40
+msgid "Token shorter than 64 length"
+msgstr ""
+
+#: template/admin/cron-index.phtml:14
+msgid "Cron system is active, you can inactive it from system configurations"
+msgstr ""
+
+#: template/admin/cron-index.phtml:16 template/admin/cron-index.phtml:36
+#, php-format
+msgid ""
+"Cron token is <strong>%s</strong> , you can change it from system "
+"configurations and Cron log save on <strong>%s/cron.log</strong>"
+msgstr ""
+
+#: template/admin/cron-index.phtml:30
+msgid "Do cron manfully"
+msgstr ""
+
+#: template/admin/cron-index.phtml:34
+msgid "Cron system is inactive, you can active it from system configurations"
+msgstr ""
+
+#: template/admin/token-index.phtml:61
+msgid "You dont have any token yet, please generate new one"
+msgstr ""
