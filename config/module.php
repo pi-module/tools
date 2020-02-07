@@ -15,7 +15,7 @@ return [
     'meta'     => [
         'title'       => _a('Tools'),
         'description' => _a('Admin tools for pi engine'),
-        'version'     => '0.3.1',
+        'version'     => '0.3.2',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',

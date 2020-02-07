@@ -22,6 +22,10 @@ return [
             'name'  => 'token',
         ],
         [
+            'title' => _a('User'),
+            'name'  => 'user',
+        ],
+        [
             'name'  => 'cron',
             'title' => _t('Cron'),
         ],
@@ -69,6 +73,15 @@ return [
             'edit'        => 'checkbox',
             'filter'      => 'number_int',
             'value'       => 0,
+        ],
+
+        // User
+        'fields'              => [
+            'title'       => _a('Fields'),
+            'description' => _a('User fields for login and profile'),
+            'edit'        => 'textarea',
+            'value'       => 'first_name,last_name,id_number,phone,mobile,address1,address2,country,state,city,zip_code',
+            'category'    => 'home',
         ],
 
         // Cron

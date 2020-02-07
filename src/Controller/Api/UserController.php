@@ -119,6 +119,64 @@ class UserController extends ActionController
         return $result;
     }
 
+    public function deviceTokenAction()
+    {
+        // Set default result
+        $result = [
+            'result' => false,
+            'data'   => [],
+            'error'  => [
+                'code'        => 1,
+                'message'     => __('Nothing selected'),
+                'messageFlag' => false,
+            ],
+        ];
+
+        // Get info from url
+        $token = $this->params('token');
+
+        // Check token
+        $check = Pi::api('token', 'tools')->check($token, true);
+        if ($check['status'] == 1) {
+
+            // Get device token
+            $deviceToken = $this->params('device_token');
+
+            // Update device token
+            if (!empty($deviceToken)) {
+                Pi::api('user', 'tools')->updateDeviceToken($check['uid'], $deviceToken);
+
+                $result = [
+                    'result' => true,
+                    'data'   => [
+                        [
+                            'message' => __('Device token updated'),
+                        ]
+                    ],
+                    'error'  => [
+                        'code'    => 0,
+                        'message' => '',
+                    ],
+                ];
+            } else {
+                $result['error'] = [
+                    'code'    => 1,
+                    'message' => __('Device token is empty !'),
+                ];
+            }
+
+        } else {
+            // Set error
+            $result['error'] = [
+                'code'    => $check['code'],
+                'message' => $check['message'],
+            ];
+        }
+
+        // Return result
+        return $result;
+    }
+
     public function loginAction()
     {
         // Set default result
@@ -206,7 +264,7 @@ class UserController extends ActionController
                 'result' => true,
                 'data'   => [
                     [
-                        'message' => '',
+                        'message' => __('You logout successfully !'),
                     ],
                 ],
                 'error'  => [
@@ -245,43 +303,40 @@ class UserController extends ActionController
         $check = Pi::api('token', 'tools')->check($token, true);
         if ($check['status'] == 1) {
 
+            // Get config
+            $configTools = Pi::service('registry')->config->read('tools');
+
+            // Set extra fields
+            $extraFields = explode(',', $configTools['fields']);
+
             // Get user information
-            $fields = [
-                'id', 'identity', 'name', 'email', 'first_name', 'last_name', 'id_number', 'phone', 'mobile', 'address1', 'address2',
-                'country', 'state', 'city', 'zip_code', 'company', 'device_token', 'latitude', 'longitude',
-            ];
+            $fields = ['id', 'identity', 'name', 'email', 'device_token'];
+            $fields = array_unique(array_merge($fields, $extraFields));
 
             // Find user
             $user = Pi::user()->get($check['uid'], $fields);
 
             if ($user && !empty($user)) {
+                // Set user data
+                $data = [
+                    'uid'          => $user['id'],
+                    'identity'     => $user['identity'],
+                    'email'        => $user['email'],
+                    'name'         => $user['name'],
+                    'device_token' => $user['device_token'],
+                    'avatar'       => Pi::service('user')->avatar($user['id'], 'large', false),
+                ];
+
+                // Set extra fields
+                foreach ($extraFields as $extraField) {
+                    $data[$extraField] = isset($user[$extraField]) ? $user[$extraField] : '';
+                }
+
                 // Set default result
                 $result = [
                     'result' => true,
                     'data'   => [
-                        [
-                            'uid'         => $user['id'],
-                            'identity'    => $user['identity'],
-                            'email'       => $user['email'],
-                            'name'        => $user['name'],
-                            'first_name'  => isset($user['first_name']) ? $user['first_name'] : '',
-                            'last_name'   => isset($user['last_name']) ? $user['last_name'] : '',
-                            'id_number'   => isset($user['id_number']) ? $user['id_number'] : '',
-                            'phone'       => isset($user['phone']) ? $user['phone'] : '',
-                            'mobile'      => isset($user['mobile']) ? $user['mobile'] : '',
-                            'address1'    => isset($user['address1']) ? $user['address1'] : '',
-                            'address2'    => isset($user['address2']) ? $user['address2'] : '',
-                            'country'     => isset($user['country']) ? $user['country'] : '',
-                            'state'       => isset($user['state']) ? $user['state'] : '',
-                            'city'        => isset($user['city']) ? $user['city'] : '',
-                            'zip_code'    => isset($user['zip_code']) ? $user['zip_code'] : '',
-                            'company'     => isset($user['company']) ? $user['company'] : '',
-                            'company_id'  => isset($user['company_id']) ? $user['company_id'] : '',
-                            'company_vat' => isset($user['company_vat']) ? $user['company_vat'] : '',
-                            'latitude'    => isset($user['latitude']) ? $user['latitude'] : '',
-                            'longitude'   => isset($user['longitude']) ? $user['longitude'] : '',
-                            'avatar'      => Pi::service('user')->avatar($user['id'], 'large', false),
-                        ],
+                        $data,
                     ],
                     'error'  => [
                         'code'    => 0,
@@ -338,13 +393,21 @@ class UserController extends ActionController
                 }
             }
 
+            // Check request not empty
+            if (empty($values)) {
+                $result['error']['message'] = __('Your request is empty');
+                return $result;
+            }
+
             // Set email as identity if not set on register form
             if (!isset($values['identity']) || empty($values['identity'])) {
                 $values['identity'] = $values['mobile'];
             }
 
+
+
             // Check mobile force set on register form
-            if (isset($values['mobile']) && empty($values['mobile'])) {
+            if (isset($values['mobile']) && !empty($values['mobile'])) {
                 // Set validator
                 $validator = new UserMobileValidator(
                     [
@@ -355,7 +418,7 @@ class UserController extends ActionController
 
                 // Check is valid
                 if (!$validator->isValid($values['mobile'])) {
-                    $result['error'] = $validator->getMessages();
+                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
                     return $result;
                 }
             } else {
@@ -378,7 +441,7 @@ class UserController extends ActionController
 
                 // Check is valid
                 if (!$validator->isValid($values['email'])) {
-                    $result['error'] = $validator->getMessages();
+                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
                     return $result;
                 }
             } else {
@@ -402,7 +465,7 @@ class UserController extends ActionController
 
                 // Check is valid
                 if (!$validator->isValid($values['identity'])) {
-                    $result['error'] = $validator->getMessages();
+                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
                     return $result;
                 }
             } else {
@@ -539,33 +602,19 @@ class UserController extends ActionController
         // Set return array
         $return = [
             'status'       => 0,
-            'check'        => 0,
             'uid'          => 0,
             'token'        => '',
             'message'      => '',
             'identity'     => '',
             'email'        => '',
             'name'         => '',
-            'first_name'   => '',
-            'last_name'    => '',
-            'id_number'    => '',
-            'phone'        => '',
-            'mobile'       => '',
-            'address1'     => '',
-            'address2'     => '',
-            'country'      => '',
-            'state'        => '',
-            'city'         => '',
-            'zip_code'     => '',
-            'company'      => '',
             'device_token' => '',
-            'latitude'     => '',
-            'longitude'    => '',
             'avatar'       => '',
         ];
 
         // Set field
-        $config = Pi::service('registry')->config->read('user');
+        $config      = Pi::service('registry')->config->read('user');
+        $configTools = Pi::service('registry')->config->read('tools');
 
         // try login
         $result = Pi::service('authentication')->authenticate(
@@ -582,39 +631,29 @@ class UserController extends ActionController
             // Bind user information
             if (Pi::service('user')->bind($uid)) {
 
+                // Set extra fields
+                $extraFields = explode(',', $configTools['fields']);
+
                 // Get user information
-                $fields = [
-                    'id', 'identity', 'name', 'email', 'first_name', 'last_name', 'id_number', 'phone', 'mobile', 'address1', 'address2',
-                    'country', 'state', 'city', 'zip_code', 'company', 'device_token', 'latitude', 'longitude',
-                ];
+                $fields = ['id', 'identity', 'name', 'email', 'device_token'];
+                $fields = array_unique(array_merge($fields, $extraFields));
 
                 // Find user
                 $user = Pi::user()->get($uid, $fields);
 
                 // Set return array
-                $return['message']     = __('You have logged in successfully');
-                $return['status']      = 1;
-                $return['check']       = 1;
-                $return['uid']         = $user['id'];
-                $return['identity']    = $user['identity'];
-                $return['email']       = $user['email'];
-                $return['name']        = $user['name'];
-                $return['first_name']  = isset($user['first_name']) ? $user['first_name'] : '';
-                $return['last_name']   = isset($user['last_name']) ? $user['last_name'] : '';
-                $return['id_number']   = isset($user['id_number']) ? $user['id_number'] : '';
-                $return['phone']       = isset($user['phone']) ? $user['phone'] : '';
-                $return['mobile']      = isset($user['mobile']) ? $user['mobile'] : '';
-                $return['address1']    = isset($user['address1']) ? $user['address1'] : '';
-                $return['address2']    = isset($user['address2']) ? $user['address2'] : '';
-                $return['country']     = isset($user['country']) ? $user['country'] : '';
-                $return['state']       = isset($user['state']) ? $user['state'] : '';
-                $return['city']        = isset($user['city']) ? $user['city'] : '';
-                $return['zip_code']    = isset($user['zip_code']) ? $user['zip_code'] : '';
-                $return['company']     = isset($user['company']) ? $user['company'] : '';
-                $return['company_id']  = isset($user['company_id']) ? $user['company_id'] : '';
-                $return['company_vat'] = isset($user['company_vat']) ? $user['company_vat'] : '';
-                $return['latitude']    = isset($user['latitude']) ? $user['latitude'] : '';
-                $return['longitude']   = isset($user['longitude']) ? $user['longitude'] : '';
+                $return['message']      = __('You have logged in successfully');
+                $return['status']       = 1;
+                $return['uid']          = $user['id'];
+                $return['identity']     = $user['identity'];
+                $return['email']        = $user['email'];
+                $return['name']         = $user['name'];
+                $return['device_token'] = $user['device_token'];
+
+                // Set extra fields
+                foreach ($extraFields as $extraField) {
+                    $return[$extraField] = isset($user[$extraField]) ? $user[$extraField] : '';
+                }
 
                 // Get avatar
                 $return['avatar'] = Pi::service('user')->avatar($user['id'], 'large', false);
@@ -623,9 +662,7 @@ class UserController extends ActionController
                 $return['token'] = Pi::api('token', 'tools')->add($uid);
 
                 // Set user login event
-                $params = [
-                    'uid' => $uid,
-                ];
+                $params = ['uid' => $uid];
                 Pi::service('event')->trigger('user_login', $params);
             } else {
                 $return['message'] = __('Bind error');
