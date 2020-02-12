@@ -616,11 +616,13 @@ class UserController extends ActionController
         $config      = Pi::service('registry')->config->read('user');
         $configTools = Pi::service('registry')->config->read('tools');
 
-        // try login
+        // Set authentication
+        // ToDo : Add authentication strategy for API section to remove session
+        Pi::service('authentication')->setStrategy('Local');
         $result = Pi::service('authentication')->authenticate(
             $identity,
             $credential,
-            $config['login_field']
+            array_shift($config['login_field'])
         );
         $result = $this->verifyResult($result);
 
