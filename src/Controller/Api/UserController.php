@@ -151,7 +151,7 @@ class UserController extends ActionController
                     'data'   => [
                         [
                             'message' => __('Device token updated'),
-                        ]
+                        ],
                     ],
                     'error'  => [
                         'code'    => 0,
@@ -404,8 +404,6 @@ class UserController extends ActionController
                 $values['identity'] = $values['mobile'];
             }
 
-
-
             // Check mobile force set on register form
             if (isset($values['mobile']) && !empty($values['mobile'])) {
                 // Set validator
@@ -584,8 +582,106 @@ class UserController extends ActionController
         $check = Pi::api('token', 'tools')->check($token, true);
         if ($check['status'] == 1) {
 
-            // ToDo : finish it
+            // Get config
+            $configUser  = Pi::service('registry')->config->read('user');
+            $configTools = Pi::service('registry')->config->read('tools');
+            $loginField  = array_shift($configUser['login_field']);
 
+            // Set extra fields
+            $extraFields = explode(',', $configTools['fields']);
+
+            // Get user information
+            $fields = ['name', 'email'];
+            $fields = array_unique(array_merge($fields, $extraFields));
+
+            // Get from post
+            $post = $this->request->getPost();
+
+            // Clean params and set value
+            $values = [];
+            foreach ($post as $key => $value) {
+                if (in_array($key, $fields)) {
+                    $values[$key] = _strip($value);
+                }
+            }
+
+            // Check request not empty
+            if (empty($values)) {
+                $result['error']['message'] = __('Your request is empty');
+                return $result;
+            }
+
+            // Check mobile force set on register form
+            if ($loginField != 'identity') {
+                if (isset($values['mobile']) && !empty($values['mobile'])) {
+                    // Set validator
+                    $validator = new UserMobileValidator(
+                        [
+                            'checkFormat' => true,
+                            'checkTaken'  => true,
+                        ]
+                    );
+
+                    // Check is valid
+                    if (!$validator->isValid($values['mobile'])) {
+                        $result['error']['message'] = array_shift(array_values($validator->getMessages()));
+                        return $result;
+                    }
+                }
+            } else {
+                unset($values['mobile']);
+            }
+
+            // Check email force set on register form
+            if ($loginField != 'email') {
+                if (isset($values['email']) && !empty($values['email'])) {
+                    // Set validator
+                    $validator = new UserEmailValidator(
+                        [
+                            'blacklist'         => false,
+                            'check_duplication' => true,
+                            'useMxCheck'        => false,
+                            'useDeepMxCheck'    => false,
+                            'useDomainCheck'    => false,
+                        ]
+                    );
+
+                    // Check is valid
+                    if (!$validator->isValid($values['email'])) {
+                        $result['error']['message'] = array_shift(array_values($validator->getMessages()));
+                        return $result;
+                    }
+                }
+            } else {
+                unset($values['email']);
+            }
+
+            // Set name
+            $values['name']          = $values['first_name'] . ' ' . $values['last_name'];
+            $values['last_modified'] = time();
+
+            // do update
+            $status = Pi::api('user', 'user')->updateUser($check['uid'], $values);
+
+
+            // Check update
+            if ($status == 1) {
+                Pi::service('event')->trigger('user_update', $check['uid']);
+                $result = [
+                    'result' => true,
+                    'data'   => [
+                        [
+                            'message' => __('User data update successful.'),
+                        ],
+                    ],
+                    'error'  => [
+                        'code'    => 0,
+                        'message' => '',
+                    ],
+                ];
+            } else {
+                $result['error']['message'] = __('Error to update user data !');
+            }
         } else {
             // Set error
             $result['error'] = [
