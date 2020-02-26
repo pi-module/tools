@@ -601,7 +601,7 @@ class UserController extends ActionController
             $values = [];
             foreach ($post as $key => $value) {
                 if (in_array($key, $fields)) {
-                    $values[$key] = _strip($value);
+                    $values[$key] = _escape($value);
                 }
             }
 
