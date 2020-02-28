@@ -332,6 +332,12 @@ class UserController extends ActionController
                     $data[$extraField] = isset($user[$extraField]) ? $user[$extraField] : '';
                 }
 
+                // Set notification count
+                if (Pi::service('module')->isActive('message')) {
+                    $data['notification_count']      = Pi::api('api', 'message')->getUnread($user['id'], 'notification');
+                    $data['notification_count_view'] = _number($data['notification_count']);
+                }
+
                 // Set default result
                 $result = [
                     'result' => true,
@@ -594,6 +600,9 @@ class UserController extends ActionController
             $fields = ['name', 'email'];
             $fields = array_unique(array_merge($fields, $extraFields));
 
+            // Find user
+            $user = Pi::user()->get($check['uid'], $fields);
+
             // Get from post
             $post = $this->request->getPost();
 
@@ -611,30 +620,36 @@ class UserController extends ActionController
                 return $result;
             }
 
-            // Check mobile force set on register form
-            if ($loginField != 'identity') {
-                if (isset($values['mobile']) && !empty($values['mobile'])) {
-                    // Set validator
-                    $validator = new UserMobileValidator(
-                        [
-                            'checkFormat' => true,
-                            'checkTaken'  => true,
-                        ]
-                    );
+            switch ($loginField) {
+                case 'identity':
+                    unset($values['identity']);
+                    unset($values['mobile']);
+                    break;
 
-                    // Check is valid
-                    if (!$validator->isValid($values['mobile'])) {
-                        $result['error']['message'] = array_shift(array_values($validator->getMessages()));
-                        return $result;
-                    }
+                case 'email':
+                    unset($values['email']);
+                    break;
+            }
+
+            // Check mobile force set on register form
+            /* if ($loginField != 'identity' && isset($values['mobile']) && !empty($values['mobile'])) {
+                // Set validator
+                $validator = new UserMobileValidator(
+                    [
+                        'checkFormat' => true,
+                        'checkTaken'  => true,
+                    ]
+                );
+
+                // Check is valid
+                if (!$validator->isValid($values['mobile'])) {
+                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
+                    return $result;
                 }
-            } else {
-                unset($values['mobile']);
             }
 
             // Check email force set on register form
-            if ($loginField != 'email') {
-                if (isset($values['email']) && !empty($values['email'])) {
+            if ($loginField != 'email' && isset($values['email']) && !empty($values['email'])) {
                     // Set validator
                     $validator = new UserEmailValidator(
                         [
@@ -652,9 +667,7 @@ class UserController extends ActionController
                         return $result;
                     }
                 }
-            } else {
-                unset($values['email']);
-            }
+            } */
 
             // Set name
             $values['name']          = $values['first_name'] . ' ' . $values['last_name'];
@@ -751,6 +764,12 @@ class UserController extends ActionController
                 // Set extra fields
                 foreach ($extraFields as $extraField) {
                     $return[$extraField] = isset($user[$extraField]) ? $user[$extraField] : '';
+                }
+
+                // Set notification count
+                if (Pi::service('module')->isActive('message')) {
+                    $return['notification_count']      = Pi::api('api', 'message')->getUnread($user['id'], 'notification');
+                    $return['notification_count_view'] = _number($return['notification_count']);
                 }
 
                 // Get avatar
