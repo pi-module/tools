@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2020-01-29 18:42+0330\n"
+"POT-Creation-Date: 2020-02-29 16:18+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -25,60 +25,98 @@ msgstr "مدیریت"
 msgid "Token"
 msgstr "توکن"
 
-#: config/config.php:26 config/navigation.php:83 config/page.php:27
+#: config/config.php:25 config/navigation.php:50 config/page.php:22
+#: config/permission.php:22
+msgid "Custom API"
+msgstr "API های شخصی سازی شده"
+
+#: config/config.php:29 config/navigation.php:103 config/page.php:27
 #: config/permission.php:27
+msgid "User"
+msgstr "کاربر"
+
+#: config/config.php:34 config/navigation.php:136 config/page.php:32
+#: config/permission.php:32
 msgid "Cron"
 msgstr "کرون جان"
 
-#: config/config.php:33
+#: config/config.php:41
 msgid "Perpage"
 msgstr "تعداد در صفحه"
 
-#: config/config.php:42
+#: config/config.php:50
 msgid "User token valid time"
 msgstr "زمان ولید بودن توکن کاربر"
 
-#: config/config.php:48
+#: config/config.php:56
 msgid "15 min"
 msgstr "۱۵ دقیقه"
 
-#: config/config.php:49
+#: config/config.php:57
 msgid "30 min"
 msgstr "۳۰ دقیقه"
 
-#: config/config.php:50
+#: config/config.php:58
 msgid "1 hour"
 msgstr "۱ ساعت"
 
-#: config/config.php:51
+#: config/config.php:59
 msgid "6 hours"
 msgstr "۶ ساعت"
 
-#: config/config.php:52
+#: config/config.php:60
 msgid "12 hours"
 msgstr "۱۲ ساعت"
 
-#: config/config.php:53
+#: config/config.php:61
 msgid "1 day"
 msgstr "۱ روز"
 
-#: config/config.php:54
+#: config/config.php:62
 msgid "7 days"
 msgstr "۷ روز"
 
-#: config/config.php:55
+#: config/config.php:63
 msgid "14 days"
 msgstr "۱۴ روز"
 
-#: config/config.php:56
+#: config/config.php:64
 msgid "30 days"
 msgstr "۳۰ روز"
 
-#: config/config.php:68
+#: config/config.php:75
+msgid "Auto refresh"
+msgstr "رفرش خودکار"
+
+#: config/config.php:76
+msgid "Refresh token in check method if just token time expire"
+msgstr "رفرش کردن توکن در متد و وب سرویس check اگر توکن اکسپایر شده بود"
+
+#: config/config.php:84
+msgid "Custom token type"
+msgstr "نوع توکن برای وب سرویس های شخصی سازی شده"
+
+#: config/config.php:90
+msgid "Support both of user and static tokens"
+msgstr "پشتیبانی از توکن استاتیک و توکن داینامیک کاربر"
+
+#: config/config.php:91
+msgid "Just user token allowed"
+msgstr "فقط توکن داینامیک کاربر مجاز است"
+
+#: config/config.php:102
+msgid "Fields"
+msgstr "فیلد ها"
+
+#: config/config.php:103
+msgid "User fields for login and profile"
+msgstr "فیلد مورد تایید برای ورود و پروفایل"
+
+#: config/config.php:112
 msgid "Active cron"
 msgstr "فعال کردن کرون"
 
-#: config/config.php:77
+#: config/config.php:121
 msgid "Cron token"
 msgstr "توکن کرون"
 
@@ -94,25 +132,46 @@ msgstr "ابزار های مدیریت برای پای انجین"
 msgid "Manage"
 msgstr "مدیریت"
 
-#: config/navigation.php:50 config/page.php:22 config/permission.php:22
-msgid "User"
-msgstr "کاربر"
-
 #: config/navigation.php:60
+msgid "Category"
+msgstr "شاخه"
+
+#: config/navigation.php:70
+msgid "Manage category"
+msgstr "مدیریت شاخه ها"
+
+#: config/navigation.php:80
+msgid "Item"
+msgstr "آیتم"
+
+#: config/navigation.php:90
+msgid "Manage item"
+msgstr "مدیریت آیتم ها"
+
+#: config/navigation.php:113
 msgid "Export"
 msgstr "خروجی از اطلاعات"
 
-#: config/navigation.php:70
+#: config/navigation.php:123
 msgid "Import"
 msgstr "ورود اطلاعات"
+
+#: src/Validator/KeyDuplicate.php:37
+msgid "This key already exists."
+msgstr "این کلید قبلا گرفته شده است."
+
+#: src/Validator/KeyDuplicate.php:38 src/Validator/SlugDuplicate.php:38
+#: src/Validator/TokenDuplicate.php:39
+msgid "Just [a-zA-Z0-9] supported"
+msgstr "فقط مقدار های [a-zA-Z0-9] مجاز است"
+
+#: src/Validator/SlugDuplicate.php:37
+msgid "This slug already exists."
+msgstr "این اسلاگ قبلا گرفته شده است."
 
 #: src/Validator/TokenDuplicate.php:38
 msgid "This token already exists."
 msgstr "این توکن قبلا گرفته شده است."
-
-#: src/Validator/TokenDuplicate.php:39
-msgid "Just [a-zA-Z0-9] supported"
-msgstr "فقط مقدار های [a-zA-Z0-9] مجاز است"
 
 #: src/Validator/TokenDuplicate.php:40
 msgid "Token shorter than 64 length"
@@ -121,6 +180,7 @@ msgstr "توکن از ۶۴ کارکتر کمتر است"
 #: template/admin/cron-index.phtml:14
 msgid "Cron system is active, you can inactive it from system configurations"
 msgstr ""
+"سیستم کرون فعال است، شما می توانید از بخش تنظیمات ماژول آن را غیر فعال کنید"
 
 #: template/admin/cron-index.phtml:16 template/admin/cron-index.phtml:36
 #, php-format
@@ -128,15 +188,25 @@ msgid ""
 "Cron token is <strong>%s</strong> , you can change it from system "
 "configurations and Cron log save on <strong>%s/cron.log</strong>"
 msgstr ""
+"توکن کورون <strong>%s</strong> می باشد. شما می توانید از تنظیمات سیستم آن را "
+"غیر فعال کنید و لاگ کرون در مسیر <strong>%s/cron.log</strong> ذخیره می شود"
 
 #: template/admin/cron-index.phtml:30
 msgid "Do cron manfully"
-msgstr ""
+msgstr "اجرای کرون به صورت دستی"
 
 #: template/admin/cron-index.phtml:34
 msgid "Cron system is inactive, you can active it from system configurations"
-msgstr ""
+msgstr "سیستم کرون غیر فعال است، می توانید آن را از بخش تنظیمات فعال کنید"
 
-#: template/admin/token-index.phtml:61
+#: template/admin/custom-category.phtml:42
+msgid "You dont have any category yet, please generate new one"
+msgstr "شما هنوز شاخه ای ندارید. لطفا یک شاخه ایجاد کنید"
+
+#: template/admin/custom-item.phtml:41
+msgid "You dont have any item yet, please generate new one"
+msgstr "شما هنوز آیتم ای ندارید. لطفا یک آیتم ایجاد کنید"
+
+#: template/admin/token-index.phtml:62
 msgid "You dont have any token yet, please generate new one"
 msgstr "شما هنوز توکن ای ندارید. لطفا یک توکن ایجاد کنید"

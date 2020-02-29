@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2020-01-29 18:44+0330\n"
+"POT-Creation-Date: 2020-02-29 16:18+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -9,259 +9,340 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: src/Api/Custom.php:39
+msgid "Selected category does not exist !"
+msgstr "شاخه انتخاب شده وجود ندارد !"
+
+#: src/Api/Custom.php:50
+msgid "Category not active"
+msgstr "شاخه فعال نیست"
+
 #: src/Api/Token.php:44 src/Controller/Admin/TokenController.php:36
 msgid "Not used yet"
-msgstr ""
+msgstr "استفاده نشده است"
 
 #: src/Api/Token.php:97 src/Api/Token.php:155
 msgid "Token is not valid !"
-msgstr ""
+msgstr "توکن صحیح نیست !"
 
 #: src/Api/Token.php:106 src/Api/Token.php:164
 msgid "Token is not active !"
-msgstr ""
+msgstr "توکن فعال نیست !"
 
 #: src/Api/Token.php:116
 msgid "This token is expire"
-msgstr ""
+msgstr "توکن باطل شده است"
 
 #: src/Api/Token.php:123
 msgid "This token not connect for any user"
-msgstr ""
+msgstr "این توکن متعلق به هیچ کاربری نیست"
 
 #: src/Api/Token.php:138
 msgid "Token is valid !"
-msgstr ""
+msgstr "توکن صحیح است !"
 
 #: src/Api/Token.php:173
 msgid "This is not your token !"
-msgstr ""
+msgstr "این توکن متعلق به شما نیست !"
 
 #: src/Api/Token.php:182
 msgid "Your token is not expire yet !"
-msgstr ""
+msgstr "این توکن هنوز اکسپایر نشده است !"
 
 #: src/Api/Token.php:193
 msgid "Token refreshed !"
-msgstr ""
+msgstr "توکن رفرش شد !"
+
+#: src/Controller/Admin/CustomController.php:73
+msgid "Category data saved successfully."
+msgstr "اطلاعات شاخه با موفقیت ذخیره شد."
+
+#: src/Controller/Admin/CustomController.php:86
+msgid "Manage category"
+msgstr "مدیریت شاخه"
+
+#: src/Controller/Admin/CustomController.php:137
+msgid "Item data saved successfully."
+msgstr "اطلاعات آیتم با موفقیت ذخیره شد."
+
+#: src/Controller/Admin/CustomController.php:150
+msgid "Manage item"
+msgstr "مدیریت آیتم"
 
 #: src/Controller/Admin/TokenController.php:74
 msgid "Token data saved successfully."
-msgstr ""
+msgstr "اطلاعات توکن با موفقیت ذخیره شد."
 
-#: src/Controller/Admin/TokenController.php:89
+#: src/Controller/Admin/TokenController.php:90
 msgid "Manage token"
-msgstr ""
+msgstr "مدیریت توکن"
 
 #: src/Controller/Admin/UserController.php:194
 #, php-format
 msgid "You can import this information from %s"
-msgstr ""
+msgstr "شما می توانید این اطلاعات را از %s وارد نمایید"
 
 #: src/Controller/Admin/UserController.php:240
 #, php-format
 msgid "%s field not set"
-msgstr ""
+msgstr "فیلد %s تنظیم نشده است"
 
 #: src/Controller/Admin/UserController.php:273
 #: src/Controller/Admin/UserController.php:274
 msgid "Add first credit"
-msgstr ""
+msgstr "ثبت اعتبار اولیه"
 
 #: src/Controller/Admin/UserController.php:283
 #, php-format
 msgid "%s user added"
-msgstr ""
+msgstr "تعداد %s کاربر درج شد"
 
 #: src/Controller/Admin/UserController.php:285
 msgid "No user added !"
-msgstr ""
+msgstr "هیچ کاربری درج نشد !"
 
 #: src/Controller/Admin/UserController.php:289
 #, php-format
 msgid "user-import.csv not exist on %s"
-msgstr ""
+msgstr "فایل user-import.csv در مسیر %s موجود نیست"
 
 #: src/Controller/Admin/UserController.php:323
 msgid "File not exit !"
-msgstr ""
+msgstr "فعال موجود نیست !"
 
 #: src/Controller/Api/CronController.php:30
+#: src/Controller/Api/CustomController.php:32
 #: src/Controller/Api/UserController.php:32
-#: src/Controller/Api/UserController.php:86
-#: src/Controller/Api/UserController.php:120
-#: src/Controller/Api/UserController.php:166
-#: src/Controller/Api/UserController.php:214
-#: src/Controller/Api/UserController.php:288
-#: src/Controller/Api/UserController.php:470
+#: src/Controller/Api/UserController.php:91
+#: src/Controller/Api/UserController.php:130
+#: src/Controller/Api/UserController.php:188
+#: src/Controller/Api/UserController.php:239
+#: src/Controller/Api/UserController.php:297
+#: src/Controller/Api/UserController.php:379
+#: src/Controller/Api/UserController.php:582
 msgid "Nothing selected"
-msgstr ""
+msgstr "چیزی انتخاب نشده است"
 
-#: src/Controller/Api/UserController.php:127
-#: src/Controller/Api/UserController.php:295
+#: src/Controller/Api/UserController.php:153
+msgid "Device token updated"
+msgstr "توکن دستگاه ( device token ) به روز شد"
+
+#: src/Controller/Api/UserController.php:164
+msgid "Device token is empty !"
+msgstr "توکن دستگاه ( device token ) خالی است !"
+
+#: src/Controller/Api/UserController.php:195
+#: src/Controller/Api/UserController.php:386
 msgid "Post request not set"
-msgstr ""
+msgstr "اطلاعات به فرمت POST ارسال نشده است"
 
-#: src/Controller/Api/UserController.php:151
+#: src/Controller/Api/UserController.php:224
 msgid "Identity or credential not set"
-msgstr ""
+msgstr "پارامتر های ورود کاربر تنظیم نشده است"
 
-#: src/Controller/Api/UserController.php:265
+#: src/Controller/Api/UserController.php:270
+msgid "You logout successfully !"
+msgstr "با موفقیت از سیستم خارج شدید !"
+
+#: src/Controller/Api/UserController.php:356
 msgid "user not fined !"
-msgstr ""
+msgstr "کاربر یافت نشد !"
 
-#: src/Controller/Api/UserController.php:335
+#: src/Controller/Api/UserController.php:407
+#: src/Controller/Api/UserController.php:622
+msgid "Your request is empty"
+msgstr "درخواست شما خالی است"
+
+#: src/Controller/Api/UserController.php:432
 msgid "Mobile can not be empty !"
-msgstr ""
+msgstr "شماره موبایل نمی تواند خالی باشد !"
 
-#: src/Controller/Api/UserController.php:358
+#: src/Controller/Api/UserController.php:455
 msgid "Email can not be empty !"
-msgstr ""
+msgstr "آدرس ایمیل نمی تواند خالی باشد !"
 
-#: src/Controller/Api/UserController.php:382
+#: src/Controller/Api/UserController.php:479
 msgid "Identity can not be empty !"
-msgstr ""
+msgstr "نام کاربری نمی تواند خالی باشد !"
 
-#: src/Controller/Api/UserController.php:403
+#: src/Controller/Api/UserController.php:500
 msgid "This identity is taken before by another user"
-msgstr ""
+msgstr "این نام کاربری قبلا توسط کاربر دیگری گرفته شده است"
 
-#: src/Controller/Api/UserController.php:410
+#: src/Controller/Api/UserController.php:507
 msgid "User account was not saved."
-msgstr ""
+msgstr "حساب کاربری ذخیره نشد."
 
-#: src/Controller/Api/UserController.php:428
+#: src/Controller/Api/UserController.php:526
 msgid "Your account create and activate. please login to system"
-msgstr ""
+msgstr "حساب کاربری شما ایجاد و فعال شد. لطفا به سیستم وارد شوید"
 
-#: src/Controller/Api/UserController.php:439
+#: src/Controller/Api/UserController.php:542
 msgid "An email with activation link has been sent to you."
-msgstr ""
+msgstr "ایمیل فعال سازی حساب کاربری برای شما ارسال شد."
 
-#: src/Controller/Api/UserController.php:450
+#: src/Controller/Api/UserController.php:558
 msgid ""
 "You account has been registered successfully. However it needs to be "
 "approved by our admins before you can use it."
 msgstr ""
+"حساب کاربری شما با موفقیت ثبت شد. اما برای فعال سازی به بررسی و تایید مدیر "
+"سیستم نیاز دارد و بعد از آن می توانید از حساب کاربری خود استفاده کنید."
 
-#: src/Controller/Api/UserController.php:553
+#: src/Controller/Api/UserController.php:690
+msgid "User data update successful."
+msgstr "اطلاعات کاربر با موفقیت به روز شد."
+
+#: src/Controller/Api/UserController.php:699
+msgid "Error to update user data !"
+msgstr "خطا رد به روز رسانی اطلاعات کاربر !"
+
+#: src/Controller/Api/UserController.php:759
 msgid "You have logged in successfully"
-msgstr ""
+msgstr "با موفقیت به سیستم وارد شدید"
 
-#: src/Controller/Api/UserController.php:589
+#: src/Controller/Api/UserController.php:788
 msgid "Bind error"
-msgstr ""
+msgstr "خطا در تایید"
 
-#: src/Controller/Api/UserController.php:592
+#: src/Controller/Api/UserController.php:791
 msgid "Authentication is not valid"
-msgstr ""
+msgstr "نام کاربری یا واژه رمز شما صحیح نیست"
 
-#: src/Form/TokenForm.php:42 template/admin/token-index.phtml:8
+#: src/Form/CategoryForm.php:42 src/Form/ItemForm.php:57
+#: src/Form/TokenForm.php:42 template/admin/custom-category.phtml:8
+#: template/admin/custom-item.phtml:8 template/admin/token-index.phtml:8
 msgid "Title"
-msgstr ""
+msgstr "عنوان"
+
+#: src/Form/CategoryForm.php:57 template/admin/custom-category.phtml:9
+msgid "Slug"
+msgstr "اسلاگ"
+
+#: src/Form/CategoryForm.php:72 src/Form/ItemForm.php:102
+#: src/Form/TokenForm.php:72
+msgid "Status"
+msgstr "وضعیت"
+
+#: src/Form/CategoryForm.php:74 src/Form/ItemForm.php:104
+#: src/Form/TokenForm.php:74
+msgid "Activate"
+msgstr "فعال"
+
+#: src/Form/CategoryForm.php:75 src/Form/ItemForm.php:105
+#: src/Form/TokenForm.php:75
+msgid "Deactivate"
+msgstr "غیر فعال"
+
+#: src/Form/CategoryForm.php:92 src/Form/ItemForm.php:123
+#: src/Form/TokenForm.php:92
+msgid "Submit"
+msgstr "ارسال"
+
+#: src/Form/ItemForm.php:43 template/admin/custom-item.phtml:9
+msgid "Category"
+msgstr "شاخه"
+
+#: src/Form/ItemForm.php:72 template/admin/custom-item.phtml:10
+msgid "Key"
+msgstr "کلید"
+
+#: src/Form/ItemForm.php:87 template/admin/custom-item.phtml:11
+msgid "Value"
+msgstr "مقدار"
 
 #: src/Form/TokenForm.php:57
 msgid "Token"
-msgstr ""
-
-#: src/Form/TokenForm.php:73
-msgid "Status"
-msgstr ""
-
-#: src/Form/TokenForm.php:75
-msgid "Published"
-msgstr ""
-
-#: src/Form/TokenForm.php:76
-msgid "Pending review"
-msgstr ""
-
-#: src/Form/TokenForm.php:77
-msgid "Draft"
-msgstr ""
-
-#: src/Form/TokenForm.php:78
-msgid "Private"
-msgstr ""
-
-#: src/Form/TokenForm.php:79
-msgid "Delete"
-msgstr ""
-
-#: src/Form/TokenForm.php:91
-msgid "Submit"
-msgstr ""
+msgstr "توکن"
 
 #: src/Validator/Mobile.php:42
 msgid "Mobile number should be like 09121234567"
-msgstr ""
+msgstr "شماره موبایل باید به فرمت 09121234567 باشد"
 
 #: src/Validator/Mobile.php:43
 msgid "This mobile number taken before"
-msgstr ""
+msgstr "این شماره موبایل قبلا گرفته شده است"
 
 #: template/admin/cron-index.phtml:21
 msgid "Cron URL"
-msgstr ""
+msgstr "آدرس کرون"
 
 #: template/admin/cron-index.phtml:25
 msgid "Cron Command"
-msgstr ""
+msgstr "کامند کرون"
 
 #: template/admin/cron-index.phtml:27
 msgid "Set cron command on your server and set cron time"
-msgstr ""
+msgstr "کامند کرون جاب را بر یور سرور خود درج کرده و زمان آن را تنظیم نمایید"
 
 #: template/admin/cron-index.phtml:45
 msgid "Are you sure to do cron manually?"
-msgstr ""
+msgstr "آیا اطمینان دارید که می خواهید کرون را به صورت دستی اجرا کنید؟"
 
 #: template/admin/cron-index.phtml:46
 msgid "manual cron in process"
-msgstr ""
+msgstr "در حال اجرای کرون دستی"
+
+#: template/admin/custom-category.phtml:4
+msgid "List of categories"
+msgstr "فهرست شاخه ها"
+
+#: template/admin/custom-category.phtml:7 template/admin/custom-item.phtml:7
+#: template/admin/token-index.phtml:7
+msgid "ID"
+msgstr "شناسه"
+
+#: template/admin/custom-category.phtml:10 template/admin/custom-item.phtml:12
+#: template/admin/token-index.phtml:11
+msgid "Action"
+msgstr "عملکرد"
+
+#: template/admin/custom-category.phtml:27
+#: template/admin/custom-category.phtml:29
+msgid "View"
+msgstr "مشاهده"
+
+#: template/admin/custom-category.phtml:32
+#: template/admin/custom-category.phtml:34 template/admin/custom-item.phtml:31
+#: template/admin/custom-item.phtml:33 template/admin/token-index.phtml:52
+#: template/admin/token-index.phtml:54
+msgid "Edit"
+msgstr "ویرایش"
+
+#: template/admin/custom-item.phtml:4
+msgid "List of items"
+msgstr "فهرست آیتم ها"
 
 #: template/admin/token-index.phtml:4
 msgid "List of tokens"
-msgstr ""
-
-#: template/admin/token-index.phtml:7
-msgid "ID"
-msgstr ""
+msgstr "فهرست توکن ها"
 
 #: template/admin/token-index.phtml:9
 msgid "Last usd time"
-msgstr ""
+msgstr "آخرین زمان استفاده شده"
 
 #: template/admin/token-index.phtml:10
 msgid "Used"
-msgstr ""
-
-#: template/admin/token-index.phtml:11
-msgid "Action"
-msgstr ""
+msgstr "تعداد دفعات استفاده"
 
 #: template/admin/token-index.phtml:32
 msgid "View token"
-msgstr ""
+msgstr "مشاهده توکن"
 
 #: template/admin/token-index.phtml:41
 msgid "Close"
-msgstr ""
+msgstr "بستن"
 
 #: template/admin/token-index.phtml:44
 msgid "Token information"
-msgstr ""
-
-#: template/admin/token-index.phtml:52 template/admin/token-index.phtml:54
-msgid "Edit"
-msgstr ""
+msgstr "اطلاعات توکن"
 
 #: template/admin/user-export.phtml:8
 msgid ""
@@ -269,39 +350,52 @@ msgid ""
 "wait to generate file possess completed, after that you can download list of "
 "users as csv file"
 msgstr ""
+"برای ساخت فایل csv جدید از کاربران وب سایت، لطفا بر روی دکمه خروجی کلید کرده "
+"و تا پایان عملیات ساخت خروجی منتظر بمانید، بعد از آن می توانید فایل خروجی را "
+"در قالب csv دانلود کنید. یادتان باشد بعد از گرفتن خروجی، فایل مربوطه را از "
+"روی سرور حذف نمایید"
 
 #: template/admin/user-export.phtml:12 template/admin/user-export.phtml:20
 msgid "Export users"
-msgstr ""
+msgstr "گرفتن خروجی"
 
 #: template/admin/user-export.phtml:52 template/admin/user-export.phtml:78
 msgid "CSV version"
-msgstr ""
+msgstr "نسخه CSV"
 
 #: template/admin/user-export.phtml:60
 msgid "List of old exported files"
-msgstr ""
+msgstr "فهرست خروجی های قبلی"
 
 #: template/admin/user-import.phtml:6
 msgid ""
 "Download this example file and put your user information on it upload on "
 "server and import user on DB"
 msgstr ""
+"فایل نمونه را دریافت کرده و اطلاعات کاربر را مطابق با آن تکمیل و در آن درج "
+"کنید و بر روی سرور بر روی مسیر مشخص شده بارگزاری نمایید، سپس می تواند "
+"اطلاعات کاربران را در سیستم درج کنید. یادتان باشد بعد از پایان عملیات فایل "
+"مربوطه را از روی سرور حذف نمایید"
 
 #: template/admin/user-import.phtml:9 template/admin/user-import.phtml:12
 msgid "Example"
-msgstr ""
+msgstr "مثال"
 
 #: template/admin/user-import.phtml:21
 msgid "List of users on csv file"
-msgstr ""
+msgstr "فهرست کاربران موجود رد فایل CSV"
 
 #: template/admin/user-import.phtml:26 template/admin/user-import.phtml:33
 msgid "Add all users"
-msgstr ""
+msgstr "درج تمام کاربران"
 
 #: template/admin/user-install.phtml:4
 msgid ""
 "User module not installed, first please install user module after that you "
 "can use this part."
 msgstr ""
+"ماژول کاربر نصب نشده است، لطفا ابتدا ماژول کاربر را نصب کنید، سپس به این بخش "
+"مراجعه نمایید."
+
+#~ msgid "slug"
+#~ msgstr "اسلاگ"

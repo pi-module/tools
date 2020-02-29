@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2020-01-29 18:42+0330\n"
+"POT-Creation-Date: 2020-02-29 16:18+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -25,60 +25,98 @@ msgstr ""
 msgid "Token"
 msgstr ""
 
-#: config/config.php:26 config/navigation.php:83 config/page.php:27
+#: config/config.php:25 config/navigation.php:50 config/page.php:22
+#: config/permission.php:22
+msgid "Custom API"
+msgstr ""
+
+#: config/config.php:29 config/navigation.php:103 config/page.php:27
 #: config/permission.php:27
+msgid "User"
+msgstr ""
+
+#: config/config.php:34 config/navigation.php:136 config/page.php:32
+#: config/permission.php:32
 msgid "Cron"
 msgstr ""
 
-#: config/config.php:33
+#: config/config.php:41
 msgid "Perpage"
 msgstr ""
 
-#: config/config.php:42
+#: config/config.php:50
 msgid "User token valid time"
 msgstr ""
 
-#: config/config.php:48
+#: config/config.php:56
 msgid "15 min"
 msgstr ""
 
-#: config/config.php:49
+#: config/config.php:57
 msgid "30 min"
 msgstr ""
 
-#: config/config.php:50
+#: config/config.php:58
 msgid "1 hour"
 msgstr ""
 
-#: config/config.php:51
+#: config/config.php:59
 msgid "6 hours"
 msgstr ""
 
-#: config/config.php:52
+#: config/config.php:60
 msgid "12 hours"
 msgstr ""
 
-#: config/config.php:53
+#: config/config.php:61
 msgid "1 day"
 msgstr ""
 
-#: config/config.php:54
+#: config/config.php:62
 msgid "7 days"
 msgstr ""
 
-#: config/config.php:55
+#: config/config.php:63
 msgid "14 days"
 msgstr ""
 
-#: config/config.php:56
+#: config/config.php:64
 msgid "30 days"
 msgstr ""
 
-#: config/config.php:68
+#: config/config.php:75
+msgid "Auto refresh"
+msgstr ""
+
+#: config/config.php:76
+msgid "Refresh token in check method if just token time expire"
+msgstr ""
+
+#: config/config.php:84
+msgid "Custom token type"
+msgstr ""
+
+#: config/config.php:90
+msgid "Support both of user and static tokens"
+msgstr ""
+
+#: config/config.php:91
+msgid "Just user token allowed"
+msgstr ""
+
+#: config/config.php:102
+msgid "Fields"
+msgstr ""
+
+#: config/config.php:103
+msgid "User fields for login and profile"
+msgstr ""
+
+#: config/config.php:112
 msgid "Active cron"
 msgstr ""
 
-#: config/config.php:77
+#: config/config.php:121
 msgid "Cron token"
 msgstr ""
 
@@ -94,24 +132,45 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: config/navigation.php:50 config/page.php:22 config/permission.php:22
-msgid "User"
-msgstr ""
-
 #: config/navigation.php:60
-msgid "Export"
+msgid "Category"
 msgstr ""
 
 #: config/navigation.php:70
+msgid "Manage category"
+msgstr ""
+
+#: config/navigation.php:80
+msgid "Item"
+msgstr ""
+
+#: config/navigation.php:90
+msgid "Manage item"
+msgstr ""
+
+#: config/navigation.php:113
+msgid "Export"
+msgstr ""
+
+#: config/navigation.php:123
 msgid "Import"
+msgstr ""
+
+#: src/Validator/KeyDuplicate.php:37
+msgid "This key already exists."
+msgstr ""
+
+#: src/Validator/KeyDuplicate.php:38 src/Validator/SlugDuplicate.php:38
+#: src/Validator/TokenDuplicate.php:39
+msgid "Just [a-zA-Z0-9] supported"
+msgstr ""
+
+#: src/Validator/SlugDuplicate.php:37
+msgid "This slug already exists."
 msgstr ""
 
 #: src/Validator/TokenDuplicate.php:38
 msgid "This token already exists."
-msgstr ""
-
-#: src/Validator/TokenDuplicate.php:39
-msgid "Just [a-zA-Z0-9] supported"
 msgstr ""
 
 #: src/Validator/TokenDuplicate.php:40
@@ -137,6 +196,14 @@ msgstr ""
 msgid "Cron system is inactive, you can active it from system configurations"
 msgstr ""
 
-#: template/admin/token-index.phtml:61
+#: template/admin/custom-category.phtml:42
+msgid "You dont have any category yet, please generate new one"
+msgstr ""
+
+#: template/admin/custom-item.phtml:41
+msgid "You dont have any item yet, please generate new one"
+msgstr ""
+
+#: template/admin/token-index.phtml:62
 msgid "You dont have any token yet, please generate new one"
 msgstr ""
