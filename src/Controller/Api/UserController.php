@@ -255,6 +255,9 @@ class UserController extends ActionController
                 ]
             );
 
+            // Remove device token
+            Pi::api('user', 'tools')->updateDeviceToken($check['uid'], '');
+
             // Core logout
             Pi::service('user')->destroy();
             Pi::service('event')->trigger('logout', $check['uid']);
