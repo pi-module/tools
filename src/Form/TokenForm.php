@@ -64,20 +64,21 @@ class TokenForm extends BaseForm
             ]
         );
 
-        // status
+        // Status
         $this->add(
             [
-                'name'    => 'status',
-                'type'    => 'select',
-                'options' => [
+                'name'       => 'status',
+                'options'    => [
                     'label'         => __('Status'),
                     'value_options' => [
-                        1 => __('Published'),
-                        2 => __('Pending review'),
-                        3 => __('Draft'),
-                        4 => __('Private'),
-                        5 => __('Delete'),
+                        1 => __('Activate'),
+                        0 => __('Deactivate'),
                     ],
+                ],
+                'type'       => 'radio',
+                'attributes' => [
+                    'value'    => 1,
+                    'required' => true,
                 ],
             ]
         );

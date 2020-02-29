@@ -47,7 +47,7 @@ return [
         ],
 
         'custom' => [
-            'label'      => _a('Custom api'),
+            'label'      => _a('Custom API'),
             'permission' => [
                 'resource' => 'custom',
             ],

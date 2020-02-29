@@ -58,11 +58,6 @@ class CategoryFilter extends InputFilter
             [
                 'name'     => 'status',
                 'required' => true,
-                'filters'  => [
-                    [
-                        'name' => 'StringTrim',
-                    ],
-                ],
             ]
         );
     }

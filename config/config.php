@@ -22,7 +22,7 @@ return [
             'name'  => 'token',
         ],
         [
-            'title' => _a('Custom'),
+            'title' => _a('Custom API'),
             'name'  => 'custom',
         ],
         [

@@ -53,11 +53,11 @@ class TokenFilter extends InputFilter
             ]
         );
 
-        // status
+        // Status
         $this->add(
             [
                 'name'     => 'status',
-                'required' => false,
+                'required' => true,
             ]
         );
     }

@@ -19,7 +19,7 @@ return [
             ],
         ],
         'custom' => [
-            'title'  => _a('Custom api'),
+            'title'  => _a('Custom API'),
             'access' => [//'admin',
             ],
         ],

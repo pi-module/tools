@@ -54,7 +54,7 @@ class CategoryForm extends BaseForm
             [
                 'name'       => 'slug',
                 'options'    => [
-                    'label' => __('slug'),
+                    'label' => __('Slug'),
                 ],
                 'attributes' => [
                     'type'        => 'text',
