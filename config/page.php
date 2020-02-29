@@ -19,6 +19,11 @@ return [
             'permission' => 'token',
         ],
         [
+            'label'      => _a('Custom api'),
+            'controller' => 'custom',
+            'permission' => 'custom',
+        ],
+        [
             'label'      => _a('User'),
             'controller' => 'user',
             'permission' => 'user',

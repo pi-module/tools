@@ -50,15 +50,16 @@
                             </div>
                         </div>
                         <a class="btn btn-primary btn-sm" title="<?php _e('Edit'); ?>"
-                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $token['id']]); ?>"><i
-                                    class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+                           href="<?php echo $this->url('', ['action' => 'update', 'id' => $token['id']]); ?>">
+                            <i class="fa fa-edit"></i> <?php _e('Edit'); ?>
+                        </a>
                     </td>
                 </tr>
             <?php } ?>
         </table>
     <?php } else { ?>
         <div class="alert alert-danger" role="alert">
-            <p><?php echo _a('You dont have any token yet, please generate new one'); ?></p>
+            <?php echo _a('You dont have any token yet, please generate new one'); ?>
         </div>
     <?php } ?>
 </div>

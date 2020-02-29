@@ -13,17 +13,22 @@
 return [
     // Admin section
     'admin' => [
-        'token' => [
+        'token'  => [
             'title'  => _a('Token'),
             'access' => [//'admin',
             ],
         ],
-        'user'  => [
+        'custom' => [
+            'title'  => _a('Custom api'),
+            'access' => [//'admin',
+            ],
+        ],
+        'user'   => [
             'title'  => _a('User'),
             'access' => [//'admin',
             ],
         ],
-        'cron'  => [
+        'cron'   => [
             'title'  => _a('Cron'),
             'access' => [//'admin',
             ],

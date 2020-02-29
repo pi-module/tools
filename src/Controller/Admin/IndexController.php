@@ -22,9 +22,9 @@ class IndexController extends ActionController
     {
         return $this->redirect()->toRoute(
             '', [
-            'controller' => 'token',
-            'action'     => 'index',
-        ]
+                'controller' => 'token',
+                'action'     => 'index',
+            ]
         );
     }
 }

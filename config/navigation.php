@@ -46,6 +46,59 @@ return [
             ],
         ],
 
+        'custom' => [
+            'label'      => _a('Custom api'),
+            'permission' => [
+                'resource' => 'custom',
+            ],
+            'route'      => 'admin',
+            'module'     => 'tools',
+            'controller' => 'custom',
+            'action'     => 'category',
+            'pages'      => [
+                'category'       => [
+                    'label'      => _a('Category'),
+                    'permission' => [
+                        'resource' => 'custom',
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'custom',
+                    'action'     => 'category',
+                ],
+                'categoryUpdate' => [
+                    'label'      => _a('Manage category'),
+                    'permission' => [
+                        'resource' => 'custom',
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'custom',
+                    'action'     => 'categoryUpdate',
+                ],
+                'item'           => [
+                    'label'      => _a('Item'),
+                    'permission' => [
+                        'resource' => 'custom',
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'custom',
+                    'action'     => 'item',
+                ],
+                'itemUpdate'     => [
+                    'label'      => _a('Manage item'),
+                    'permission' => [
+                        'resource' => 'custom',
+                    ],
+                    'route'      => 'admin',
+                    'module'     => 'tools',
+                    'controller' => 'custom',
+                    'action'     => 'itemUpdate',
+                ],
+            ],
+        ],
+
         'user' => [
             'label'      => _a('User'),
             'permission' => [

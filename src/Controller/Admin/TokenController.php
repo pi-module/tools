@@ -83,6 +83,7 @@ class TokenController extends ActionController
             }
             $form->setData($token);
         }
+
         // Set view
         $this->view()->setTemplate('token-update');
         $this->view()->assign('form', $form);

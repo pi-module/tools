@@ -22,6 +22,10 @@ return [
             'name'  => 'token',
         ],
         [
+            'title' => _a('Custom'),
+            'name'  => 'custom',
+        ],
+        [
             'title' => _a('User'),
             'name'  => 'user',
         ],
@@ -66,7 +70,7 @@ return [
             'category'    => 'token',
         ],
 
-        'auto_refresh'   => [
+        'auto_refresh' => [
             'category'    => 'token',
             'title'       => _a('Auto refresh'),
             'description' => _a('Refresh token in check method if just token time expire'),
@@ -75,8 +79,26 @@ return [
             'value'       => 0,
         ],
 
+        // Custom
+        'custom_token' => [
+            'title'       => _a('Custom token type'),
+            'description' => '',
+            'edit'        => [
+                'type'    => 'select',
+                'options' => [
+                    'options' => [
+                        false => _a('Support both of user and static tokens'),
+                        true  => _a('Just user token allowed'),
+                    ],
+                ],
+            ],
+            'filter'      => 'string',
+            'value'       => true,
+            'category'    => 'custom',
+        ],
+
         // User
-        'fields'              => [
+        'fields'       => [
             'title'       => _a('Fields'),
             'description' => _a('User fields for login and profile'),
             'edit'        => 'textarea',
@@ -85,7 +107,7 @@ return [
         ],
 
         // Cron
-        'cron_active'   => [
+        'cron_active'  => [
             'category'    => 'cron',
             'title'       => _a('Active cron'),
             'description' => '',
