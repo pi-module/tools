@@ -14,8 +14,8 @@
 namespace Module\Tools\Validator;
 
 use Pi;
-use Zend\Db\Sql\Predicate\Expression;
-use Zend\Validator\AbstractValidator;
+use Laminas\Db\Sql\Predicate\Expression;
+use Laminas\Validator\AbstractValidator;
 
 class Mobile extends AbstractValidator
 {
