@@ -14,7 +14,7 @@
 namespace Module\Tools\Form;
 
 use Pi;
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 class TokenFilter extends InputFilter
 {
