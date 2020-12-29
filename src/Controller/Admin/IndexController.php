@@ -20,8 +20,27 @@ class IndexController extends ActionController
 {
     public function indexAction()
     {
+        $subject = _('Welcome to Pi community');
+
+        $body = _('Mail body message with HTML ...');
+        ;
+        $messageHtml = Pi::service('mail')->message($subject, $body, 'text/html');
+
+
+        // Send with specified transport
+        $transport = Pi::service('mail')->loadTransport(
+            'smtp',
+            [
+                'username' => 'AKIARH4VNKAKYLCQJDPX',
+                'password' => 'BF+kftWUifL8xORdRwa8ZczroZI+FiE1AIBhaK9PGplO',
+            ]
+        );
+        $transport->send($messageHtml);
+
+
         return $this->redirect()->toRoute(
-            '', [
+            '',
+            [
                 'controller' => 'token',
                 'action'     => 'index',
             ]

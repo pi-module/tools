@@ -78,7 +78,8 @@ EOD;
                 $sqlHandler->queryContent($item);
             } catch (\Exception $exception) {
                 $this->setResult(
-                    'db', [
+                    'db',
+                    [
                         'status'  => false,
                         'message' => 'SQL schema query for author table failed: '
                             . $exception->getMessage(),

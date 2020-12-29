@@ -68,7 +68,6 @@ class UserController extends ActionController
                     'message' => '',
                 ],
             ];
-
         } else {
             // Set error
             $result['error'] = [
@@ -164,7 +163,6 @@ class UserController extends ActionController
                     'message' => __('Device token is empty !'),
                 ];
             }
-
         } else {
             // Set error
             $result['error'] = [
@@ -355,8 +353,6 @@ class UserController extends ActionController
             } else {
                 $result['error']['message'] = __('user not fined !');
             }
-
-
         } else {
             // Set error
             $result['error'] = [

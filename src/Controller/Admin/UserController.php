@@ -57,7 +57,8 @@ class UserController extends ActionController
 
                 // Set file
                 Pi::service('audit')->attach(
-                    'user-export', [
+                    'user-export',
+                    [
                         'file'   => Pi::path(sprintf('upload/tools/%s.csv', $file)),
                         'format' => 'csv',
                     ]
@@ -112,7 +113,8 @@ class UserController extends ActionController
                 } else {
                     $nextUrl       = Pi::url(
                         $this->url(
-                            '', [
+                            '',
+                            [
                                 'action'   => 'export',
                                 'page'     => $page,
                                 'count'    => $count,

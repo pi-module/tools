@@ -77,5 +77,4 @@ class Custom extends AbstractApi
 
         return $list;
     }
-
 }

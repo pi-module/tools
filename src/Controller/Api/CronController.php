@@ -42,7 +42,6 @@ class CronController extends ActionController
         // Check token
         $check = Pi::api('token', 'tools')->check($token, $module);
         if ($config['cron_active'] && $check['status'] == 1) {
-
             Pi::service('cron')->start();
 
             // Set default result
@@ -51,7 +50,6 @@ class CronController extends ActionController
                 'data'   => [],
                 'error'  => [],
             ];
-
         } else {
             // Set error
             $result['error'] = [

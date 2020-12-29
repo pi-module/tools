@@ -5,7 +5,6 @@ $cronToken = '5ae8c4083dc7d66b4aed5a57efcd5ab1'; // get from admin / tools modul
 
 function getUrlContent($url)
 {
-
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)');

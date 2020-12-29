@@ -27,7 +27,8 @@ class CronController extends ActionController
         // Set cron url
         $cronUrl = Pi::url(
             $this->url(
-                'default', [
+                'default',
+                [
                     'module'     => 'tools',
                     'controller' => 'cron',
                     'action'     => 'index',
