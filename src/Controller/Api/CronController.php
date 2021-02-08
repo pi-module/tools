@@ -40,7 +40,7 @@ class CronController extends ActionController
         $config = Pi::service('registry')->config->read($module);
 
         // Check token
-        $check = Pi::api('token', 'tools')->check($token, $module);
+        $check = Pi::api('token', 'tools')->check($token, false);
         if ($config['cron_active'] && $check['status'] == 1) {
             Pi::service('cron')->start();
 
