@@ -404,9 +404,13 @@ class UserController extends ActionController
                 return $result;
             }
 
-            // Set email as identity if not set on register form
+            // Set email or mobile as identity if not set on register form
             if (!isset($values['identity']) || empty($values['identity'])) {
-                $values['identity'] = $values['mobile'];
+                if ($config['force_mobile']) {
+                    $values['identity'] = $values['mobile'];
+                } else {
+                    $values['identity'] = $values['email'];
+                }
             }
 
             // Check mobile force set on register form
@@ -424,7 +428,7 @@ class UserController extends ActionController
                     $result['error']['message'] = array_shift(array_values($validator->getMessages()));
                     return $result;
                 }
-            } else {
+            } elseif ($config['force_mobile']) {
                 $result['error'] = __('Mobile can not be empty !');
                 return $result;
             }
@@ -447,7 +451,7 @@ class UserController extends ActionController
                     $result['error']['message'] = array_shift(array_values($validator->getMessages()));
                     return $result;
                 }
-            } else {
+            } elseif (!$config['force_mobile']) {
                 $result['error'] = __('Email can not be empty !');
                 return $result;
             }

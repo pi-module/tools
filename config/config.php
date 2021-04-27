@@ -103,7 +103,15 @@ return [
             'description' => _a('User fields for login and profile'),
             'edit'        => 'textarea',
             'value'       => 'first_name,last_name,id_number,phone,mobile,address1,address2,country,state,city,zip_code',
-            'category'    => 'home',
+            'category'    => 'user',
+        ],
+        'force_mobile'  => [
+            'title'       => _a('Force use mobile number'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+            'category'    => 'user',
         ],
 
         // Cron
