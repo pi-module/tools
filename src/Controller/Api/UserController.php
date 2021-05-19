@@ -425,11 +425,12 @@ class UserController extends ActionController
 
                 // Check is valid
                 if (!$validator->isValid($values['mobile'])) {
-                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
+                    $message                    = array_values($validator->getMessages());
+                    $result['error']['message'] = array_shift($message);
                     return $result;
                 }
             } elseif ($config['force_mobile']) {
-                $result['error'] = __('Mobile can not be empty !');
+                $result['error']['message'] = __('Mobile can not be empty !');
                 return $result;
             }
 
@@ -448,11 +449,12 @@ class UserController extends ActionController
 
                 // Check is valid
                 if (!$validator->isValid($values['email'])) {
-                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
+                    $message                    = array_values($validator->getMessages());
+                    $result['error']['message'] = array_shift($message);
                     return $result;
                 }
             } elseif (!$config['force_mobile']) {
-                $result['error'] = __('Email can not be empty !');
+                $result['error']['message'] = __('Email can not be empty !');
                 return $result;
             }
 
@@ -472,11 +474,12 @@ class UserController extends ActionController
 
                 // Check is valid
                 if (!$validator->isValid($values['identity'])) {
-                    $result['error']['message'] = array_shift(array_values($validator->getMessages()));
+                    $message                    = array_values($validator->getMessages());
+                    $result['error']['message'] = array_shift($message);
                     return $result;
                 }
             } else {
-                $result['error'] = __('Identity can not be empty !');
+                $result['error']['message'] = __('Identity can not be empty !');
                 return $result;
             }
 
@@ -497,14 +500,14 @@ class UserController extends ActionController
             $where = ['identity' => $values['identity']];
             $count = Pi::model('user_account')->count($where);
             if ($count) {
-                $result['error'] = __('This identity is taken before by another user');
+                $result['error']['message'] = __('This identity is taken before by another user');
                 return $result;
             }
 
             // Add user
             $uid = Pi::api('user', 'user')->addUser($values);
             if (!$uid || !is_int($uid)) {
-                $result['error'] = __('User account was not saved.');
+                $result['error']['message'] = __('User account was not saved.');
             } else {
                 // Set user role
                 Pi::api('user', 'user')->setRole($uid, 'member');
@@ -516,6 +519,19 @@ class UserController extends ActionController
 
                         // Target activate user event
                         Pi::service('event')->trigger('user_activate', $uid);
+
+                        if (isset($values['email']) && !empty($values['email']) && Pi::user()->config('register_notification')) {
+                            $this->sendNotification(
+                                'success',
+                                [
+                                    'email'    => $values['email'],
+                                    'uid'      => $uid,
+                                    'identity' => $values['identity'],
+                                    'name'     => $values['name'],
+
+                                ]
+                            );
+                        }
 
                         // Set result
                         $result = [
@@ -533,21 +549,53 @@ class UserController extends ActionController
                         ];
                     }
                 } elseif ($configUser['register_activation'] == 'email') {
-                    // Set result
-                    $result = [
-                        'result' => true,
-                        'data'   => [
-                            [
-                                'register_activation' => $configUser['register_activation'],
-                                'message'             => __('An email with activation link has been sent to you.'),
+
+                    $status = $this->sendNotification(
+                        'activation',
+                        [
+                            'email'    => $values['email'],
+                            'uid'      => $uid,
+                            'identity' => $values['identity'],
+                            'name'     => $values['name'],
+
+                        ]
+                    );
+
+                    if (!$status) {
+                        $result['error']['message'] = __('Account activation email was not able to send, please contact admin.');
+                        return $result;
+                    } else {
+                        // Set result
+                        $result = [
+                            'result' => true,
+                            'data'   => [
+                                [
+                                    'register_activation' => $configUser['register_activation'],
+                                    'message'             => __('An email with activation link has been sent to you.'),
+                                ],
                             ],
-                        ],
-                        'error'  => [
-                            'code'    => 0,
-                            'message' => '',
-                        ],
-                    ];
-                } elseif ($configUser['register_activation'] == 'approval') {
+                            'error'  => [
+                                'code'    => 0,
+                                'message' => '',
+                            ],
+                        ];
+                    }
+
+
+                } elseif ($configUser['register_activation'] == 'admin') {
+                    if (isset($values['email']) && !empty($values['email']) && Pi::user()->config('register_notification')) {
+                        $this->sendNotification(
+                            'admin',
+                            [
+                                'email'    => $values['email'],
+                                'uid'      => $uid,
+                                'identity' => $values['identity'],
+                                'name'     => $values['name'],
+
+                            ]
+                        );
+                    }
+
                     // Set result
                     $result = [
                         'result' => true,
@@ -565,6 +613,19 @@ class UserController extends ActionController
                         ],
                     ];
                 }
+
+                // Send notification email to admin
+                /* if (Pi::user()->config('register_notification_admin')) {
+                    $this->sendNotificationToAdmin(
+                        $configUser['register_activation'],
+                        [
+                            'email'    => $values['email'],
+                            'identity' => $values['identity'],
+                            'name'     => $values['name'],
+                            'uid'      => $uid,
+                        ]
+                    );
+                } */
             }
         }
 
@@ -797,5 +858,163 @@ class UserController extends ActionController
     protected function verifyResult(Result $result)
     {
         return $result;
+    }
+
+    protected function sendNotification($type, array $data)
+    {
+        $params   = [];
+        $template = '';
+        switch ($type) {
+
+            case 'success':
+                $template = 'register-success-html';
+                $redirect = Pi::user()->data()->get($data['uid'], 'register_redirect');
+                $url      = Pi::url(Pi::service('authentication')->getUrl('login', $redirect), true);
+                $params   = [
+                    'username'  => $data['name'],
+                    'login_url' => $url,
+                ];
+                break;
+
+            case 'admin':
+                $template = 'register-success-html';
+                $params   = [
+                    'username' => $data['name'],
+                ];
+                break;
+
+            case 'activation':
+                $token = $this->createToken($data);
+                if ($token) {
+                    $template = 'register-activation-html';
+                    Pi::user()->data()->set(
+                        $data['uid'],
+                        'register_activation',
+                        $token,
+                        'user',
+                        $this->config('activation_expiration') * 3600
+                    );
+                    $url    = Pi::url(
+                        $this->url(
+                            'user',
+                            [
+                                'module'     => 'user',
+                                'controller' => 'register',
+                                'action'     => 'activate',
+                                'uid'        => md5($data['uid']),
+                                'token'      => $token,
+                            ]
+                        ),
+                        true
+                    );
+                    $params = [
+                        'username'       => $data['name'],
+                        'activation_url' => $url,
+                    ];
+                }
+                break;
+
+            default:
+                break;
+        }
+        if (!$template) {
+            return false;
+        }
+
+        // Load from HTML template
+        $template = Pi::service('mail')->template(
+            [
+                'file'   => $template,
+                'module' => 'user',
+            ]
+            , $params
+        );
+        $subject  = $template['subject'];
+        $body     = $template['body'];
+        $typeMail = $template['format'];
+
+        // Send email
+        $message = Pi::service('mail')->message($subject, $body, $typeMail);
+        $message->addTo($data['email']);
+        $result = Pi::service('mail')->send($message);
+
+        // Module message : Notification
+        if (Pi::service('module')->isActive('message')) {
+            if ($type == 'success' || $type == 'admin') {
+                $template = Pi::service('mail')->template(
+                    [
+                        'file'   => 'notify-register-success-html',
+                        'module' => 'user',
+                    ], $params
+                );
+                Pi::api('api', 'message')->notify($data['uid'], $template['body'], $template['subject']);
+            }
+        }
+
+        return $result;
+    }
+
+    protected function sendNotificationToAdmin($type, array $data)
+    {
+        $params   = [];
+        $template = '';
+        switch ($type) {
+            case 'auto':
+                $template = 'admin-notification-register-auto';
+                break;
+
+            case 'email':
+                $template = 'admin-notification-register-email';
+                break;
+
+            case 'admin':
+                $template = 'admin-notification-register-approval';
+                break;
+
+            default:
+                break;
+        }
+
+        $params = [
+            'identity' => $data['identity'],
+            'email'    => $data['email'],
+            'name'     => $data['name'],
+        ];
+
+        // Set admin mail
+        $adminmail = Pi::config('adminmail');
+        $adminname = Pi::config('adminname');
+        $toAdmin   = [
+            $adminmail => $adminname,
+        ];
+
+        // Load from HTML template
+        $template = Pi::service('mail')->template(
+            [
+                'file'   => $template,
+                'module' => 'user',
+            ],
+            $params
+        );
+        $subject  = $template['subject'];
+        $body     = $template['body'];
+        $type     = $template['format'];
+
+        // Send email
+        $message = Pi::service('mail')->message($subject, $body, $type);
+        $message->addTo($toAdmin);
+        $result = Pi::service('mail')->send($message);
+
+        return $result;
+    }
+
+    protected function createToken(array $data)
+    {
+        $token = '';
+        if (!empty($data['uid']) && !empty($data['identity'])) {
+            $token = md5($data['uid'] . $data['identity']);
+        }
+
+        return $token;
     }
 }
