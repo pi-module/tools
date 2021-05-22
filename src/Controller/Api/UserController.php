@@ -492,6 +492,12 @@ class UserController extends ActionController
                 }
             }
 
+            // Check credential
+            if (!isset($values['credential']) || empty($values['credential'])) {
+                $result['error']['message'] = __('Credential can not be empty !');
+                return $result;
+            }
+
             // Set values
             $values['last_modified'] = time();
             $values['ip_register']   = Pi::user()->getIp();
