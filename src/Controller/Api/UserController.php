@@ -12,6 +12,7 @@ namespace Module\Tools\Controller\Api;
 use Pi;
 use Pi\Authentication\Result;
 use Pi\Mvc\Controller\ActionController;
+use Pi\File\Transfer\Upload;
 use Module\System\Validator\UserEmail as UserEmailValidator;
 use Module\System\Validator\Username as UsernameValidator;
 use Module\Tools\Validator\Mobile as UserMobileValidator;
@@ -351,7 +352,7 @@ class UserController extends ActionController
                     ],
                 ];
             } else {
-                $result['error']['message'] = __('user not fined !');
+                $result['error']['message'] = __('user not found !');
             }
         } else {
             // Set error
@@ -764,6 +765,137 @@ class UserController extends ActionController
                 ];
             } else {
                 $result['error']['message'] = __('Error to update user data !');
+            }
+        } else {
+            // Set error
+            $result['error'] = [
+                'code'    => $check['code'],
+                'message' => $check['message'],
+            ];
+        }
+
+        return $result;
+    }
+
+    public function avatarAction()
+    {
+        // Set default result
+        $result = [
+            'result' => false,
+            'data'   => [],
+            'error'  => [
+                'code'        => 1,
+                'message'     => __('Nothing selected'),
+                'messageFlag' => false,
+            ],
+        ];
+
+        // Get info from url
+        $token = $this->params('token');
+
+        // Check token
+        $check = Pi::api('token', 'tools')->check($token, true);
+        if ($check['status'] == 1) {
+
+            // Get user information
+            $fields = ['id', 'identity', 'name', 'email', 'avatar'];
+
+            // Find user
+            $user = Pi::user()->get($check['uid'], $fields);
+
+            if ($user && !empty($user)) {
+
+                // Get post
+                $post = $this->request->getPost();
+                $post = $post->toArray();
+
+                // Get file
+                $file = $this->request->getFiles();
+
+                // upload video
+                if (isset($file['avatar']['name']) && !empty($file['avatar']['name'])) {
+
+                    // Get config
+                    $configUser  = Pi::service('registry')->config->read('user');
+
+                    // Set destination
+                    $destination = $configUser['path_tmp'] ?: 'upload/user/tmp';
+
+                    // Upload file
+                    $uploader = new Upload();
+                    $uploader->setDestination($destination);
+                    $uploader->setRename('%random%');
+                    $uploader->setExtension('jpg,jpeg,png');
+                    $uploader->setSize(10000000);
+                    if ($uploader->isValid()) {
+                        $uploader->receive();
+
+                        // Set info
+                        $avatarUploaded = $uploader->getUploaded('avatar');
+
+                        // Set image full path
+                        $rawImage = Pi::path(sprintf('%s/%s', $destination,$avatarUploaded));
+
+                        // Resolve allowed image extension
+                        $imageSize      = [];
+                        $imageSizeRaw   = getimagesize($rawImage);
+                        $imageSize['w'] = $imageSizeRaw[0];
+                        $imageSize['h'] = $imageSizeRaw[1];
+
+                        // Set avatar
+                        $adapter = Pi::avatar()->getAdapter('upload');
+                        $paths   = $adapter->getMeta($check['uid']);
+                        foreach ($paths as $path) {
+                            Pi::image()->crop(
+                                $rawImage,
+                                [0, 0],
+                                [$imageSize['w'], $imageSize['h']],
+                                $path['path']
+                            );
+                            Pi::image()->resize(
+                                $path['path'],
+                                [$path['size'], $path['size']]
+                            );
+                        }
+
+                        // Set avatar file name
+                        $meta  = array_pop($paths);
+                        $photo = basename($meta['path']);
+
+                        // Save avatar data into database
+                        Pi::user()->set($check['uid'], 'avatar', $photo);
+
+                        // Set default result
+                        $result = [
+                            'result' => true,
+                            'data'   => [
+                                [
+                                    'url' => Pi::service('user')->avatar($check['uid'], 'xlarge', false)
+                                ],
+                            ],
+                            'error'  => [
+                                'code'    => 0,
+                                'message' => '',
+                            ],
+                        ];
+                    } else {
+                        // Set error
+                        $result['error'] = [
+                            'message' => __('Error to upload video !'),
+                            'post'    => $post,
+                            'file'    => $file,
+                        ];
+                    }
+                } else {
+                    // Set error
+                    $result['error'] = [
+                        'message' => __('File not set !'),
+                        'post'    => $post,
+                        'file'    => $file,
+                    ];
+                }
+            } else {
+                $result['error']['message'] = __('user not found !');
             }
         } else {
             // Set error
