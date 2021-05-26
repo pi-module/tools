@@ -61,7 +61,7 @@ class UserController extends ActionController
                         'identity' => $user['identity'],
                         'email'    => $user['email'],
                         'name'     => $user['name'],
-                        'avatar'   => Pi::service('user')->avatar($user['id'], 'large', false),
+                        'avatar'   => Pi::service('user')->avatar($user['id'], 'xlarge', false),
                     ],
                 ],
                 'error'  => [
@@ -326,7 +326,7 @@ class UserController extends ActionController
                     'email'        => $user['email'],
                     'name'         => $user['name'],
                     'device_token' => $user['device_token'],
-                    'avatar'       => Pi::service('user')->avatar($user['id'], 'large', false),
+                    'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false),
                 ];
 
                 // Set extra fields
@@ -975,7 +975,7 @@ class UserController extends ActionController
                 }
 
                 // Get avatar
-                $return['avatar'] = Pi::service('user')->avatar($user['id'], 'large', false);
+                $return['avatar'] = Pi::service('user')->avatar($user['id'], 'xlarge', false);
 
                 // Set token
                 $return['token'] = Pi::api('token', 'tools')->add($uid);
