@@ -51,6 +51,9 @@ class UserController extends ActionController
             // Get user
             $user = Pi::user()->get($check['uid'], $fields);
 
+            // Get user roles
+            $roles = Pi::service('user')->getRole($check['uid'], 'front');
+
             // Set default result
             $result = [
                 'result' => true,
@@ -62,6 +65,7 @@ class UserController extends ActionController
                         'email'    => $user['email'],
                         'name'     => $user['name'],
                         'avatar'   => Pi::service('user')->avatar($user['id'], 'xlarge', false),
+                        'roles'    => $roles,
                     ],
                 ],
                 'error'  => [
@@ -816,7 +820,7 @@ class UserController extends ActionController
                 if (isset($file['avatar']['name']) && !empty($file['avatar']['name'])) {
 
                     // Get config
-                    $configUser  = Pi::service('registry')->config->read('user');
+                    $configUser = Pi::service('registry')->config->read('user');
 
                     // Set destination
                     $destination = $configUser['path_tmp'] ?: 'upload/user/tmp';
@@ -834,7 +838,7 @@ class UserController extends ActionController
                         $avatarUploaded = $uploader->getUploaded('avatar');
 
                         // Set image full path
-                        $rawImage = Pi::path(sprintf('%s/%s', $destination,$avatarUploaded));
+                        $rawImage = Pi::path(sprintf('%s/%s', $destination, $avatarUploaded));
 
                         // Resolve allowed image extension
                         $imageSize      = [];
@@ -870,7 +874,7 @@ class UserController extends ActionController
                             'result' => true,
                             'data'   => [
                                 [
-                                    'url' => Pi::service('user')->avatar($check['uid'], 'xlarge', false)
+                                    'url' => Pi::service('user')->avatar($check['uid'], 'xlarge', false),
                                 ],
                             ],
                             'error'  => [
@@ -921,6 +925,7 @@ class UserController extends ActionController
             'name'         => '',
             'device_token' => '',
             'avatar'       => '',
+            'roles'        => [],
         ];
 
         // Set field
@@ -976,6 +981,9 @@ class UserController extends ActionController
 
                 // Get avatar
                 $return['avatar'] = Pi::service('user')->avatar($user['id'], 'xlarge', false);
+
+                // Get user roles
+                $return['roles'] = Pi::service('user')->getRole($user['id'], 'front');
 
                 // Set token
                 $return['token'] = Pi::api('token', 'tools')->add($uid);
