@@ -387,8 +387,9 @@ class UserController extends ActionController
             $result['error']['message'] = __('Post request not set');
         } else {
             // Get config
-            $config     = Pi::user()->config();
-            $configUser = Pi::service('registry')->config->read('user');
+            $config      = Pi::user()->config();
+            $configUser  = Pi::service('registry')->config->read('user');
+            $configTools = Pi::service('registry')->config->read('tools');
 
             // Get from post
             $post = $this->request->getPost();
@@ -411,7 +412,7 @@ class UserController extends ActionController
 
             // Set email or mobile as identity if not set on register form
             if (!isset($values['identity']) || empty($values['identity'])) {
-                if ($config['force_mobile']) {
+                if ($configTools['force_mobile']) {
                     $values['identity'] = $values['mobile'];
                 } else {
                     $values['identity'] = $values['email'];
@@ -434,7 +435,7 @@ class UserController extends ActionController
                     $result['error']['message'] = array_shift($message);
                     return $result;
                 }
-            } elseif ($config['force_mobile']) {
+            } elseif ($configTools['force_mobile']) {
                 $result['error']['message'] = __('Mobile can not be empty !');
                 return $result;
             }
@@ -458,7 +459,7 @@ class UserController extends ActionController
                     $result['error']['message'] = array_shift($message);
                     return $result;
                 }
-            } elseif (!$config['force_mobile']) {
+            } elseif (!$configTools['force_mobile']) {
                 $result['error']['message'] = __('Email can not be empty !');
                 return $result;
             }
@@ -504,8 +505,8 @@ class UserController extends ActionController
             }
 
             // Set values
-            $values['last_modified'] = time();
-            $values['ip_register']   = Pi::user()->getIp();
+            $values['last_modified']   = time();
+            $values['ip_register']     = Pi::user()->getIp();
             $values['register_source'] = 'APP';
 
             // Check mobile is duplicated
@@ -523,6 +524,14 @@ class UserController extends ActionController
             } else {
                 // Set user role
                 Pi::api('user', 'user')->setRole($uid, 'member');
+
+                // Set custom roles
+                if (isset($configTools['roles']) && !empty($configTools['roles'])) {
+                    $toolsRoles = explode(',', $configTools['roles']);
+                    foreach ($toolsRoles as $role) {
+                        Pi::api('user', 'user')->setRole($uid, $role);
+                    }
+                }
 
                 // Active user
                 if ($configUser['register_activation'] == 'auto') {

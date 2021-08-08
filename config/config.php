@@ -66,7 +66,7 @@ return [
                 ],
             ],
             'filter'      => 'number_int',
-            'value'       => 15,
+            'value'       => 20160,
             'category'    => 'token',
         ],
 
@@ -76,7 +76,7 @@ return [
             'description' => _a('Refresh token in check method if just token time expire'),
             'edit'        => 'checkbox',
             'filter'      => 'number_int',
-            'value'       => 0,
+            'value'       => 1,
         ],
 
         // Custom
@@ -111,6 +111,13 @@ return [
             'edit'        => 'checkbox',
             'filter'      => 'number_int',
             'value'       => 0,
+            'category'    => 'user',
+        ],
+        'roles'       => [
+            'title'       => _a('Roles'),
+            'description' => _a('User roles assign in register'),
+            'edit'        => 'textarea',
+            'value'       => '',
             'category'    => 'user',
         ],
 
