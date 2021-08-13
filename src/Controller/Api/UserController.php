@@ -67,7 +67,7 @@ class UserController extends ActionController
                         'first_name'   => $user['first_name'],
                         'last_name'    => $user['last_name'],
                         'device_token' => $user['device_token'],
-                        'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false),
+                        'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false) . '?' . time(),
                         'roles'        => $roles,
                     ],
                 ],
@@ -333,7 +333,7 @@ class UserController extends ActionController
                     'email'        => $user['email'],
                     'name'         => $user['name'],
                     'device_token' => $user['device_token'],
-                    'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false),
+                    'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false) . '?' . time(),
                 ];
 
                 // Set extra fields
@@ -887,7 +887,7 @@ class UserController extends ActionController
                             'result' => true,
                             'data'   => [
                                 [
-                                    'url' => Pi::service('user')->avatar($check['uid'], 'xlarge', false),
+                                    'url' => Pi::service('user')->avatar($check['uid'], 'xlarge', false) . '?' . time(),
                                 ],
                             ],
                             'error'  => [
@@ -997,7 +997,7 @@ class UserController extends ActionController
                 }
 
                 // Get avatar
-                $return['avatar'] = Pi::service('user')->avatar($user['id'], 'xlarge', false);
+                $return['avatar'] = Pi::service('user')->avatar($user['id'], 'xlarge', false) . '?' . time();
 
                 // Get user roles
                 $return['roles'] = Pi::service('user')->getRole($user['id'], 'front');
