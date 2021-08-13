@@ -46,7 +46,7 @@ class UserController extends ActionController
             Pi::service('i18n')->load(['module/user', 'default']);
 
             // Set user fields
-            $fields = ['id', 'identity', 'name', 'email'];
+            $fields = ['id', 'identity', 'name', 'email', 'first_name', 'last_name', 'device_token'];
 
             // Get user
             $user = Pi::user()->get($check['uid'], $fields);
@@ -59,13 +59,16 @@ class UserController extends ActionController
                 'result' => true,
                 'data'   => [
                     [
-                        'check'    => 1,
-                        'uid'      => $user['id'],
-                        'identity' => $user['identity'],
-                        'email'    => $user['email'],
-                        'name'     => $user['name'],
-                        'avatar'   => Pi::service('user')->avatar($user['id'], 'xlarge', false),
-                        'roles'    => $roles,
+                        'check'        => 1,
+                        'uid'          => $user['id'],
+                        'identity'     => $user['identity'],
+                        'email'        => $user['email'],
+                        'name'         => $user['name'],
+                        'first_name'   => $user['first_name'],
+                        'last_name'    => $user['last_name'],
+                        'device_token' => $user['device_token'],
+                        'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false),
+                        'roles'        => $roles,
                     ],
                 ],
                 'error'  => [
@@ -933,6 +936,8 @@ class UserController extends ActionController
             'identity'     => '',
             'email'        => '',
             'name'         => '',
+            'first_name'   => '',
+            'last_name'    => '',
             'device_token' => '',
             'avatar'       => '',
             'roles'        => [],
@@ -963,7 +968,7 @@ class UserController extends ActionController
                 $extraFields = explode(',', $configTools['fields']);
 
                 // Get user information
-                $fields = ['id', 'identity', 'name', 'email', 'device_token'];
+                $fields = ['id', 'identity', 'name', 'email', 'first_name', 'last_name', 'device_token'];
                 $fields = array_unique(array_merge($fields, $extraFields));
 
                 // Find user
@@ -976,6 +981,8 @@ class UserController extends ActionController
                 $return['identity']     = $user['identity'];
                 $return['email']        = $user['email'];
                 $return['name']         = $user['name'];
+                $return['first_name']   = $user['first_name'];
+                $return['last_name']    = $user['last_name'];
                 $return['device_token'] = $user['device_token'];
 
                 // Set extra fields
