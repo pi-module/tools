@@ -925,6 +925,122 @@ class UserController extends ActionController
         return $result;
     }
 
+    public function passwordAction()
+    {
+        // Set default result
+        $result = [
+            'result' => false,
+            'data'   => [],
+            'error'  => [
+                'code'        => 1,
+                'message'     => __('Nothing selected'),
+                'messageFlag' => false,
+            ],
+        ];
+
+        // Check post array set or not
+        if (!$this->request->isPost()) {
+            $result['error']['message'] = __('Post request not set');
+        } else {
+            // Get from post
+            $post = $this->request->getPost();
+            $email = _escape($post['email']);
+
+            // Check email
+            if (isset($email) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                // Get config
+                $configUser  = Pi::service('registry')->config->read('user');
+
+                // Get user
+                $userRow = Pi::service('user')->getUser($email, 'email');
+
+                // Check user
+                if (!$userRow) {
+                    $result['error']['message'] = __('User not found.');
+                } else {
+
+                    // Set user data
+                    $uid = (int)$userRow->id;
+
+                    $token = $this->createTokenPassword($uid, $userRow->email);
+                    Pi::user()->data()->set(
+                        $uid,
+                        'find-password',
+                        $token,
+                        'user',
+                        $configUser['email_expiration'] * 3600
+                    );
+                    /* Pi::user()->data()->set(
+                        $uid,
+                        'redirect-password',
+                        $redirect,
+                        'user',
+                        $configUser['email_expiration'] * 3600
+                    ); */
+
+                    // Send verify email
+                    $to   = $userRow->email;
+                    $url  = $this->url(
+                        'user',
+                        [
+                            'module' => 'user',
+                            'controller' => 'password',
+                            'action' => 'process',
+                            'token'  => $token,
+                        ]
+                    );
+                    $link = Pi::url($url, true);
+
+                    $params = [
+                        'username'          => $userRow->identity,
+                        'find_password_url' => $link,
+                        'expiration'        => $configUser['email_expiration'],
+                    ];
+
+                    // Load from HTML template
+                    $data = Pi::service('mail')->template(
+                        [
+                            'file'   => 'find-password-html',
+                            'module' => 'user',
+                        ],
+                        $params
+                    );
+
+                    // Mail body logging
+                    Pi::user()->data()->set(
+                        $uid,
+                        'find-password-body',
+                        $data['body']
+                    );
+
+                    // Set subject and body
+                    $subject = $data['subject'];
+                    $body    = $data['body'];
+                    $type    = $data['format'];
+
+                    $message = Pi::service('mail')->message($subject, $body, $type);
+                    $message->addTo($to);
+                    Pi::service('mail')->send($message);
+
+
+                    // Set default result
+                    $result = [
+                        'result' => true,
+                        'data'   => [
+                            'message' => __('We sent an email to reset your password. Please check your email and follow the instructions to reset it.')
+                        ],
+                        'error'  => [],
+                    ];
+                }
+            } else {
+                $result['error']['message'] = __('Email address not set or dont have true format !');
+            }
+        }
+
+        return $result;
+    }
+
     public function doLogin($identity, $credential)
     {
         // Set return array
@@ -1177,6 +1293,13 @@ class UserController extends ActionController
         if (!empty($data['uid']) && !empty($data['identity'])) {
             $token = md5($data['uid'] . $data['identity']);
         }
+
+        return $token;
+    }
+
+    protected function createTokenPassword($uid, $email)
+    {
+        $token = md5($uid . $email . Pi::config('salt') . mt_rand());
 
         return $token;
     }
