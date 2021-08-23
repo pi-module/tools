@@ -1128,7 +1128,7 @@ class UserController extends ActionController
                 $return['message'] = __('Bind error');
             }
         } else {
-            $return['message'] = __('Authentication is not valid');
+            $return['message'] = __('Please make sure that your username and password are correct and try again.');
         }
 
         return $return;
