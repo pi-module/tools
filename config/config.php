@@ -22,8 +22,8 @@ return [
             'name'  => 'token',
         ],
         [
-            'title' => _a('Custom API'),
-            'name'  => 'custom',
+            'title' => _a('App version'),
+            'name'  => 'app_version',
         ],
         [
             'title' => _a('User'),
@@ -32,6 +32,10 @@ return [
         [
             'name'  => 'cron',
             'title' => _t('Cron'),
+        ],
+        [
+            'title' => _a('Custom API'),
+            'name'  => 'custom',
         ],
     ],
     'item'     => [
@@ -79,6 +83,150 @@ return [
             'value'       => 1,
         ],
 
+        // app_version
+        'app_version_active'  => [
+            'category'    => 'app_version',
+            'title'       => _a('Active App version'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'android_version' => [
+            'category'    => 'app_version',
+            'title'       => _a('Android, Latest version'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+
+        'android_url' => [
+            'category'    => 'app_version',
+            'title'       => _a('Android, app URL'),
+            'description' => _a('For example Google Play url, or custom APK url'),
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+
+        'android_is_force' => [
+            'category'    => 'app_version',
+            'title'       => _a('Android, is force update?'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'android_message' => [
+            'category'    => 'app_version',
+            'title'       => _a('Android, app URL'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => _a('New version of application is available, please update your version'),
+        ],
+
+        'ios_version' => [
+            'category'    => 'app_version',
+            'title'       => _a('IOS, Latest version'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+
+        'ios_url' => [
+            'category'    => 'app_version',
+            'title'       => _a('IOS, app URL'),
+            'description' => _a('For example Google Play url, or custom APK url'),
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+
+        'ios_is_force' => [
+            'category'    => 'app_version',
+            'title'       => _a('IOS, is force update?'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'ios_message' => [
+            'category'    => 'app_version',
+            'title'       => _a('IOS, app URL'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => _a('New version of application is available, please update your version'),
+        ],
+
+        'pwa_version' => [
+            'category'    => 'app_version',
+            'title'       => _a('PWA, Latest version'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+
+        'pwa_url' => [
+            'category'    => 'app_version',
+            'title'       => _a('PWA, app URL'),
+            'description' => _a('For example Google Play url, or custom APK url'),
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+
+        'pwa_is_force' => [
+            'category'    => 'app_version',
+            'title'       => _a('PWA, is force update?'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
+        'pwa_message' => [
+            'category'    => 'app_version',
+            'title'       => _a('PWA, app URL'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => _a('New version of application is available, please update your version'),
+        ],
+
+        // User
+        'fields'       => [
+            'title'       => _a('Fields'),
+            'description' => _a('User fields for login and profile'),
+            'edit'        => 'textarea',
+            'value'       => 'first_name,last_name,id_number,phone,mobile,address1,address2,country,state,city,zip_code',
+            'category'    => 'user',
+        ],
+
+        'force_mobile'  => [
+            'title'       => _a('Force use mobile number'),
+            'description' => '',
+            'edit'        => 'checkbox',
+            'filter'      => 'number_int',
+            'value'       => 0,
+            'category'    => 'user',
+        ],
+
+        'roles'       => [
+            'title'       => _a('Roles'),
+            'description' => _a('User roles assign in register'),
+            'edit'        => 'textarea',
+            'value'       => '',
+            'category'    => 'user',
+        ],
+
         // Custom
         'custom_token' => [
             'title'       => _a('Custom token type'),
@@ -97,30 +245,6 @@ return [
             'category'    => 'custom',
         ],
 
-        // User
-        'fields'       => [
-            'title'       => _a('Fields'),
-            'description' => _a('User fields for login and profile'),
-            'edit'        => 'textarea',
-            'value'       => 'first_name,last_name,id_number,phone,mobile,address1,address2,country,state,city,zip_code',
-            'category'    => 'user',
-        ],
-        'force_mobile'  => [
-            'title'       => _a('Force use mobile number'),
-            'description' => '',
-            'edit'        => 'checkbox',
-            'filter'      => 'number_int',
-            'value'       => 0,
-            'category'    => 'user',
-        ],
-        'roles'       => [
-            'title'       => _a('Roles'),
-            'description' => _a('User roles assign in register'),
-            'edit'        => 'textarea',
-            'value'       => '',
-            'category'    => 'user',
-        ],
-
         // Cron
         'cron_active'  => [
             'category'    => 'cron',
@@ -129,14 +253,6 @@ return [
             'edit'        => 'checkbox',
             'filter'      => 'number_int',
             'value'       => 0,
-        ],
-
-        'cron_token' => [
-            'category' => 'cron',
-            'title'    => _a('Cron token'),
-            'edit'     => 'text',
-            'filter'   => 'string',
-            'value'    => md5(rand()),
         ],
     ],
 ];
