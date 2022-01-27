@@ -1041,6 +1041,88 @@ class UserController extends ActionController
         return $result;
     }
 
+    public function mobileValidationAction()
+    {
+        // Set default result
+        $result = [
+            'result' => false,
+            'data'   => [],
+            'error'  => [
+                'code'        => 1,
+                'message'     => __('Nothing selected'),
+                'messageFlag' => false,
+            ],
+        ];
+
+        // Check post array set or not
+        if (!$this->request->isPost()) {
+            $result['error']['message'] = __('Post request not set');
+        } elseif (Pi::user()->config('is_mobile')) {
+            // Get from post
+            $post = $this->request->getPost();
+
+            // Check identity and credential
+            if (
+                isset($post['identity'])
+                && !empty($post['identity'])
+                && isset($post['first_name'])
+                && !empty($post['first_name'])
+                && isset($post['last_name'])
+                && !empty($post['last_name'])
+            ) {
+
+                // Get config
+                $config      = Pi::user()->config();
+                $configUser  = Pi::service('registry')->config->read('user');
+                $configTools = Pi::service('registry')->config->read('tools');
+
+                // Set validator
+                $validator = new UsernameValidator(
+                    [
+                        'encoding'          => 'UTF-8',
+                        'min'               => $config['uname_min'],
+                        'max'               => $config['uname_max'],
+                        'format'            => $config['uname_format'],
+                        'blacklist'         => $config['uname_blacklist'],
+                        'check_duplication' => true,
+                    ]
+                );
+
+                // Check is valid
+                if (!$validator->isValid($post['identity'])) {
+                    $message                    = array_values($validator->getMessages());
+                    $result['error']['message'] = array_shift($message);
+                    return $result;
+                }
+
+                // Generate validation code and send sms
+                $code = Pi::api('mobile', 'user')->send($post);
+
+                // Set result
+                $result = [
+                    'result' => true,
+                    'data'   => [
+                        [
+                            'code' => $code,
+                            'time' => time()
+                        ],
+                    ],
+                    'error'  => [
+                        'code'    => 0,
+                        'message' => '',
+                    ],
+                ];
+
+            } else {
+                $result['error']['message'] = __('Identity or credential not set');
+            }
+        } else {
+            $result['error']['message'] = __('Use email address');
+        }
+
+        return $result;
+    }
+
     public function doLogin($identity, $credential)
     {
         // Set return array

@@ -111,6 +111,15 @@ return [
             'value'       => '',
         ],
 
+        'android_message' => [
+            'category'    => 'app_version',
+            'title'       => _a('Android, message'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => _a('New version of application is available, please update your version'),
+        ],
+
         'android_is_force' => [
             'category'    => 'app_version',
             'title'       => _a('Android, is force update?'),
@@ -118,15 +127,6 @@ return [
             'edit'        => 'checkbox',
             'filter'      => 'number_int',
             'value'       => 0,
-        ],
-
-        'android_message' => [
-            'category'    => 'app_version',
-            'title'       => _a('Android, app URL'),
-            'description' => '',
-            'edit'        => 'text',
-            'filter'      => 'string',
-            'value'       => _a('New version of application is available, please update your version'),
         ],
 
         'ios_version' => [
@@ -147,6 +147,15 @@ return [
             'value'       => '',
         ],
 
+        'ios_message' => [
+            'category'    => 'app_version',
+            'title'       => _a('IOS, app URL'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => _a('New version of application is available, please update your version'),
+        ],
+
         'ios_is_force' => [
             'category'    => 'app_version',
             'title'       => _a('IOS, is force update?'),
@@ -156,14 +165,7 @@ return [
             'value'       => 0,
         ],
 
-        'ios_message' => [
-            'category'    => 'app_version',
-            'title'       => _a('IOS, app URL'),
-            'description' => '',
-            'edit'        => 'text',
-            'filter'      => 'string',
-            'value'       => _a('New version of application is available, please update your version'),
-        ],
+
 
         'pwa_version' => [
             'category'    => 'app_version',
