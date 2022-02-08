@@ -45,8 +45,15 @@ class UserController extends ActionController
             // Load language
             Pi::service('i18n')->load(['module/user', 'default']);
 
+            // Get config
+            $configTools = Pi::service('registry')->config->read('tools');
+
+            // Set extra fields
+            $extraFields = explode(',', $configTools['fields']);
+
             // Set user fields
             $fields = ['id', 'identity', 'name', 'email', 'first_name', 'last_name', 'device_token'];
+            $fields = array_unique(array_merge($fields, $extraFields));
 
             // Get user
             $user = Pi::user()->get($check['uid'], $fields);
@@ -54,22 +61,30 @@ class UserController extends ActionController
             // Get user roles
             $roles = Pi::service('user')->getRole($check['uid'], 'front');
 
+
+            $userInfo  = [
+                'check'        => 1,
+                'uid'          => $user['id'],
+                'identity'     => $user['identity'],
+                'email'        => $user['email'],
+                'name'         => $user['name'],
+                'first_name'   => $user['first_name'],
+                'last_name'    => $user['last_name'],
+                'device_token' => $user['device_token'],
+                'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false) . '?' . time(),
+                'roles'        => $roles,
+            ];
+
+            // Set extra fields
+            foreach ($extraFields as $extraField) {
+                $userInfo[$extraField] = isset($user[$extraField]) ? $user[$extraField] : '';
+            }
+
             // Set default result
             $result = [
                 'result' => true,
                 'data'   => [
-                    [
-                        'check'        => 1,
-                        'uid'          => $user['id'],
-                        'identity'     => $user['identity'],
-                        'email'        => $user['email'],
-                        'name'         => $user['name'],
-                        'first_name'   => $user['first_name'],
-                        'last_name'    => $user['last_name'],
-                        'device_token' => $user['device_token'],
-                        'avatar'       => Pi::service('user')->avatar($user['id'], 'xlarge', false) . '?' . time(),
-                        'roles'        => $roles,
-                    ],
+                    $userInfo
                 ],
                 'error'  => [
                     'code'    => 0,
